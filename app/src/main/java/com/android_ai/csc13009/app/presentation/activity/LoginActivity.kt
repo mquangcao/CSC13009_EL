@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnSingIn.setOnClickListener {
-            val dashboardIntent = Intent(this, DashboardActivity::class.java)
+            val dashboardIntent = Intent(this, LearVocab::class.java)
             startActivity(dashboardIntent)
         }
     }
