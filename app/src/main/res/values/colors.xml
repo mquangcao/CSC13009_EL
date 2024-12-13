@@ -3,4 +3,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="my_surface">#FFF</color>
+    <color name="grayHint">#BDBDBD</color> <!-- Màu gợi ý trong EditText -->
+    <color name="grayLight">#F5F5F5</color> <!-- Màu nền nhạt -->
+
+    <!-- Primary Colors -->
+    <color name="greenPrimary">#4CAF50</color> <!-- Màu xanh lá chính -->
+    <color name="greenSecondary">#81C784</color> <!-- Màu xanh lá nhạt -->
+
+    <!-- Filter Backgrounds -->
+    <color name="filterChipSelectedBg">#4CAF50</color> <!-- Nền khi chip được chọn -->
+    <color name="filterChipBg">#E8F5E9</color> <!-- Nền khi chip không được chọn -->
+
 </resources>
