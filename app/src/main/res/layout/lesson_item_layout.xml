@@ -53,6 +53,14 @@
             android:layout_marginStart="12dp"
             android:textColor="@color/black" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/lock_24px"/>
+
 
     </RelativeLayout>
 

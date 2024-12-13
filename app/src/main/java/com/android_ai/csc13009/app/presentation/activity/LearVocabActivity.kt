@@ -3,15 +3,13 @@ package com.android_ai.csc13009.app.presentation.activity
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.Lesson
 import com.android_ai.csc13009.app.utils.adapter.LessonAdapter
 
-class LearVocab : AppCompatActivity() {
+class LearVocabActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
