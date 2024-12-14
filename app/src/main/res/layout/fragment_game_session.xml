@@ -35,7 +35,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
-            android:id="@+id/game_score_value_tv"
+            android:id="@+id/game_session_score_value_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16sp"
@@ -50,6 +50,21 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp">
 
+            <FrameLayout
+                android:id="@+id/game_canvas_question_fl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <FrameLayout
+                android:id="@+id/game_canvas_answer_fl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp" />
         </FrameLayout>
 
 

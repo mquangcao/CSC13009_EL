@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.presentation.activity.GameActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_GAME_ENGINE_IDX = "GameEngineIndex"
 
 /**
  * A simple [Fragment] subclass.
@@ -18,15 +20,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class GameRuleFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var gameEngineIndex: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            gameEngineIndex = it.getInt(ARG_GAME_ENGINE_IDX)
         }
     }
 
@@ -38,22 +37,43 @@ class GameRuleFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_game_rule, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val activity = requireActivity() as GameActivity
+        val gameEngine = activity.gameEngines[gameEngineIndex!!]
+
+        setRuleText(gameEngine.getRule())
+        setStartButtonClickListener {
+            val gameSessionFragment = GameSessionFragment.newInstance(gameEngineIndex!!)
+            activity.changeFragment(gameSessionFragment)
+        }
+
+//        val ruleTextView: TextView = view.findViewById(R.id.game_rule_content_tv)
+//        ruleTextView.text = gameEngine.getRule()
+//
+//        val button: Button = view.findViewById(R.id.game_start_bt)
+//        button.setOnClickListener {
+//            val gameSessionFragment = GameSessionFragment.newInstance(gameEngineIndex!!)
+//            activity.changeFragment(gameSessionFragment)
+//        }
+    }
+
+    private fun setRuleText(rule: String) {
+        val ruleTextView: TextView = requireView().findViewById(R.id.game_rule_content_tv)
+        ruleTextView.text = rule
+    }
+
+    private fun setStartButtonClickListener(listener: View.OnClickListener) {
+        val button: Button = requireView().findViewById(R.id.game_start_bt)
+        button.setOnClickListener(listener)
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GameRuleFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: Int) =
             GameRuleFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(ARG_GAME_ENGINE_IDX, param1)
                 }
             }
     }

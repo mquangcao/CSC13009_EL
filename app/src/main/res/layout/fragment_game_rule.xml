@@ -70,7 +70,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/game_rule_content_tvz"
+                android:id="@+id/game_rule_content_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"

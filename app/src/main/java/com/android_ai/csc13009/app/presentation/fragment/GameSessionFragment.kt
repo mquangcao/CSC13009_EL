@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.presentation.service.IGameEngine
@@ -30,8 +31,41 @@ class GameSessionFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game_session, container, false)
 
-        
+
+        setScoreText()
+        setHighScoreText()
+        setCanvas()
+        startGame()
     }
+
+    private fun startGame() {
+        gameEngine?.startGame()
+
+    }
+
+    private fun setScoreText() {
+        val scoreTextView: TextView = requireView().findViewById(R.id.game_session_score_value_tv)
+        scoreTextView.text = "${gameEngine?.score}"
+    }
+
+    private fun setHighScoreText() {
+        val scoreTextView = requireView().findViewById<TextView>(R.id.game_session_header_tb_title)
+        scoreTextView.text = "High Score: ${gameEngine?.highScore}"
+    }
+
+    private fun setCanvas(){
+
+    }
+
+    private fun setQuestion() {
+
+    }
+
+    private fun setAnswer() {
+
+    }
+
+
 
     companion object {
         /**
