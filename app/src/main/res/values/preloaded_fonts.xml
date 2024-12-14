@@ -7,5 +7,8 @@
         <item>@font/bungee_inline</item>
         <item>@font/bungee_spice</item>
         <item>@font/gelasio_medium</item>
+        <item>@font/roboto_mono_medium</item>
+        <item>@font/roboto_serif</item>
+        <item>@font/roboto_slab</item>
     </array>
 </resources>
