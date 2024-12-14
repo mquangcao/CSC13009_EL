@@ -1,16 +1,22 @@
 package com.android_ai.csc13009.app.presentation.service;
 
-public interface IGameEngine {
+import com.android_ai.csc13009.app.data.local.entity.WordEntity;
+import java.io.Serializable
 
-    int currentScore = 0;
-    int highScore = 0;
+import java.util.ArrayList;
 
-    abstract void fetchHighScore();
-    abstract void startGame();
-    abstract void endGame();
-    abstract void submitAnswer(String answer);
-    abstract void updateScore(int points);
-    abstract void updateProgress(int progress);
-    abstract void updateHighScore(int score);
-    abstract void nextRound();
+public interface IGameEngine : Serializable {
+    var score: Int;
+    var highScore: Int;
+    val words: ArrayList<WordEntity>;
+
+    val gameName: String;
+
+    abstract fun fetchHighScore();
+    abstract fun startGame();
+    abstract fun endGame();
+    abstract fun submitAnswer   (answer: String);
+    abstract fun updateHighScore();
+    abstract fun nextRound();
+    abstract fun getRule(): String;
 }
