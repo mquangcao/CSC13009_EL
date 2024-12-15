@@ -11,7 +11,7 @@
     app:cardBackgroundColor="@android:color/white"
     app:strokeWidth="4dp"
     app:strokeColor="@android:color/black"
-    tools:context=".app.presentation.adapter.GrammarSubtopicAdapter">
+    tools:context=".app.utils.adapter.GrammarSubtopicAdapter">
 
     <LinearLayout
         android:layout_width="match_parent"

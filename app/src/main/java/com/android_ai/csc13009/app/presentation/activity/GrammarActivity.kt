@@ -15,7 +15,7 @@ import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.repository.GrammarLevelRepository
 import com.android_ai.csc13009.app.data.local.repository.GrammarTopicRepository
 import com.android_ai.csc13009.app.domain.repository.model.GrammarTopic
-import com.android_ai.csc13009.app.presentation.adapter.GrammarTopicAdapter
+import com.android_ai.csc13009.app.utils.adapter.GrammarTopicAdapter
 
 class GrammarActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
