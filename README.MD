@@ -36,15 +36,17 @@ src/
     │   │   │       ├── IChapterRepository.kt
     │   │   │       └── IWordRepository.kt
     │   │   ├── presentation/          # Tầng Presentation (UI Layer)
-    │   │   │   ├── activity/         # Các ViewModel
+    │   │   │   ├── activity/         # Các Activity
     │   │   │   │   ├── LoginActivity.kt
     │   │   │   │   ├── SingUpActivity.kt
     │   │   │   │   └── DashboardActivity.kt
+    |   |   |   ├── fragment/ 
     │   │   │   ├── service/        # các dịch vụ, ví dụ như lưu thông tin ngôn ngữ xuống SharedPreferences,... 
     │   │   │   │   ├── Button.kt
     │   │   │   │   ├── Dialog.kt
     │   │   │   │   └── ListView.kt
     │   │   ├── utils/                 # Tiện ích dùng chung
+    │   │   │   ├── adapter/           # Chứa các adapter
     │   │   │   ├── extensions/        # Extension functions
     │   │   │   ├── constants/         # Hằng số
     │   │   │   │   ├── AppConstants.kt
