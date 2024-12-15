@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Màu nền trắng -->
-    <solid android:color="#FFFFFF" /> <!-- Màu trắng -->
+    <solid android:color="@color/white" /> <!-- Màu trắng -->
 
     <corners
         android:topLeftRadius="36dp"

@@ -1,118 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/main"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_thumbnail_temp"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="44dp"
-        android:src="@drawable/arrow_back_24px"/>
-    <LinearLayout
-        android:id="@+id/roundedRectangle"
+    <!-- Background với chiều rộng và chiều cao không đổi -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:orientation="vertical"
-        android:background="@drawable/rounded_rectangle">
+        android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/textView3"
+
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:contentDescription="Background Image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/genz_it"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="8dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/gelasio_medium"
-            android:gravity="center"
-            android:text="Chương 1"
-            android:textColor="@color/black"
-            android:layout_marginBottom="8dp"
-            android:textSize="28sp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:fontFamily="@font/gelasio_medium"
-            android:text="Động vật"
-            android:textSize="32sp" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="24dp"
-            android:fontFamily="@font/gelasio_medium"
-
-            android:text="Trong chương này bạn sẽ được học về các động vật, hãy tìm hiểu về cách phát âm tên động vật trong tiếng anh nhé."
-            android:textColor="#838383" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:fontFamily="@font/gelasio_medium"
-                android:text="12 bài học"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/arrow_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_alignBaseline="@+id/tv_question"
-                android:layout_toLeftOf="@+id/tv_question"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="12dp"
-                android:src="@drawable/quiz_24px"
-                app:tint="@color/black" />
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="44dp"
+                android:src="@drawable/arrow_back_24px" />
 
             <TextView
-                android:id="@+id/tv_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_centerVertical="true"
-                android:fontFamily="@font/gelasio_medium"
-                android:layout_alignParentRight="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="44dp"
+                android:fontFamily="@font/baloo"
+                android:text="Chapter 1"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-                android:text=" 123 câu hỏi"/>
-
-
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <!-- Nội dung nằm giữa -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="8dp"
-            />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/rounded_rectangle"
+            android:orientation="vertical"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo"
+                android:text="Động vật"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/gelasio_medium"
+                android:text="Trong chương này bạn sẽ được học về các động vật, hãy tìm hiểu về cách phát âm tên động vật trong tiếng anh nhé."
+                android:textColor="#838383" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gelasio_medium"
+                    android:text="12 bài học"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_question"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_toLeftOf="@+id/tv_question"
+                    android:src="@drawable/quiz_24px"
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/gelasio_medium"
+                    android:text="123 câu hỏi"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

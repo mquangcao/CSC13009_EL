@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,12 +19,16 @@ class VocabularyWordActivity : AppCompatActivity() {
     private lateinit var btnCheckAnswer : MaterialButton
     private lateinit var dialog: Dialog
     private lateinit var btnConfirmDialog: Button
+    private lateinit var btnClose: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_vocabulary_word)
         loadFragment(WordQuestionFragment())
+
+        //Hooks
+        btnClose = findViewById(R.id.btnClose)
 
         dialog = Dialog(this)
         dialog.setContentView(R.layout.custom_dialog_answer_correct)
@@ -42,6 +47,10 @@ class VocabularyWordActivity : AppCompatActivity() {
 
         btnCheckAnswer.setOnClickListener {
             dialog.show()
+        }
+
+        btnClose.setOnClickListener {
+            finish()
         }
     }
 

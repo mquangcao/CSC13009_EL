@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.presentation.activity
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ class LearVocabActivity : AppCompatActivity() {
 
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+        val btnBack = findViewById<ImageView>(R.id.arrow_back)
 
         val lessons = listOf(
             Lesson(R.drawable.animal, "Lesson 1", 10, 50, true),
@@ -29,5 +31,10 @@ class LearVocabActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LessonAdapter(lessons)
+
+        btnBack.setOnClickListener {
+            finish()
+        }
+
     }
 }

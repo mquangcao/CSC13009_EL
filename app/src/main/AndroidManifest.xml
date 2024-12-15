@@ -19,7 +19,7 @@
             android:name=".app.presentation.activity.VocabularyWordActivity"
             android:exported="false" />
         <activity
-            android:name=".app.presentation.activity.ChapterActivity"
+            android:name=".app.presentation.activity.VocabularyActivity"
             android:exported="false" />
         <activity
             android:name=".app.presentation.activity.LearVocabActivity"

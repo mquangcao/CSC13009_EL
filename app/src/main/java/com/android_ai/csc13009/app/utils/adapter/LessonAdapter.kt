@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.utils.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.Lesson
+import com.android_ai.csc13009.app.presentation.activity.VocabularyWordActivity
 
 class LessonAdapter (
     private val lessons: List<Lesson>
@@ -39,6 +41,11 @@ class LessonAdapter (
         } else {
             holder.cardView.alpha = 0.5f
             holder.cardView.isClickable = false
+        }
+
+        holder.cardView.setOnClickListener {
+            val intent = Intent(holder.cardView.context, VocabularyWordActivity::class.java)
+            holder.cardView.context.startActivity(intent)
         }
     }
 }

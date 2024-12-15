@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.presentation.activity.ChapterActivity
+import com.android_ai.csc13009.app.presentation.activity.VocabularyActivity
 
 
 class LearnFragment : Fragment() {
@@ -19,7 +19,7 @@ class LearnFragment : Fragment() {
     ): View? {
 
         val view =  inflater.inflate(R.layout.fragment_learn, container, false)
-        val intent = Intent(view.context, ChapterActivity::class.java)
+        val intent = Intent(view.context, VocabularyActivity::class.java)
         startActivity(intent)
 
         return view
