@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.entity.LessonEntity
-import com.android_ai.csc13009.app.presentation.adapter.StatisticsLessonDetailAdapter
-import com.android_ai.csc13009.app.presentation.adapter.StatisticsVocabularyDetailAdapter
+import com.android_ai.csc13009.app.utils.adapter.StatisticsLessonDetailAdapter
+import com.android_ai.csc13009.app.utils.adapter.StatisticsVocabularyDetailAdapter
 
 class StatisticsDetailActivity : AppCompatActivity() {
     // note: This is for testing purpose only with sample data

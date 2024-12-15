@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.presentation.adapter
+package com.android_ai.csc13009.app.utils.adapter
 
 import android.view.LayoutInflater
 import android.view.View
