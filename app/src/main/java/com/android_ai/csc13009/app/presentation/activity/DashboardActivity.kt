@@ -23,7 +23,7 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
-        
+
         bottomNavView = findViewById(R.id.bottom_nav)
         frame = findViewById(R.id.nav_host_fragment)
 
