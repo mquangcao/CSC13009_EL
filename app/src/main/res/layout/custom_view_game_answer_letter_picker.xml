@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/game_answer_letter_picker_slots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
@@ -23,6 +24,7 @@
             android:orientation="horizontal" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/game_answer_letter_picker_blocks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_rectangle"
