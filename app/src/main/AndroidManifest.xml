@@ -16,7 +16,7 @@
             android:name=".app.presentation.activity.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".app.presentation.activity.DashboardActivity"
+            android:name=".app.presentation.activity.VocabularyWordActivity"
             android:exported="false" />
         <activity
             android:name=".app.presentation.activity.ChapterActivity"
@@ -34,7 +34,7 @@
             android:name=".app.presentation.activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".app.presentation.activity.VocabularyWordActivity"
+            android:name=".app.presentation.activity.DashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

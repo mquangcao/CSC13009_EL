@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.presentation.activity
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
@@ -45,12 +46,14 @@ class EditProfileActivity : AppCompatActivity() {
         btnCancel = dialog.findViewById(R.id.btnCancel)
 
         btnConfirm.setOnClickListener {
-            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            this.finish()
             dialog.dismiss()
         }
 
         btnCancel.setOnClickListener {
-            Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
 

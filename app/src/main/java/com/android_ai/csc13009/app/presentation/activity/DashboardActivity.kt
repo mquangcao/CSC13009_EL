@@ -9,6 +9,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.fragment.AccountFragment
+import com.android_ai.csc13009.app.presentation.fragment.DictionaryFragment
+import com.android_ai.csc13009.app.presentation.fragment.GameFragment
+import com.android_ai.csc13009.app.presentation.fragment.HomeFragment
+import com.android_ai.csc13009.app.presentation.fragment.LearnFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DashboardActivity : AppCompatActivity() {
@@ -19,22 +23,32 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
-
-
+        
         bottomNavView = findViewById(R.id.bottom_nav)
         frame = findViewById(R.id.nav_host_fragment)
 
         bottomNavView.setOnItemSelectedListener  {
             when (it.itemId) {
                 R.id.home -> {
-                    // Handle Home
+                    loadFragment(HomeFragment())
+                    true
+                }
+                R.id.learn -> {
+                    loadFragment(LearnFragment())
+                    true
+                }
+                R.id.game -> {
+                    loadFragment(GameFragment())
+                    true
+                }
+                R.id.dictionary -> {
+                    loadFragment(DictionaryFragment())
                     true
                 }
                 R.id.account -> {
                     loadFragment(AccountFragment())
                     true
                 }
-
                 else -> false
             }
         }
