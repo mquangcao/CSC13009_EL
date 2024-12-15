@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    app:cardCornerRadius="12dp"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+         android:orientation="vertical">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <ImageView
+               android:id="@+id/imgTick"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/task_alt_24px"
+               android:layout_centerVertical="true"
+               android:paddingTop="5dp"
+               android:layout_marginStart="10dp"
+               />
+
+           <TextView
+               android:id="@+id/tv_title"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toRightOf="@+id/imgTick"
+               android:text="Đỉnh của chóp luôn"
+               android:textColor="@color/green"
+               android:textSize="16sp"
+               android:layout_marginTop="8dp"
+               android:layout_marginStart="10dp"
+               android:fontFamily="@font/bungee"/>
+
+           <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/bookmark_24px"
+               android:layout_alignParentEnd="true"
+               android:layout_centerVertical="true"
+               android:layout_marginEnd="12dp"/>
+       </RelativeLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           >
+
+           <TextView
+               android:id="@+id/tv_content"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="10dp"
+               android:layout_marginBottom="8dp"
+               android:fontFamily="@font/baloo"
+               android:text="Tiếp tục nào"
+               android:textColor="@color/green"
+               android:textSize="14sp" />
+
+           <com.google.android.material.button.MaterialButton
+               android:id="@+id/btn_continue"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/green"
+                android:text="Tiếp tục"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bungee"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:padding="6dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                app:cornerRadius="10dp"
+               />
+
+
+       </LinearLayout>
+
+   </LinearLayout>
+</androidx.cardview.widget.CardView>
