@@ -16,18 +16,27 @@ import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 class GameActivity : AppCompatActivity() {
     private var configMaxRound: Int = 5;
     private var configSessionDuration: Int = 60;
-    private val database = AppDatabase.getInstance(this)
+    private val database : AppDatabase by lazy { AppDatabase.getInstance(this) }
 
-    public val gameEngines: List<IGameEngine> = listOf(
-        SpellingBeeGameEngine(
-            maxRound = configMaxRound
-        ),
-        SynonymGameEngine(
-            sessionDuration = configSessionDuration
-        ), WordGameEngine(
-            maxRound = configMaxRound
+    public val gameEngines: List<IGameEngine> by lazy {
+        createGameEngines()
+    }
+
+    private fun createGameEngines(): List<IGameEngine> {
+        return listOf(
+            SpellingBeeGameEngine(
+                maxRound = configMaxRound,
+                dao = database.wordDao()
+            ),
+            SynonymGameEngine(
+                sessionDuration = configSessionDuration,
+                dao = database.wordDao()
+            ), WordGameEngine(
+                maxRound = configMaxRound,
+                dao = database.wordDao()
+            )
         )
-    );
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
