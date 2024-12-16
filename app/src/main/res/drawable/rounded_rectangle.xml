@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-//<<<<<<< feature/games
 <shape
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle"   >
@@ -23,16 +22,5 @@
     <corners
         android:radius="11dp"   >
     </corners>
-
-//=======
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Màu nền trắng -->
-    <solid android:color="@color/background" /> <!-- Màu trắng -->
-
-    <corners
-        android:topLeftRadius="36dp"
-        android:topRightRadius="36dp"
-        android:bottomLeftRadius="0dp"
-        android:bottomRightRadius="0dp" />
-//>>>>>>> develop
 </shape>
+

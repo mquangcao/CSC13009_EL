@@ -39,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun wordTagDao(): WordTagDao
     abstract fun userProgressDao(): UserProgressDao
     abstract fun learningDetailDao(): LearningDetailDao
-    abstract fun gameDataDao(): GameDataDao
+   // abstract fun gameDataDao(): GameDataDao
 
     // grammar
     abstract fun grammarLevelDao(): GrammarLevelDao

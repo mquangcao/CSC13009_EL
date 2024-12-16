@@ -52,13 +52,13 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.games.activity)
+    //implementation(libs.androidx.games.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
-    kapt(libs.room.compiler)
+    //kapt(libs.room.compiler)
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
 
