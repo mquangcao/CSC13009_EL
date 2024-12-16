@@ -26,14 +26,17 @@ class GameActivity : AppCompatActivity() {
         return listOf(
             SpellingBeeGameEngine(
                 maxRound = configMaxRound,
-                dao = database.wordDao()
+                gameDataDao = database.gameDataDao(),
+                wordDao = database.wordDao()
             ),
             SynonymGameEngine(
                 sessionDuration = configSessionDuration,
-                dao = database.wordDao()
+                gameDataDao = database.gameDataDao(),
+                wordDao = database.wordDao()
             ), WordGameEngine(
                 maxRound = configMaxRound,
-                dao = database.wordDao()
+                gameDataDao = database.gameDataDao(),
+                wordDao = database.wordDao()
             )
         )
     }
