@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +19,11 @@ class LessonAdapter (
 )  : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
     class LessonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView.findViewById(R.id.card_lesson)
-        val imageView: ImageView = itemView.findViewById(R.id.item_image)
         val titleView: TextView = itemView.findViewById(R.id.tv_title)
-        val questionView: TextView = itemView.findViewById(R.id.tv_question)
+        val rlLesson = itemView.findViewById<RelativeLayout>(R.id.rl_lesson)
+        val txtProgress = itemView.findViewById<TextView>(R.id.tv_progress)
+        val ivStart = itemView.findViewById<ImageView>(R.id.iv_star)
+        val progressBar = itemView.findViewById<ProgressBar>(R.id.progressBar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
@@ -31,16 +35,14 @@ class LessonAdapter (
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         val lesson = lessons[position]
-        holder.imageView.setImageResource(lesson.imageRes)
         holder.titleView.text = lesson.title
-        holder.questionView.text = "${lesson.questionCount} Questions"
 
         if (lesson.isUnlocked) {
-            holder.cardView.alpha = 1.0f
-            holder.cardView.isClickable = true
+            holder.titleView.setTextColor(holder.titleView.context.resources.getColor(R.color.black))
         } else {
             holder.cardView.alpha = 0.5f
             holder.cardView.isClickable = false
+            holder.progressBar.visibility = View.INVISIBLE
         }
 
         holder.cardView.setOnClickListener {
