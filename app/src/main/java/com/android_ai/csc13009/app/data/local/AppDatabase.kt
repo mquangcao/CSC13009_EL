@@ -3,6 +3,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.android_ai.csc13009.app.data.local.dao.*
 import com.android_ai.csc13009.app.data.local.entity.*
 
@@ -18,7 +19,10 @@ import com.android_ai.csc13009.app.data.local.entity.*
         WordTagEntity::class,
         UserLessonLearnedEntity::class,
         UserChapterLearnedEntity::class,
-        LearningDetailEntity::class
+        LearningDetailEntity::class,
+        GrammarLevelEntity::class,
+        GrammarTopicEntity::class,
+        GrammarSubtopicEntity::class
                        ],
     version = 1,
     exportSchema = true
@@ -36,6 +40,12 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userProgressDao(): UserProgressDao
     abstract fun learningDetailDao(): LearningDetailDao
 
+    // grammar
+    abstract fun grammarLevelDao(): GrammarLevelDao
+    abstract fun grammarTopicDao(): GrammarTopicDao
+    abstract fun grammarSubtopicDao(): GrammarSubtopicDao
+
+
     companion object {
         const val DATABASE_NAME = "app_database"
 
@@ -48,7 +58,14 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                ).build().also {
+                )
+                    .addCallback(object : RoomDatabase.Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                            SampleDataHelper.insertSampleData(db)
+                        }
+                    })
+                    .build().also {
                     instance = it
                 }
             }
