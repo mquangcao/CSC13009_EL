@@ -69,12 +69,15 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+
                 >
 
                 <androidx.cardview.widget.CardView
@@ -140,8 +143,10 @@
                <androidx.recyclerview.widget.RecyclerView
                    android:id="@+id/recyclerView"
                    android:layout_width="match_parent"
-                   android:layout_height="400dp"
+                   android:layout_height="wrap_content"
                    android:layout_margin="12dp"
+                   android:nestedScrollingEnabled="false"
+
                    />
 
             </LinearLayout>

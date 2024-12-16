@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.entity.ChapterEntity
+import com.android_ai.csc13009.app.data.repository.ChapterRepository
+import com.android_ai.csc13009.app.domain.repository.IChapterRepository
 import com.android_ai.csc13009.app.utils.adapter.ChapterAdapter
 
 class VocabularyActivity : AppCompatActivity() {
     private lateinit var btnBack : ImageButton
     private lateinit var recyclerView: RecyclerView
+    private lateinit var  chapterRepository : IChapterRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,29 +30,28 @@ class VocabularyActivity : AppCompatActivity() {
             insets
         }
 
+        //init
+        chapterRepository = ChapterRepository()
+
         //Hooks
         btnBack = findViewById(R.id.btnBack)
         recyclerView = findViewById(R.id.recyclerView)
 
 
-        val list = listOf(
-            ChapterEntity(1, "Hello", "Xin chào", "begin",true),
-            ChapterEntity(2, "Goodbye", "Tạm biệt", "begin",true),
-            ChapterEntity(3, "Thank you", "Cảm ơn", "begin",true),
-            ChapterEntity(4, "Sorry", "Xin lỗi", "begin",true),
-            ChapterEntity(5, "Please", "Làm ơn", "begin",true),
-            ChapterEntity(6, "Yes", "Vâng", "begin",true),
-            ChapterEntity(7, "No", "Không", "begin",true),
-            ChapterEntity(8, "What", "Cái gì", "begin",true),
-            ChapterEntity(9, "When", "Khi nào", "begin",true)
-        )
+        val list = chapterRepository.getChapterList()
 
         //Set adapter
-
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = ChapterAdapter(list)
 
-
+        recyclerView.post {
+            val totalHeight = recyclerView.adapter?.itemCount?.let { count ->
+                val itemHeight = recyclerView.getChildAt(0)?.height ?: 0
+                count * itemHeight + 24
+            }
+            recyclerView.layoutParams.height = totalHeight ?: RecyclerView.LayoutParams.WRAP_CONTENT
+            recyclerView.requestLayout()
+        }
 
         btnBack.setOnClickListener { finish() }
     }

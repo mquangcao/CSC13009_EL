@@ -4,7 +4,7 @@
     <!-- Background của ProgressBar -->
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
-            <corners android:radius="0dp" />
+            <corners android:radius="8dp" />
             <solid android:color="#E0E0E0" /> <!-- Màu nền xám nhạt -->
         </shape>
     </item>

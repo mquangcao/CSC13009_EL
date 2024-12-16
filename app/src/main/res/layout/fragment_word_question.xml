@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F4F5F9"
-    tools:context=".WordQuestionFragment">
+    tools:context=".app.presentation.fragment.WordQuestionFragment">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,6 +30,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:nestedScrollingEnabled="false"
             android:id="@+id/rv_word"
 
             android:layout_marginBottom="16dp"
