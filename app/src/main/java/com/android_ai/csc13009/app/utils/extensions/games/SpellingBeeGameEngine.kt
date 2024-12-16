@@ -1,6 +1,5 @@
-package com.android_ai.csc13009.app.presentation.service;
+package com.android_ai.csc13009.app.utils.extensions.games;
 
-import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.WordEntity;
 import kotlinx.coroutines.CoroutineScope
@@ -9,7 +8,8 @@ import kotlinx.coroutines.launch
 
 import kotlin.collections.ArrayList
 
-public class SpellingBeeGameEngine(override val maxRound: Int, override val dao: WordDao) : IProgressBasedGameEngine {
+public class SpellingBeeGameEngine(override val maxRound: Int, override val dao: WordDao) :
+    IProgressBasedGameEngine {
     override var currentRound: Int = -1;
     override var score: Int = 0;
     override var highScore: Int = 0;

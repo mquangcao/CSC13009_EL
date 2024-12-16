@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.presentation.service;
+package com.android_ai.csc13009.app.utils.extensions.games;
 
 import android.os.CountDownTimer
 import com.android_ai.csc13009.app.data.local.dao.WordDao
@@ -7,7 +7,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-public class SynonymGameEngine(override var sessionDuration: Int, override val dao: WordDao) : ITimerBasedGameEngine{
+public class SynonymGameEngine(override var sessionDuration: Int, override val dao: WordDao) :
+    ITimerBasedGameEngine {
     override var score: Int = 0;
     override var highScore: Int = 0;
 

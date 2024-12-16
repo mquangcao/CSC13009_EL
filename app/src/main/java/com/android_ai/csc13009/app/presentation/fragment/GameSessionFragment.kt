@@ -7,18 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
-import android.widget.Switch
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.presentation.Adapters.GameAnswerBlocksAdapter
-import com.android_ai.csc13009.app.presentation.Adapters.GameAnswerSlotsAdapter
+import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
+import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
-import com.android_ai.csc13009.app.presentation.service.IGameEngine
-import com.android_ai.csc13009.app.presentation.service.SpellingBeeGameEngine
-import com.android_ai.csc13009.app.presentation.service.SynonymGameEngine
-import com.android_ai.csc13009.app.presentation.service.WordGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 
 private const val ARG_ENGN_IDX = "GameEngineIndex"
 

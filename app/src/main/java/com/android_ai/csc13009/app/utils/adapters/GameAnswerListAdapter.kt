@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.presentation.Adapters
+package com.android_ai.csc13009.app.utils.adapters
 
 import android.app.Activity
 import android.view.View

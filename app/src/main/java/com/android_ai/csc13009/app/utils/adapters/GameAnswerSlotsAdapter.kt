@@ -1,9 +1,7 @@
-package com.android_ai.csc13009.app.presentation.Adapters
+package com.android_ai.csc13009.app.utils.adapters
 
 import android.app.Activity
-import android.content.ClipData
 import android.view.DragEvent
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView

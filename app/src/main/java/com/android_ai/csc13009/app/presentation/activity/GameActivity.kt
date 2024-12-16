@@ -8,10 +8,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
-import com.android_ai.csc13009.app.presentation.service.IGameEngine
-import com.android_ai.csc13009.app.presentation.service.SpellingBeeGameEngine
-import com.android_ai.csc13009.app.presentation.service.SynonymGameEngine
-import com.android_ai.csc13009.app.presentation.service.WordGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 
 class GameActivity : AppCompatActivity() {
     private var configMaxRound: Int = 5;

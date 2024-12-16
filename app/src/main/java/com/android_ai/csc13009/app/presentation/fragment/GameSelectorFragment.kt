@@ -7,12 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.presentation.Adapters.GameSelectorAdapter
+import com.android_ai.csc13009.app.utils.adapters.GameSelectorAdapter
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
-import com.android_ai.csc13009.app.presentation.service.IGameEngine
-import com.android_ai.csc13009.app.presentation.service.SpellingBeeGameEngine
-import com.android_ai.csc13009.app.presentation.service.SynonymGameEngine
-import com.android_ai.csc13009.app.presentation.service.WordGameEngine
 
 
 class GameSelectorFragment : Fragment() {

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
-import com.android_ai.csc13009.app.presentation.service.IGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

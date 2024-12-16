@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.presentation.Adapters
+package com.android_ai.csc13009.app.utils.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.presentation.fragment.GameRuleFragment
-import com.android_ai.csc13009.app.presentation.fragment.GameSessionFragment
 
 
-import com.android_ai.csc13009.app.presentation.service.IGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 
 class GameSelectorAdapter (
     private val context: Activity,

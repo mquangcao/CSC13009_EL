@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.presentation.service;
+package com.android_ai.csc13009.app.utils.extensions.games;
 
 import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.WordEntity
@@ -6,7 +6,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-public class WordGameEngine(override val maxRound: Int, override val dao: WordDao) : IProgressBasedGameEngine {
+public class WordGameEngine(override val maxRound: Int, override val dao: WordDao) :
+    IProgressBasedGameEngine {
     override var currentRound: Int = 0;
     override var score: Int = 0;
     override var highScore: Int = 0;
