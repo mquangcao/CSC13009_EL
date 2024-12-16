@@ -1,5 +1,6 @@
-package com.android_ai.csc13009.app.presentation.adapter
+package com.android_ai.csc13009.app.utils.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.repository.model.Word
+import com.android_ai.csc13009.app.presentation.activity.WordDetailActivity
 
 class WordAdapter(private var words: List<Word>) : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
@@ -33,6 +35,16 @@ class WordAdapter(private var words: List<Word>) : RecyclerView.Adapter<WordAdap
 
         fun bind(word: Word) {
             wordTextView.text = word.word
+
+            // Thêm sự kiện click vào item
+            itemView.setOnClickListener {
+                val context = itemView.context
+                val intent = Intent(context, WordDetailActivity::class.java)
+                intent.putExtra("word_text", word.word) // Truyền từ cần hiển thị
+                intent.putExtra("word_pronunciation", word.pronunciation)
+                intent.putExtra("word_details", word.details)
+                context.startActivity(intent)
+            }
         }
     }
 }

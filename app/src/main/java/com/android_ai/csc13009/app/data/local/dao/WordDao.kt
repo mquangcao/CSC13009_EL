@@ -20,7 +20,7 @@ interface WordDao {
     @Query("SELECT * FROM Word WHERE word LIKE :query LIMIT 50")
     suspend fun getWordByName(query: String): List<WordEntity>
 
-    @Query("SELECT * FROM Word WHERE word LIKE :prefix || '%' LIMIT 20")
+    @Query("SELECT * FROM Word WHERE word LIKE :prefix || '%' LIMIT 100")
     suspend fun getSuggestions(prefix: String): List<WordEntity>
 
     @Query("SELECT * FROM Word")
