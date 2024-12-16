@@ -1,0 +1,118 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!-- Nội dung màn hình chính (Welcome Back, User Name, Coins, Buttons) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"> <!-- Phần nội dung sẽ cuộn được -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Welcome Back -->
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome Back"
+                android:textSize="16sp"
+                android:textColor="#808080" />
+
+            <!-- User Name -->
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text=""
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Coins -->
+            <TextView
+                android:id="@+id/tvCoins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="16dp"
+                android:text="🔶 12000"
+                android:textSize="18sp"
+                android:textColor="#FF0000" />
+
+            <!-- Choose Your Level -->
+            <TextView
+                android:id="@+id/tvChooseLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Choose your level"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Level Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                <!-- Basic Button -->
+                <TextView
+                    android:id="@+id/btnBasic"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/background_basic"
+                    android:gravity="top|start"
+                    android:paddingStart="25dp"
+                    android:paddingTop="20dp"
+                    android:text="Basic"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp" />
+
+                <!-- Independent Button -->
+                <TextView
+                    android:id="@+id/btnIndependent"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/background_independent"
+                    android:gravity="top|start"
+                    android:paddingStart="25dp"
+                    android:paddingTop="20dp"
+                    android:text="Independent"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp" />
+
+                <!-- Proficient Button -->
+                <TextView
+                    android:id="@+id/btnProficient"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/background_proficient"
+                    android:gravity="top|start"
+                    android:paddingStart="25dp"
+                    android:paddingTop="20dp"
+                    android:text="Proficient"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Thanh điều hướng (Fragment chứa BottomNavigationView) -->
+    <fragment
+        android:id="@+id/customBottomNav"
+        android:name="com.android_ai.csc13009.CustomBottomNavFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/custom_bottom_nav"/>
+</LinearLayout>
