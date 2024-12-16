@@ -11,7 +11,7 @@ public class SpellingBeeGameEngine(override val maxRound: Int) : IProgressBasedG
 
     override val gameName: String = "Spelling Bee";
 
-    val rule: String = "Rule";
+    private val rule: String = "Rule";
 
     override val words: ArrayList<WordEntity> = ArrayList();
     var index: Int = 0;
@@ -19,8 +19,8 @@ public class SpellingBeeGameEngine(override val maxRound: Int) : IProgressBasedG
     var streak: Int = 0;
 
     override fun fetchHighScore() {
-        TODO("Not yet implemented")
         // Lấy điểm cao nhất từ nguồn dữ liệu (ví dụ: cơ sở dữ liệu)
+        highScore = 9999
 
     }
 
@@ -32,9 +32,7 @@ public class SpellingBeeGameEngine(override val maxRound: Int) : IProgressBasedG
     }
 
     private fun fetchWord() {
-        // Lấy từ từ nguồn dữ liệu (ví dụ: từ điển)
-//        ArrayList
-//        words.add()
+
     };
 
     override fun endGame() {

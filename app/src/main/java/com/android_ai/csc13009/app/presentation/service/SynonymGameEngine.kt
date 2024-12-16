@@ -47,7 +47,7 @@ public class SynonymGameEngine(override var sessionDuration: Int) : ITimerBasedG
 
 
     override fun fetchHighScore() {
-        TODO("Not yet implemented")
+        highScore = 999
     }
 
     override fun startGame() {
@@ -56,7 +56,7 @@ public class SynonymGameEngine(override var sessionDuration: Int) : ITimerBasedG
     }
 
     fun fetchWord() {
-        TODO("Not yet implemented")
+        words.add(WordEntity(1, "word1", "meaning", "a", "a", null, null ))
     }
 
     override fun endGame() {
@@ -82,7 +82,7 @@ public class SynonymGameEngine(override var sessionDuration: Int) : ITimerBasedG
     }
 
     override fun updateHighScore() {
-        TODO("Not yet implemented")
+        highScore = 9999
     }
 
     override fun nextRound() {
@@ -90,6 +90,6 @@ public class SynonymGameEngine(override var sessionDuration: Int) : ITimerBasedG
     }
 
     override fun getRule(): String {
-        TODO("Not yet implemented")
+        return "Rule";
     }
 }

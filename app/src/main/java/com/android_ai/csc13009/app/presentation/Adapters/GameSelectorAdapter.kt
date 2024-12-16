@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.presentation.Adapters
 
 import android.app.Activity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -25,7 +26,7 @@ class GameSelectorAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameSelectorViewHolder {
-        val inflater = context.layoutInflater
+        val inflater = LayoutInflater.from(context)
         val rowView = inflater.inflate(R.layout.item_game_selection, parent, false)
         return GameSelectorViewHolder(rowView)
     }

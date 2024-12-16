@@ -9,14 +9,14 @@ public class WordGameEngine(override val maxRound: Int) : IProgressBasedGameEngi
 
     override val gameName: String = "Word Game";
 
-    val rule: String = "Rule";
+    private val rule: String = "Rule";
     var index: Int = 0;
     var currentWord: WordEntity? = null;
     var streak: Int = 0;
     override val words: ArrayList<WordEntity> = ArrayList();
 
     override fun fetchHighScore() {
-        TODO("Not yet implemented")
+        highScore = 999
     }
 
     override fun startGame() {
@@ -24,15 +24,23 @@ public class WordGameEngine(override val maxRound: Int) : IProgressBasedGameEngi
     }
 
     override fun endGame() {
-        TODO("Not yet implemented")
+        updateHighScore()
     }
 
     override fun submitAnswer(answer: String) {
-        TODO("Not yet implemented")
+        if (answer == currentWord?.word) {
+            score += 1000;
+            score += streak * 100;
+            streak++;
+            nextRound();
+        } else {
+            streak = 0;
+            nextRound();
+        }
     }
 
     override fun updateHighScore() {
-        TODO("Not yet implemented")
+        highScore = 9999
     }
 
     override fun nextRound() {
@@ -40,7 +48,7 @@ public class WordGameEngine(override val maxRound: Int) : IProgressBasedGameEngi
     }
 
     override fun getRule(): String {
-        TODO("Not yet implemented")
+        return rule;
     }
 
 }

@@ -30,6 +30,7 @@ class GameSelectorFragment : Fragment() {
         val activity = requireActivity() as GameActivity
         val adapter = GameSelectorAdapter(activity, activity.gameEngines)
         recyclerView.adapter = adapter
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
     }
 
     override fun onCreateView(

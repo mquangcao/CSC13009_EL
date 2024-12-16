@@ -6,6 +6,7 @@
     tools:context=".app.presentation.fragment.GameSelectorFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@drawable/rounded_rectangle"
         android:id="@+id/game_selector_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

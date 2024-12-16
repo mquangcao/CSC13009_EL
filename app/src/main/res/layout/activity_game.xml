@@ -7,13 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".app.presentation.activity.GameActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/gamescreen_fcv"
-        android:name="com.android_ai.csc13009.app.presentation.fragment.GameSelectorFragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/gamescreen_fcv"
+            android:name="com.android_ai.csc13009.app.presentation.fragment.GameSelectorFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="1dp"
+            />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+
+    </LinearLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

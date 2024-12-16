@@ -18,7 +18,7 @@ class GameAnswerListAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameAnswerListViewHolder {
         val inflater = context.layoutInflater
-        val rowView = inflater.inflate(com.google.androidgamesdk.R.layout.text_view_with_line_height_from_style, parent, false)
+        val rowView = inflater.inflate(R.layout.item_letter_slot, parent, false)
         return GameAnswerListViewHolder(rowView)
     }
 

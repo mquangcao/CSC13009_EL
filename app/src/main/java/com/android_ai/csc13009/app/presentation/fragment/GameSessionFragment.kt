@@ -19,19 +19,19 @@ import com.android_ai.csc13009.app.presentation.service.IGameEngine
 import com.android_ai.csc13009.app.presentation.service.SpellingBeeGameEngine
 import com.android_ai.csc13009.app.presentation.service.SynonymGameEngine
 import com.android_ai.csc13009.app.presentation.service.WordGameEngine
-import kotlin.random.Random
 
 private const val ARG_ENGN_IDX = "GameEngineIndex"
 
 class GameSessionFragment : Fragment() {
     private var gameEngine: IGameEngine? = null
+    private var gameEngineIndex: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val index = it.getInt(ARG_ENGN_IDX)
+            gameEngineIndex = it.getInt(ARG_ENGN_IDX)
             val activity = requireActivity() as GameActivity
-            gameEngine = activity.gameEngines[index]
+            gameEngine = activity.gameEngines[gameEngineIndex!!]
         }
     }
 
@@ -49,6 +49,8 @@ class GameSessionFragment : Fragment() {
         setHighScoreText()
         setCanvas()
         startGame()
+
+
     }
 
     private fun startGame() {
@@ -106,18 +108,16 @@ class GameSessionFragment : Fragment() {
     private fun setAnswerLetterPicker(layout: Int) {
         setAnswer(layout)
         // set adapter for answer choices (n+ items for n-length word (n right and 1+ wrong))
-        val correctAnswer = gameEngine?.words?.get(gameEngine?.words?.size?.minus(1) ?: 0)
-        val rnd = Random(System.currentTimeMillis())
-        val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        val correctAnswer = gameEngine?.words?.lastOrNull()?.word ?: ""
+        val extraCount = correctAnswer.length / 2
 
-        val extraCount = (correctAnswer?.word?.length ?: 0) / 2
+        val randomExtraChars = (1..extraCount)
+            .map { ('A'..'Z').random() }
+            .joinToString("")
 
-        val randomExtraString = StringBuilder("")
-        for (i in 1..extraCount) {
-            randomExtraString.append(alphabet.get(rnd.nextInt() % alphabet.length))
-        }
-        val answerWithExtraChar = "${correctAnswer?.word}${randomExtraString}"
-        val scrambledWord = answerWithExtraChar.toCharArray().toList().shuffled()
+        val answerWithExtraChars = "$correctAnswer$randomExtraChars"
+
+        val scrambledWord = answerWithExtraChars.toCharArray().toList().shuffled()
 
         val answerBlocksAdapter = GameAnswerBlocksAdapter(requireActivity(), scrambledWord)
         val answerBlocks = requireView().findViewById<RecyclerView>(R.id.game_answer_letter_picker_blocks)
@@ -125,10 +125,10 @@ class GameSessionFragment : Fragment() {
         answerBlocks.layoutManager = androidx.recyclerview.widget.GridLayoutManager(requireContext(), 8)
 
         // set adapter for answer slots (n items for n-length word)
-        val answerSlotsAdapter = GameAnswerSlotsAdapter(requireActivity(), correctAnswer?.word ?: "", answerBlocksAdapter, scrambledWord)
+        val answerSlotsAdapter = GameAnswerSlotsAdapter(requireActivity(), correctAnswer, answerBlocksAdapter, scrambledWord)
         val answerSlots = requireView().findViewById<RecyclerView>(R.id.game_answer_letter_picker_slots)
         answerSlots.adapter = answerSlotsAdapter
-        answerSlots.layoutManager = androidx.recyclerview.widget.GridLayoutManager(requireContext(), correctAnswer?.word?.length ?: 0)
+        answerSlots.layoutManager = androidx.recyclerview.widget.GridLayoutManager(requireContext(), correctAnswer.length)
     }
 
     private fun setAnswerListWriter(layout: Int) {
@@ -154,6 +154,10 @@ class GameSessionFragment : Fragment() {
                 false // Let the system handle other keys
             }
         }
+    }
+
+    private fun toResultFragment() {
+        (requireActivity() as GameActivity).changeFragment(GameResultFragment.newInstance(gameEngineIndex!!))
     }
 
     companion object {
