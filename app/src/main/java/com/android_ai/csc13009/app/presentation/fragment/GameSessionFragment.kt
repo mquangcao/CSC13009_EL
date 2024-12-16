@@ -128,7 +128,7 @@ class GameSessionFragment : Fragment() {
         val answerSlotsAdapter = GameAnswerSlotsAdapter(requireActivity(), correctAnswer, answerBlocksAdapter, scrambledWord)
         val answerSlots = requireView().findViewById<RecyclerView>(R.id.game_answer_letter_picker_slots)
         answerSlots.adapter = answerSlotsAdapter
-        answerSlots.layoutManager = androidx.recyclerview.widget.GridLayoutManager(requireContext(), correctAnswer.length)
+        answerSlots.layoutManager = androidx.recyclerview.widget.GridLayoutManager(requireContext(), correctAnswer.length + 1)
     }
 
     private fun setAnswerListWriter(layout: Int) {

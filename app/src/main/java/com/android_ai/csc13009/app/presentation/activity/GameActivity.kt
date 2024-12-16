@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.presentation.service.IGameEngine
 import com.android_ai.csc13009.app.presentation.service.SpellingBeeGameEngine
 import com.android_ai.csc13009.app.presentation.service.SynonymGameEngine
@@ -15,6 +16,7 @@ import com.android_ai.csc13009.app.presentation.service.WordGameEngine
 class GameActivity : AppCompatActivity() {
     private var configMaxRound: Int = 5;
     private var configSessionDuration: Int = 60;
+    private val database = AppDatabase.getInstance(this)
 
     public val gameEngines: List<IGameEngine> = listOf(
         SpellingBeeGameEngine(
