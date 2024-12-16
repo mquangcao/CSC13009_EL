@@ -3,15 +3,18 @@
     <style name="Base.Theme.CSC13009" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="colorPrimary">@color/black</item>
+         <item name="colorPrimary">@color/black</item>
         <!-- Màu chữ hoặc nội dung trên nút -->
-        <item name="colorOnPrimary">@color/white</item>
+         <item name="colorOnPrimary">@color/white</item>
         <!-- Màu nền phụ -->
         <item name="colorSurface">@color/my_surface</item>
         <!-- Màu chữ trên nền phụ -->
         <item name="colorOnSurface">@color/black</item>
 
+
         <item name="android:windowContentTransitions">true</item>
+
+
 
     </style>
 </resources>
