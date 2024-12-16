@@ -20,6 +20,14 @@ interface WordDao {
     @Query("SELECT * FROM Word")
     suspend fun getAllWords(): List<WordEntity>
 
+    // get the count of all words
+    @Query("SELECT COUNT(*) FROM Word")
+    suspend fun getWordCount(): Int
+
+    // get a random word
+    @Query("SELECT * FROM Word ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandomWord(): WordEntity?
+
     @Query("DELETE FROM Word WHERE id = :wordId")
     suspend fun deleteWord(wordId: Int)
 

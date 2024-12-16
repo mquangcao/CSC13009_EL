@@ -1,18 +1,20 @@
 package com.android_ai.csc13009.app.utils.extensions.games;
 
 import android.os.CountDownTimer
+import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.WordEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-public class SynonymGameEngine(override var sessionDuration: Int, override val dao: WordDao) :
+public class SynonymGameEngine(override var sessionDuration: Int,
+                               override val wordDao: WordDao,
+                               override val gameDataDao: GameDataDao
+) :
     ITimerBasedGameEngine {
     override var score: Int = 0;
     override var highScore: Int = 0;
-
-    override val gameName: String = "Synonym";
 
     var secLeft = sessionDuration;
     var timeLeft = sessionDuration * 1000L;
@@ -51,20 +53,10 @@ public class SynonymGameEngine(override var sessionDuration: Int, override val d
     }
 
 
-    override fun fetchHighScore() {
-        highScore = 999
-    }
 
     override fun startGame() {
-        fetchWord()
+//        fetchWord()
         timer.start()
-    }
-
-    fun fetchWord() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val randomNumber = (1..100).random()
-            dao.getWordById(randomNumber)?.let { words.add(it) }
-        }
     }
 
     override fun endGame() {
@@ -89,12 +81,9 @@ public class SynonymGameEngine(override var sessionDuration: Int, override val d
 
     }
 
-    override fun updateHighScore() {
-        highScore = 9999
-    }
 
     override fun nextRound() {
-        fetchWord();
+//        fetchWord();
     }
 
     override fun getRule(): String {
@@ -107,5 +96,9 @@ public class SynonymGameEngine(override var sessionDuration: Int, override val d
                     "* If the word is incorrect, the bonus will be lost and you will not gain any point for that answer"
 
         return rule;
+    }
+
+    override fun getGameName(): String {
+        return "Synonym";
     }
 }

@@ -1,44 +1,35 @@
 package com.android_ai.csc13009.app.utils.extensions.games;
 
+import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.WordEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-public class WordGameEngine(override val maxRound: Int, override val dao: WordDao) :
+public class WordGameEngine(override val maxRound: Int,
+                            override val wordDao: WordDao,
+                            override val gameDataDao: GameDataDao
+) :
     IProgressBasedGameEngine {
     override var currentRound: Int = 0;
     override var score: Int = 0;
     override var highScore: Int = 0;
-
-    override val gameName: String = "Word Game";
 
     var index: Int = 0;
     var currentWord: WordEntity? = null;
     var streak: Int = 0;
     override val words: ArrayList<WordEntity> = ArrayList();
 
-    override fun fetchHighScore() {
-        highScore = 999
-    }
-
     override fun startGame() {
         for (i in 1..maxRound) {
-            fetchWord();
+//            fetchWord();
         }
         nextRound()
     }
 
-    private fun fetchWord() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val randomNumber = (1..100).random()
-            dao.getWordById(randomNumber)?.let { words.add(it) }
-        }
-    }
-
     override fun endGame() {
-        updateHighScore()
+//        updateHighScore()
     }
 
     override fun submitAnswer(answer: String) {
@@ -51,10 +42,6 @@ public class WordGameEngine(override val maxRound: Int, override val dao: WordDa
             streak = 0;
             nextRound();
         }
-    }
-
-    override fun updateHighScore() {
-        highScore = 9999
     }
 
     override fun nextRound() {
@@ -75,6 +62,10 @@ public class WordGameEngine(override val maxRound: Int, override val dao: WordDa
                             "* When the word is incorrect, the bonus is lost and you will not gain any point for that round \n";
 
         return rule;
+    }
+
+    override fun getGameName(): String {
+        return "Synonym";
     }
 
 }

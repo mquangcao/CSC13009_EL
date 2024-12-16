@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.utils.extensions.games;
 
+import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.WordEntity;
 import kotlinx.coroutines.CoroutineScope
@@ -8,41 +9,34 @@ import kotlinx.coroutines.launch
 
 import kotlin.collections.ArrayList
 
-public class SpellingBeeGameEngine(override val maxRound: Int, override val dao: WordDao) :
+public class SpellingBeeGameEngine(override val maxRound: Int,
+                                   override val gameDataDao: GameDataDao,
+                                   override val wordDao: WordDao
+) :
     IProgressBasedGameEngine {
     override var currentRound: Int = -1;
     override var score: Int = 0;
     override var highScore: Int = 0;
-
-    override val gameName: String = "Spelling Bee";
 
     override val words: ArrayList<WordEntity> = ArrayList();
     var index: Int = 0;
     var currentWord: WordEntity? = null;
     var streak: Int = 0;
 
-    override fun fetchHighScore() {
-        // Lấy điểm cao nhất từ nguồn dữ liệu (ví dụ: cơ sở dữ liệu)
-        highScore = 9999
-
-    }
 
     override fun startGame() {
         for (i in 1..maxRound) {
-            fetchWord();
+//            fetchWord();
         }
         nextRound()
     }
 
-    private fun fetchWord() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val randomNumber = (1..100).random()
-            dao.getWordById(randomNumber)?.let { words.add(it) }
-        }
-    };
 
     override fun endGame() {
-        updateHighScore();
+//        coroutineScope.launch {
+//            updateHighScore();
+//        }
+
     }
 
     override fun submitAnswer(answer: String) {
@@ -57,12 +51,6 @@ public class SpellingBeeGameEngine(override val maxRound: Int, override val dao:
         }
     }
 
-
-    override fun updateHighScore() {
-        if (score > highScore) {
-
-        }
-    }
 
     override fun nextRound() {
         currentRound++;
@@ -82,5 +70,9 @@ public class SpellingBeeGameEngine(override val maxRound: Int, override val dao:
                 "* When the word is incorrect, the bonus is lost and you will not gain any point for that round \n"
         ;
         return rule;
+    }
+
+    override fun getGameName(): String {
+        return "Spelling Bee"
     }
 }
