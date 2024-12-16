@@ -36,16 +36,13 @@
             android:name=".app.presentation.activity.LearVocabActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".app.presentation.activity.SingUpActivity"
             android:exported="false" />
         <activity
             android:name=".app.presentation.activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".app.presentation.activity.DashboardActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
