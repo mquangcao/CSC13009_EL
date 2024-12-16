@@ -35,15 +35,7 @@ class LessonAdapter (
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         val lesson = lessons[position]
-        holder.titleView.text = lesson.title
 
-        if (lesson.isUnlocked) {
-            holder.titleView.setTextColor(holder.titleView.context.resources.getColor(R.color.black))
-        } else {
-            holder.cardView.alpha = 0.5f
-            holder.cardView.isClickable = false
-            holder.progressBar.visibility = View.INVISIBLE
-        }
 
         holder.cardView.setOnClickListener {
             val intent = Intent(holder.cardView.context, VocabularyWordActivity::class.java)

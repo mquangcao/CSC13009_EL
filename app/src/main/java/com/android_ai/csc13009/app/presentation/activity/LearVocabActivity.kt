@@ -20,17 +20,8 @@ class LearVocabActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         val btnBack = findViewById<ImageView>(R.id.arrow_back)
 
-        val lessons = listOf(
-            Lesson(R.drawable.animal, "Lesson 1", 10, 50, true),
-            Lesson(R.drawable.animal, "Lesson 2", 15, 80),
-            Lesson(R.drawable.animal, "Lesson 3", 20, 100),
-            Lesson(R.drawable.animal, "Lesson 1", 10, 50),
-            Lesson(R.drawable.animal, "Lesson 2", 15, 80),
-            Lesson(R.drawable.animal, "Lesson 3", 20, 100),
-        )
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = LessonAdapter(lessons)
 
         btnBack.setOnClickListener {
             finish()
