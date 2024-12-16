@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-
     id("org.jetbrains.kotlin.kapt")
+    id("kotlin-kapt")
+
 }
 
 android {
@@ -55,13 +56,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // drag views
-    implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     kapt(libs.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
 
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }
-
 
