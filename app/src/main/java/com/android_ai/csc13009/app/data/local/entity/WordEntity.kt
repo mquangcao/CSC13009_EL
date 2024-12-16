@@ -5,12 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Word")
 data class WordEntity(
-    @PrimaryKey
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,  // Default value set for auto-generated id
     val word: String,
-    val meaning: String,
-    val audioUrl: String?,
-    val synonyms: String?,
-    val exampleSentence: String?,
-    val image: String?
+    val pronunciation: String? = null,  // Set default value for nullable field
+    val details: String
 )
