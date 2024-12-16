@@ -58,13 +58,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                )
-                    .addCallback(object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            SampleDataHelper.insertSampleData(db)
-                        }
-                    })
+                ).createFromAsset("dictionary.db")
+
                     .build().also {
                     instance = it
                 }

@@ -1,5 +1,18 @@
 package com.android_ai.csc13009.app.utils.adapter
 
+//<<<<<<< feature/dictionary
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.domain.repository.model.Word
+import com.android_ai.csc13009.app.presentation.activity.WordDetailActivity
+
+class WordAdapter(private var words: List<Word>) : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
+//=======
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +33,46 @@ class WordAdapter (private val words: List<Word>) : RecyclerView.Adapter<WordAda
         val tvWord: TextView = itemView.findViewById(R.id.tv_word)
         val cardWord: MaterialCardView = itemView.findViewById(R.id.card_word)
     }
+//>>>>>>> develop
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_word, parent, false)
         return WordViewHolder(view)
     }
 
+//<<<<<<< feature/dictionary
+    override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
+        holder.bind(words[position])
+    }
+
+    override fun getItemCount(): Int {
+        return words.size
+    }
+
+    fun updateList(newWords: List<Word>) {
+        words = newWords
+        notifyDataSetChanged()
+    }
+
+    inner class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val wordTextView: TextView = itemView.findViewById(R.id.tvWord)
+
+        fun bind(word: Word) {
+            wordTextView.text = word.word
+
+            // Thêm sự kiện click vào item
+            itemView.setOnClickListener {
+                val context = itemView.context
+                val intent = Intent(context, WordDetailActivity::class.java)
+                intent.putExtra("word_text", word.word) // Truyền từ cần hiển thị
+                intent.putExtra("word_pronunciation", word.pronunciation)
+                intent.putExtra("word_details", word.details)
+                context.startActivity(intent)
+            }
+        }
+    }
+}
+//=======
     override fun getItemCount(): Int = words.size
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
@@ -48,3 +95,4 @@ class WordAdapter (private val words: List<Word>) : RecyclerView.Adapter<WordAda
     }
 }
 
+//>>>>>>> develop

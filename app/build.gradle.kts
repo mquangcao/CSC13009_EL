@@ -49,11 +49,11 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
 
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
-
 }
