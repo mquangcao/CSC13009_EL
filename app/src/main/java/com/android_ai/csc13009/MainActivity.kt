@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
+import com.android_ai.csc13009.app.presentation.activity.DictionaryActivity
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
 
 @Suppress("DEPRECATION")
@@ -51,17 +53,18 @@ class MainActivity : AppCompatActivity() {
         slogan.startAnimation(bottomAnim)
 
         Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
-
-            val pairs = listOf(
-                Pair(imageView, "logo_image"),
-                Pair(logo, "logo_text"),
-            )
-
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
-
-            startActivity(intent, options.toBundle())
-            finish()
+            changeFragment()
+//            val intent = Intent(this, LoginActivity::class.java)
+//
+//            val pairs = listOf(
+//                Pair(imageView, "logo_image"),
+//                Pair(logo, "logo_text"),
+//            )
+//
+//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
+//
+//            startActivity(intent, options.toBundle())
+//            finish()
         }, SPLASH_SCREEN.toLong())
     }*//*
 
@@ -190,8 +193,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }
-
-
-
 

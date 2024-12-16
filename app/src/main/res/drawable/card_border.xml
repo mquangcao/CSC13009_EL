@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Viền (lớp ngoài) -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#FFAA33" /> <!-- Màu viền -->
+        </shape>
+    </item>
+    <!-- Nền CardView (lớp trong) -->
+    <item android:insetLeft="2dp" android:insetTop="2dp"
+        android:insetRight="2dp" android:insetBottom="2dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#FFFFFF" /> <!-- Màu nền -->
+        </shape>
+    </item>
+</layer-list>

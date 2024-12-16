@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt") // Thêm plugin kapt
+    id("org.jetbrains.kotlin.kapt")
+    id("kotlin-kapt")
 }
 
 android {
@@ -16,6 +17,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // drag views
+    buildFeatures{
+        viewBinding = true
     }
 
     buildTypes {
@@ -45,9 +51,22 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.fragment.ktx)
+    //implementation(libs.androidx.games.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.mpandroidchart)
+
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+
+    //kapt(libs.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }
+
+
