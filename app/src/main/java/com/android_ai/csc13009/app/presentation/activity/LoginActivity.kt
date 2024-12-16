@@ -50,10 +50,12 @@ class LoginActivity : AppCompatActivity() {
 
             startActivity(intent, options.toBundle())
 
-            btnSingIn.setOnClickListener {
-                val dashboardIntent = Intent(this, DashboardActivity::class.java)
-                startActivity(dashboardIntent)
-            }
+
+        }
+
+        btnSingIn.setOnClickListener {
+            val dashboardIntent = Intent(this, DashboardActivity::class.java)
+            startActivity(dashboardIntent)
         }
     }
 }
