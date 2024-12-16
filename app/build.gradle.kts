@@ -56,6 +56,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.mpandroidchart)
+
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     //kapt(libs.room.compiler)
@@ -66,4 +69,5 @@ dependencies {
     implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 }
+
 
