@@ -37,7 +37,7 @@ class GameSelectorAdapter (
     override fun onBindViewHolder(holder: GameSelectorViewHolder, position: Int) {
         val gameEngine = gameEngines[position]
 
-        holder.titleTextView.text = gameEngine.gameName
+        holder.titleTextView.text = gameEngine.getGameName()
 
         val highScoreString = StringBuilder(context.getString(R.string.game_high_score))
         highScoreString.append(" ${gameEngine.highScore}")

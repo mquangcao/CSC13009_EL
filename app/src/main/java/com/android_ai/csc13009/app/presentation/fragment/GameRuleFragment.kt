@@ -49,7 +49,7 @@ class GameRuleFragment : Fragment() {
         }
 
         val ruleTextView: TextView = view.findViewById(R.id.game_rule_header_tb_title)
-        ruleTextView.text = gameEngine.gameName
+        ruleTextView.text = gameEngine.getGameName()
 
         val gameNameTextView = view.findViewById<TextView>(R.id.game_rule_content_tv)
         gameNameTextView.text = gameEngine.getRule()

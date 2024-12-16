@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.data.local
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -18,10 +19,12 @@ import com.android_ai.csc13009.app.data.local.entity.*
         WordTagEntity::class,
         UserLessonLearnedEntity::class,
         UserChapterLearnedEntity::class,
-        LearningDetailEntity::class
+        LearningDetailEntity::class,
+        GameDataEntity::class
                        ],
     version = 1,
-    exportSchema = true
+    exportSchema = true,
+
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -49,9 +52,11 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                ).build().also {
-                    instance = it
-                }
+                )
+                    .fallbackToDestructiveMigration()
+                    .build().also {
+                        instance = it
+                    }
             }
         }
     }
