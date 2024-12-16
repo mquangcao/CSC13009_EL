@@ -73,6 +73,8 @@
                 android:id="@+id/game_rule_content_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="#ccc"
                 android:ems="10"
                 android:text="@string/sample_very_long_text" />
 

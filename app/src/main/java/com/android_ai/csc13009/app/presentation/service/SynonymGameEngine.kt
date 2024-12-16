@@ -1,9 +1,13 @@
 package com.android_ai.csc13009.app.presentation.service;
 
 import android.os.CountDownTimer
+import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.WordEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-public class SynonymGameEngine(override var sessionDuration: Int) : ITimerBasedGameEngine{
+public class SynonymGameEngine(override var sessionDuration: Int, override val dao: WordDao) : ITimerBasedGameEngine{
     override var score: Int = 0;
     override var highScore: Int = 0;
 
@@ -56,7 +60,10 @@ public class SynonymGameEngine(override var sessionDuration: Int) : ITimerBasedG
     }
 
     fun fetchWord() {
-        words.add(WordEntity(1, "word1", "meaning", "a", "a", null, null ))
+        CoroutineScope(Dispatchers.IO).launch {
+            val randomNumber = (1..100).random()
+            dao.getWordById(randomNumber)?.let { words.add(it) }
+        }
     }
 
     override fun endGame() {
@@ -90,6 +97,14 @@ public class SynonymGameEngine(override var sessionDuration: Int) : ITimerBasedG
     }
 
     override fun getRule(): String {
-        return "Rule";
+        val rule =  "* This game is time-based, which mean that the game will end after a set of time has ended \n" +
+                    "* In each round, there will be a word \n" +
+                    "* You need to type out the words that are synonyms of that featured words \n" +
+                    "* A round will end when all of the synonyms of that word are used, after that a new word will replace the current featured word \n" +
+                    "* For each correct synonym, you will gain 1000 points, and an extra bonus for subsequent right answers" +
+                    "* The same correct answer cannot be used twice for each round, the previous answers will be shown in a list \n" +
+                    "* If the word is incorrect, the bonus will be lost and you will not gain any point for that answer"
+
+        return rule;
     }
 }

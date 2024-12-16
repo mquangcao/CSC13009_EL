@@ -1,17 +1,20 @@
 package com.android_ai.csc13009.app.presentation.service;
 
+import com.android_ai.csc13009.app.data.local.AppDatabase
+import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.WordEntity;
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 import kotlin.collections.ArrayList
 
-public class SpellingBeeGameEngine(override val maxRound: Int) : IProgressBasedGameEngine {
-    override var currentRound: Int = 0;
+public class SpellingBeeGameEngine(override val maxRound: Int, override val dao: WordDao) : IProgressBasedGameEngine {
+    override var currentRound: Int = -1;
     override var score: Int = 0;
     override var highScore: Int = 0;
 
     override val gameName: String = "Spelling Bee";
-
-    private val rule: String = "Rule";
 
     override val words: ArrayList<WordEntity> = ArrayList();
     var index: Int = 0;
@@ -32,11 +35,13 @@ public class SpellingBeeGameEngine(override val maxRound: Int) : IProgressBasedG
     }
 
     private fun fetchWord() {
-
+        CoroutineScope(Dispatchers.IO).launch {
+            val randomNumber = (1..100).random()
+            dao.getWordById(randomNumber)?.let { words.add(it) }
+        }
     };
 
     override fun endGame() {
-
         updateHighScore();
     }
 
@@ -69,6 +74,13 @@ public class SpellingBeeGameEngine(override val maxRound: Int) : IProgressBasedG
     }
 
     override fun getRule(): String {
+        val rule: String =  "* his game is round-based, it will end after a number of round has passed \n" +
+                "* In each round, there will be an audio clip of a word \n" +
+                "* You need to drag and drop each letter into the correct position to form a word \n" +
+                "* A round will end when all positions have been filled, after that point will added and a new word will be generated to start a new round \n" +
+                "* For each word you get correct, you will get 1000 points, and a bonus for each subsequent correct word \n" +
+                "* When the word is incorrect, the bonus is lost and you will not gain any point for that round \n"
+        ;
         return rule;
     }
 }

@@ -48,14 +48,15 @@ class GameRuleFragment : Fragment() {
             activity.changeFragment(gameSessionFragment)
         }
 
-//        val ruleTextView: TextView = view.findViewById(R.id.game_rule_content_tv)
-//        ruleTextView.text = gameEngine.getRule()
-//
-//        val button: Button = view.findViewById(R.id.game_start_bt)
-//        button.setOnClickListener {
-//            val gameSessionFragment = GameSessionFragment.newInstance(gameEngineIndex!!)
-//            activity.changeFragment(gameSessionFragment)
-//        }
+        val ruleTextView: TextView = view.findViewById(R.id.game_rule_header_tb_title)
+        ruleTextView.text = gameEngine.gameName
+
+        val gameNameTextView = view.findViewById<TextView>(R.id.game_rule_content_tv)
+        gameNameTextView.text = gameEngine.getRule()
+
+        val highScoreTextView = view.findViewById<TextView>(R.id.game_high_score_value_tv)
+        highScoreTextView.text = "${gameEngine.highScore}"
+
     }
 
     private fun setRuleText(rule: String) {
