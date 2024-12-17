@@ -14,7 +14,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/gamescreen_fcv"
-            android:name="com.android_ai.csc13009.app.presentation.fragment.GameSelectorFragment"
+            android:name="com.android_ai.csc13009.app.presentation.fragment.GameRuleFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

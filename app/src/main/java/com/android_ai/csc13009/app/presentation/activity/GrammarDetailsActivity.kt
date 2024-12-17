@@ -39,7 +39,7 @@ class GrammarDetailsActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         topicNameTextView = findViewById(R.id.textTopicName)
 
-        val backButton: ImageButton = findViewById(R.id.back_button)
+        val backButton: ImageButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener { finish() }
 
         // Get topicId from intent
