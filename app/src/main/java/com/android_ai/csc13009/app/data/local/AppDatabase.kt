@@ -60,10 +60,23 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                )
-                .createFromAsset("dictionary.db")
-                .fallbackToDestructiveMigration()
-                .build().also {
+
+                ).createFromAsset("dictionary.db")
+                  .fallbackToDestructiveMigration()
+                    .addCallback(object : RoomDatabase.Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                            // Insert sample data after the database is created
+                            SampleDataHelper.insertSampleData(db)
+                        }
+                    })
+                    .build().also {
+
+//                )
+//                .createFromAsset("dictionary.db")
+//                .fallbackToDestructiveMigration()
+//                .build().also {
+
 
                     instance = it
                 }
