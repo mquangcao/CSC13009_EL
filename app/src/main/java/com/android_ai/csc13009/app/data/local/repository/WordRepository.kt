@@ -18,4 +18,9 @@ class WordRepository(private val wordDao: WordDao) : IWordRepository {
     override suspend fun getSuggestions(prefix: String): List<Word> {
         return wordDao.getSuggestions(prefix).map { it.toDomain() }
     }
+
+    override suspend fun getRandomWord(): Word? {
+        val allWords = wordDao.getAllWords()
+        return allWords.randomOrNull()?.toDomain()
+    }
 }

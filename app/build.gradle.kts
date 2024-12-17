@@ -55,7 +55,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.fragment.ktx)
     implementation(libs.mpandroidchart)
 
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")

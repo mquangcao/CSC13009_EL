@@ -6,4 +6,5 @@ interface IWordRepository {
     suspend fun getWordByName(query: String): List<Word>
     suspend fun getWordById(id: Int): Word?
     suspend fun getSuggestions(prefix: String): List<Word>
+    suspend fun getRandomWord(): Word?
 }
