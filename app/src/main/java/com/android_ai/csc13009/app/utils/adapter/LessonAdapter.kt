@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.Lesson
 import com.android_ai.csc13009.app.presentation.activity.VocabularyWordActivity
+import com.bumptech.glide.Glide
 
 class LessonAdapter (
     private val lessons: List<Lesson>
@@ -37,6 +38,8 @@ class LessonAdapter (
         val lesson = lessons[position]
 
 
+
+        holder.titleView.text = lesson.lessonName
         holder.cardView.setOnClickListener {
             val intent = Intent(holder.cardView.context, VocabularyWordActivity::class.java)
             holder.cardView.context.startActivity(intent)
