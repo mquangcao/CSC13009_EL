@@ -3,12 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.presentation.fragment.HomeFragment">
+    tools:context=".app.presentation.fragment.HomeFragment"
+    android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- ImageView Background với bo góc -->
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/word_for_today_background"
+        android:background="@drawable/rounded_background"
+        android:clipToOutline="true"
+        android:layout_marginTop="30dp"/>
+
+    <!-- Card Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:elevation="8dp">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WORD FOR TODAY"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="30dp"/>
+
+        <!-- Từ vựng được gợi ý -->
+        <TextView
+            android:id="@+id/tvWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Serendipity"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="#0E3A53"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Phát âm -->
+        <TextView
+            android:id="@+id/tvPronunciation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/\u02ccs\u025br\u0259n\u02c8d\u026ap\u0259di/"
+            android:textSize="18sp"
+            android:textColor="#808080"
+            android:layout_marginBottom="4dp" />
+    </LinearLayout>
 
 </FrameLayout>
