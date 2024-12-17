@@ -1,9 +1,9 @@
 package com.android_ai.csc13009.app.data.local
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.android_ai.csc13009.app.data.local.dao.*
 import com.android_ai.csc13009.app.data.local.entity.*
 
@@ -21,10 +21,13 @@ import com.android_ai.csc13009.app.data.local.entity.*
         UserChapterLearnedEntity::class,
         LearningDetailEntity::class,
         GameDataEntity::class
+        LearningDetailEntity::class,
+        GrammarLevelEntity::class,
+        GrammarTopicEntity::class,
+        GrammarSubtopicEntity::class
                        ],
     version = 1,
-    exportSchema = true,
-
+    exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -40,6 +43,12 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun learningDetailDao(): LearningDetailDao
     abstract fun gameDataDao(): GameDataDao
 
+    // grammar
+    abstract fun grammarLevelDao(): GrammarLevelDao
+    abstract fun grammarTopicDao(): GrammarTopicDao
+    abstract fun grammarSubtopicDao(): GrammarSubtopicDao
+
+
     companion object {
         const val DATABASE_NAME = "app_database"
 
@@ -53,10 +62,12 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     DATABASE_NAME
                 )
+                    .createFromAsset("dictionary.db")
                     .fallbackToDestructiveMigration()
                     .build().also {
                         instance = it
                     }
+                }
             }
         }
     }

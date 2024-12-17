@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Đường kẻ màu xám nhỏ -->
+    <item android:top="0dp" android:bottom="5dp">
+        <shape>
+            <solid android:color="#CE77F0" /> <!-- Màu xám -->
+        </shape>
+    </item>
+
+    <!-- Nền màu trắng -->
+    <item android:top="5dp">
+        <shape>
+            <solid android:color="#F4F5F9" /> <!-- Màu nền trắng -->
+        </shape>
+    </item>
+</layer-list>
