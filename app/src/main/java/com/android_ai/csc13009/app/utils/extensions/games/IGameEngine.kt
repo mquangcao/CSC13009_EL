@@ -38,10 +38,7 @@ public interface IGameEngine : Serializable {
                 999,
                 "default word",
                 "default word meaning",
-                "default word audio",
-                "word",
-                null,
-                null)
+                "default word audio")
             words.add(defaultWords);
         }
     }

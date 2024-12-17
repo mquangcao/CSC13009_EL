@@ -6,6 +6,7 @@ import com.android_ai.csc13009.app.data.local.entity.WordEntity;
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 import kotlin.collections.ArrayList
 
@@ -13,7 +14,7 @@ public class SpellingBeeGameEngine(override val maxRound: Int,
                                    override val gameDataDao: GameDataDao,
                                    override val wordDao: WordDao
 ) :
-    IProgressBasedGameEngine {
+    IProgressBasedGameEngine, Serializable {
     override var currentRound: Int = -1;
     override var score: Int = 0;
     override var highScore: Int = 0;

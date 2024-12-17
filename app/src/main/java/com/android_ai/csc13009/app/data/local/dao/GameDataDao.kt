@@ -5,9 +5,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.android_ai.csc13009.app.data.local.entity.GameDataEntity
+import java.io.Serializable
 
 @Dao
-interface GameDataDao {
+interface GameDataDao : Serializable {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGameData(gameData: GameDataEntity)
 

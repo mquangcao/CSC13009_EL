@@ -19,7 +19,6 @@ import com.android_ai.csc13009.app.data.local.entity.*
         WordTagEntity::class,
         UserLessonLearnedEntity::class,
         UserChapterLearnedEntity::class,
-        LearningDetailEntity::class,
         GameDataEntity::class,
         LearningDetailEntity::class,
         GrammarLevelEntity::class,

@@ -5,9 +5,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.android_ai.csc13009.app.data.local.entity.WordEntity
+import java.io.Serializable
 
 @Dao
-interface WordDao {
+interface WordDao : Serializable {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWord(word: WordEntity)
 

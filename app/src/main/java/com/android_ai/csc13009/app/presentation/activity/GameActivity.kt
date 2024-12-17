@@ -1,7 +1,9 @@
 package com.android_ai.csc13009.app.presentation.activity
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -12,35 +14,18 @@ import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
+import java.io.Serializable
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class GameActivity : AppCompatActivity() {
-    private var configMaxRound: Int = 5;
-    private var configSessionDuration: Int = 60;
     private val database : AppDatabase by lazy { AppDatabase.getInstance(this) }
 
-    public val gameEngines: List<IGameEngine> by lazy {
-        createGameEngines()
+    val gameEngine: IGameEngine? by lazy {
+        createGameEngine()
     }
 
-    private fun createGameEngines(): List<IGameEngine> {
-        return listOf(
-            SpellingBeeGameEngine(
-                maxRound = configMaxRound,
-                gameDataDao = database.gameDataDao(),
-                wordDao = database.wordDao()
-            ),
-            SynonymGameEngine(
-                sessionDuration = configSessionDuration,
-                gameDataDao = database.gameDataDao(),
-                wordDao = database.wordDao()
-            ), WordGameEngine(
-                maxRound = configMaxRound,
-                gameDataDao = database.gameDataDao(),
-                wordDao = database.wordDao()
-            )
-        )
-    }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -50,9 +35,35 @@ class GameActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun createGameEngine(): IGameEngine? {
+        val passedData = intent.getIntExtra("passedData", 1)
 
+        val dataDao = database.gameDataDao()
+        val wordDao = database.wordDao()
+
+        return when (passedData) {
+            0 -> SpellingBeeGameEngine(
+                maxRound = 5,
+                gameDataDao = dataDao,
+                wordDao = wordDao
+            )
+            1 -> SynonymGameEngine(
+                sessionDuration = 60,
+                gameDataDao = dataDao,
+                wordDao = wordDao
+            )
+            2 -> WordGameEngine(
+                maxRound = 5,
+                gameDataDao = dataDao,
+                wordDao = wordDao
+            )
+            else -> null // Handle invalid cases gracefully
+        }
+    }
 
     public fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()

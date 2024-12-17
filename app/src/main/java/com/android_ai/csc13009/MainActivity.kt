@@ -51,24 +51,25 @@ class MainActivity : AppCompatActivity() {
         slogan.startAnimation(bottomAnim)
 
         Handler().postDelayed({
-            changeFragment()
+//            changeFragment()
 //            val intent = Intent(this, LoginActivity::class.java)
-//
-//            val pairs = listOf(
-//                Pair(imageView, "logo_image"),
-//                Pair(logo, "logo_text"),
-//            )
-//
-//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
-//
-//            startActivity(intent, options.toBundle())
-//            finish()
+            val intent = Intent(this, DashboardActivity::class.java)
+
+            val pairs = listOf(
+                Pair(imageView, "logo_image"),
+                Pair(logo, "logo_text"),
+            )
+
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
+
+            startActivity(intent, options.toBundle())
+            finish()
         }, SPLASH_SCREEN.toLong())
     }
 
-    private fun changeFragment() {
-        val intent = Intent(this, DashboardActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
+//    private fun changeFragment() {
+//        val intent = Intent(this, DashboardActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//    }
 }

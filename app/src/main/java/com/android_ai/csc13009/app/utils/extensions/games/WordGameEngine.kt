@@ -6,12 +6,13 @@ import com.android_ai.csc13009.app.data.local.entity.WordEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 public class WordGameEngine(override val maxRound: Int,
                             override val wordDao: WordDao,
                             override val gameDataDao: GameDataDao
 ) :
-    IProgressBasedGameEngine {
+    IProgressBasedGameEngine, Serializable {
     override var currentRound: Int = 0;
     override var score: Int = 0;
     override var highScore: Int = 0;

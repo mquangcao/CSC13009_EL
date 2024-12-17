@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,18 +31,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.ArrayList
 
-private const val ARG_ENGN_IDX = "GameEngineIndex"
+//private const val ARG_ENGN_IDX = "GameEngineIndex"
 
 class GameSessionFragment : Fragment() {
     private var gameEngine: IGameEngine? = null
-    private var gameEngineIndex: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            gameEngineIndex = it.getInt(ARG_ENGN_IDX)
-            val activity = requireActivity() as GameActivity
-            gameEngine = activity.gameEngines[gameEngineIndex!!]
         }
     }
 
@@ -52,8 +50,12 @@ class GameSessionFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_game_session, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val activity = requireActivity() as GameActivity
+        gameEngine = activity.gameEngine!!
+
         setScoreText()
         setHighScoreText()
 
@@ -208,15 +210,14 @@ class GameSessionFragment : Fragment() {
     }
 
     private fun toResultFragment() {
-        (requireActivity() as GameActivity).changeFragment(GameResultFragment.newInstance(gameEngineIndex!!))
+        (requireActivity() as GameActivity).changeFragment(GameResultFragment.newInstance())
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(gameEngineIndex: Int) =
+        fun newInstance() =
             GameSessionFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_ENGN_IDX, gameEngineIndex)
                 }
             }
     }

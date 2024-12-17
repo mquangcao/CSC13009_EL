@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.presentation.fragment.GameRuleFragment
 
@@ -44,9 +45,13 @@ class GameSelectorAdapter (
         holder.scoreTextView.text = highScoreString.toString()
 
         holder.itemView.setOnClickListener {
-            val gameRuleFragment = GameRuleFragment.newInstance(position)
-            val activityContext = context as GameActivity
-            activityContext.changeFragment(gameRuleFragment)
+            val activityContext = context as DashboardActivity
+
+            activityContext.changeActivity(
+                context = activityContext,
+                targetActivity = GameActivity::class.java,
+                passedData = position
+            )
         }
     }
 }
