@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,7 @@ class GrammarActivity : AppCompatActivity() {
     private lateinit var grammarLevelRepository: GrammarLevelRepository
     private lateinit var grammarTopicRepository: GrammarTopicRepository
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_grammar)
@@ -39,7 +41,7 @@ class GrammarActivity : AppCompatActivity() {
         val levelName = intent.getStringExtra("level_name")  // Receive the level name from the intent
         recyclerView = findViewById(R.id.recyclerView)
 
-        val backButton: ImageButton = findViewById(R.id.back_button)
+        val backButton: ImageButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener { finish() }
 
         // Fetch topics asynchronously based on the level name
