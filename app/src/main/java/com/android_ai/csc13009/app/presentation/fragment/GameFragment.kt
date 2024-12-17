@@ -5,16 +5,74 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.local.AppDatabase
+import com.android_ai.csc13009.app.utils.adapters.GameSelectorAdapter
+import com.android_ai.csc13009.app.presentation.activity.GameActivity
+import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
+
 
 class GameFragment : Fragment() {
+    private var configMaxRound: Int = 5;
+    private var configSessionDuration: Int = 60;
+    private val database : AppDatabase by lazy { AppDatabase.getInstance(requireContext()) }
+
+    public val gameEngines: List<IGameEngine> by lazy {
+        createGameEngines()
+    }
+
+    private fun createGameEngines(): List<IGameEngine> {
+        return listOf(
+            SpellingBeeGameEngine(
+                maxRound = configMaxRound,
+                gameDataDao = database.gameDataDao(),
+                wordDao = database.wordDao()
+            ),
+            SynonymGameEngine(
+                sessionDuration = configSessionDuration,
+                gameDataDao = database.gameDataDao(),
+                wordDao = database.wordDao()
+            ), WordGameEngine(
+                maxRound = configMaxRound,
+                gameDataDao = database.gameDataDao(),
+                wordDao = database.wordDao()
+            )
+        )
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val recyclerView: RecyclerView = requireView().findViewById(R.id.game_selector_list_rv)
+        val adapter = GameSelectorAdapter(requireActivity(), gameEngines)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  inflater.inflate(R.layout.fragment_game, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_game_selector, container, false)
+    }
 
-        return view
+    companion object {
+        fun newInstance(param1: Int, param2: Int) =
+            GameFragment().apply {
+                arguments = Bundle().apply {
+                }
+            }
     }
 }

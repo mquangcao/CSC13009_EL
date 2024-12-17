@@ -11,10 +11,10 @@ import com.android_ai.csc13009.R
 
 class GameAnswerBlocksAdapter(
     private val context: Activity,
-    private val charaterList: List<Char>
+    public var charaterList: ArrayList<Char>
 ) : RecyclerView.Adapter<GameAnswerBlocksAdapter.GameAnswerBlocksViewHolder>() {
     inner class GameAnswerBlocksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val answerBlockTextView: TextView = itemView.findViewById(R.id.item_letter_box)
+        val answerBlockTextView: TextView = itemView.findViewById(R.id.item_letter_box_tv)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameAnswerBlocksViewHolder {
@@ -29,23 +29,36 @@ class GameAnswerBlocksAdapter(
 
     override fun onBindViewHolder(holder: GameAnswerBlocksViewHolder, position: Int) {
         val char = charaterList[position]
-        holder.answerBlockTextView.text = char.toString()
+        holder.answerBlockTextView.text = char.toString().uppercase()
 
         // implement dragable
         val view = holder.itemView
+
         view.setOnTouchListener(fun(v: View, event: MotionEvent): Boolean {
             return if (event.action == MotionEvent.ACTION_DOWN) {
                 val clipData = ClipData.newPlainText("letter", char.toString())
                 val shadowBuilder = View.DragShadowBuilder(v)
                 v.startDragAndDrop(clipData, shadowBuilder, v, 0)
+                val currentPosition = holder.adapterPosition
+                v.tag = currentPosition
 
-                v.tag = position
                 true
             } else {
                 false
             }
         })
 
+    }
+
+    public fun deleteItem(position: Int) {
+        charaterList.removeAt(position)
+        notifyItemRemoved(position)
+//        notifyItemRangeChanged(position, charaterList.size)
+    }
+
+    public fun addItem(char: Char) {
+        charaterList.add(char)
+        notifyItemInserted(charaterList.size - 1)
     }
 
 
