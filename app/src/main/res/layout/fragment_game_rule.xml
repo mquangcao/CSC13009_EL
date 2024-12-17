@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/game_rule_header_tb"
@@ -75,11 +76,13 @@
             android:layout_weight="1">
 
             <TextView
+                android:padding="8dp"
+                android:elevation="16dp"
                 android:id="@+id/game_rule_content_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="#ccc"
+                android:background="@drawable/rounded_semi_transparent_background"
+                android:backgroundTint="@color/beige"
                 android:ems="10"
                 android:fontFamily="@font/baloo"
                 android:text="@string/sample_very_long_text" />

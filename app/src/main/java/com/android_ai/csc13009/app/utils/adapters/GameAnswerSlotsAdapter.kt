@@ -52,6 +52,9 @@ class GameAnswerSlotsAdapter (
                 }
                 DragEvent.ACTION_DRAG_ENTERED -> {
                     // Further emphasize the slot when an item is hovering
+                    if (char == null) {
+                        view.setBackgroundResource(R.drawable.rounded_rectangle_hovered_border)
+                    }
                     true
                 }
                 DragEvent.ACTION_DROP -> {
@@ -76,8 +79,9 @@ class GameAnswerSlotsAdapter (
                     true
                 }
                 DragEvent.ACTION_DRAG_EXITED -> {
-                    // Unhighlight the item
-//                    v.setBackgroundResource(R.drawable.rounded_rectangle)
+                    if (char == null) {
+                        view.setBackgroundResource(R.drawable.rounded_rectangle_highlight_border)
+                    }
                     true
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {

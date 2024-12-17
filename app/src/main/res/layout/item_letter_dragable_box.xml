@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="4dp"
+    android:layout_margin="4dp"
     >
 
     <TextView
         android:id="@+id/item_letter_box_tv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="#2CD033"
+        android:background="@drawable/rounded_semi_transparent_background"
+        android:backgroundTint="@color/greenPrimary"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

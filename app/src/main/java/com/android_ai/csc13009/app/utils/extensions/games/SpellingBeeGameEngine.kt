@@ -47,7 +47,7 @@ public class SpellingBeeGameEngine(override val maxRound: Int,
 
 
     override fun getRule(): String {
-        val rule: String =  "* his game is round-based, it will end after a number of round has passed \n" +
+        val rule: String =  "* This game is round-based, it will end after a number of round has passed \n" +
                 "* In each round, there will be an audio clip of a word \n" +
                 "* You need to drag and drop each letter into the correct position to form a word \n" +
                 "* A round will end when all positions have been filled, after that point will added and a new word will be generated to start a new round \n" +
