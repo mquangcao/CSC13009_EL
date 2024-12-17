@@ -6,6 +6,7 @@
     tools:context=".app.presentation.fragment.HomeFragment"
     android:background="@color/white">
 
+
     <!-- ImageView Background với bo góc -->
     <ImageView
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
         android:background="@drawable/rounded_background"
         android:clipToOutline="true"
         android:layout_marginTop="30dp"/>
+
 
     <!-- Card Content -->
     <LinearLayout
