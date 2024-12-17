@@ -59,7 +59,7 @@ class GameSessionFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             startGame()
-            
+
             // quay lai main thread de tao ui
             withContext(Dispatchers.Main) {
                 setCanvas()

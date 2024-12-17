@@ -12,7 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.android_ai.csc13009.app.presentation.activity.GameActivity
+import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
+import com.android_ai.csc13009.app.presentation.activity.DictionaryActivity
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
 
 @Suppress("DEPRECATION")
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeFragment() {
-        val intent = Intent(this, GameActivity::class.java)
+        val intent = Intent(this, DashboardActivity::class.java)
         startActivity(intent)
         finish()
     }
