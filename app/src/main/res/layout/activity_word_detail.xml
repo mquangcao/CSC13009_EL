@@ -65,7 +65,8 @@
         android:orientation="horizontal"
         android:layout_marginTop="0dp"
         android:padding="20dp"
-        android:background="@color/background"
+        android:elevation="8dp"
+        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/headerFrame"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
