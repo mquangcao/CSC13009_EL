@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
 
         wordViewModel.fetchRandomWord()
 
-        // Thêm fragment Daily mặc định khi mở Activity
+        // Set default fragment (Daily)
         if (savedInstanceState == null) {
             val fragment = DailyStatisticsVocabularyFragment()
             parentFragmentManager.beginTransaction()
@@ -55,18 +56,26 @@ class HomeFragment : Fragment() {
                 .commit()
         }
 
-        // Thiết lập sự kiện cho nút Daily
+        // Get references to buttons
         val btnDaily: Button = view.findViewById(R.id.btnDaily)
+        val btnMonthly: Button = view.findViewById(R.id.btnMonthly)
+
+        // Set initial button styles and highlight Daily by default
+        setButtonDefaultStyle(btnDaily, btnMonthly)
+        setButtonSelectedStyle(btnDaily, btnMonthly)
+
+        // Set Daily button click listener
         btnDaily.setOnClickListener {
             val fragment = DailyStatisticsVocabularyFragment()
             switchFragment(fragment)
+            setButtonSelectedStyle(btnDaily, btnMonthly)
         }
 
-        // Thiết lập sự kiện cho nút Monthly
-        val btnMonthly: Button = view.findViewById(R.id.btnMonthly)
+        // Set Monthly button click listener
         btnMonthly.setOnClickListener {
             val fragment = MonthlyStatisticsVocabularyFragment()
             switchFragment(fragment)
+            setButtonSelectedStyle(btnMonthly, btnDaily)
         }
 
         return view
@@ -77,6 +86,22 @@ class HomeFragment : Fragment() {
             .replace(R.id.fragmentContainer, fragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
+    }
+
+
+
+    private fun setButtonDefaultStyle(btnDaily: Button, btnMonthly: Button) {
+        btnDaily.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        btnDaily.setTextColor(Color.parseColor("#000000"))
+        btnMonthly.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        btnMonthly.setTextColor(Color.parseColor("#000000"))
+    }
+
+    private fun setButtonSelectedStyle(selectedButton: Button, unselectedButton: Button) {
+        selectedButton.setBackgroundColor(Color.parseColor("#FC8890"))
+        selectedButton.setTextColor(Color.parseColor("#FFFFFF"))
+        unselectedButton.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        unselectedButton.setTextColor(Color.parseColor("#000000"))
     }
 
 

@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
@@ -33,8 +34,8 @@ class MonthlyStatisticsVocabularyFragment : Fragment(R.layout.fragment_monthly_s
         entries.add(BarEntry(11f, 4f))
 
         // Tạo BarDataSet từ dữ liệu đã nhập
-        val barDataSet = BarDataSet(entries, "Monthly Activity Data")
-        barDataSet.color = 0xFF6200EE.toInt() // Đặt màu tím cho tất cả các cột
+        val barDataSet = BarDataSet(entries, "")
+        barDataSet.color = Color.parseColor("#CEB7D4")
         barDataSet.setDrawValues(false) // Ẩn dữ liệu trên cột
         val barData = BarData(barDataSet)
 

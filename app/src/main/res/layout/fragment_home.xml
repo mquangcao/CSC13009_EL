@@ -295,6 +295,7 @@
                android:padding="16dp">
 
                <!-- Buttons for Daily and Monthly -->
+               <!-- Buttons for Daily and Monthly -->
                <LinearLayout
                    android:orientation="horizontal"
                    android:layout_width="wrap_content"
@@ -307,8 +308,8 @@
                        android:layout_height="wrap_content"
                        android:text="Daily"
                        android:layout_marginEnd="16dp"
-                       android:backgroundTint="#FC8890"
-                       android:textColor="#FFFFFF"
+                       android:backgroundTint="#FFFFFF"
+                       android:textColor="#000000"
                        android:padding="8dp"
                        android:layout_gravity="center_vertical" />
 
@@ -317,8 +318,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="Monthly"
-                       android:backgroundTint="#FC8890"
-                       android:textColor="#FFFFFF"
+                       android:backgroundTint="#FFFFFF"
+                       android:textColor="#000000"
                        android:padding="8dp"
                        android:layout_gravity="center_vertical" />
 

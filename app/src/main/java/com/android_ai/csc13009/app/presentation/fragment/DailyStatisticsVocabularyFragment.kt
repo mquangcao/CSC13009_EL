@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
@@ -27,7 +28,7 @@ class DailyStatisticsVocabularyFragment : Fragment(R.layout.fragment_daily_stati
         entries.add(BarEntry(6f, 2f))
 
         val barDataSet = BarDataSet(entries, "")
-        barDataSet.color = 0xFF6200EE.toInt()  // Màu tím cho cột
+        barDataSet.color = Color.parseColor("#CEB7D4")
         barDataSet.setDrawValues(false)  // Ẩn dữ liệu trên cột
 
         // Giảm độ rộng của cột
