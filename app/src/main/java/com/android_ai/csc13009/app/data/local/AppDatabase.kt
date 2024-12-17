@@ -60,7 +60,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     DATABASE_NAME
                 ).createFromAsset("dictionary.db")
-
+                    .fallbackToDestructiveMigration()
                     .build().also {
                     instance = it
                 }

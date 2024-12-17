@@ -12,11 +12,12 @@ import androidx.cardview.widget.CardView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
 import com.android_ai.csc13009.app.presentation.activity.EditProfileActivity
+import com.android_ai.csc13009.app.presentation.activity.WordLevelSelection
 import kotlin.math.log
 
 
 class AccountFragment : Fragment() {
-
+    private lateinit var cLevel : CardView
     private lateinit var cInfo : CardView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -28,8 +29,11 @@ class AccountFragment : Fragment() {
             startActivity(intent)
         }
 
-
-
+        cLevel = view.findViewById(R.id.cLevel)
+        cLevel.setOnClickListener{
+            val intent = Intent(activity, WordLevelSelection::class.java)
+            startActivity(intent)
+        }
 
 
         return view
