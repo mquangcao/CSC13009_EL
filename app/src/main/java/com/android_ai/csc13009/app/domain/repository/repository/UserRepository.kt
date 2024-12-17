@@ -1,5 +1,5 @@
 //Repository là lớp trung gian để truy vấn từ UserDao và chuyển đổi dữ liệu từ Entity thành Model
-package com.android_ai.csc13009
+package com.android_ai.csc13009.app.domain.repository.repository
 
 import com.android_ai.csc13009.app.data.local.dao.UserDao
 import com.android_ai.csc13009.app.data.local.entity.UserEntity

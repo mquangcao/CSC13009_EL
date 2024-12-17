@@ -1,10 +1,14 @@
-package com.android_ai.csc13009.app.presentation.activity
+package com.android_ai.csc13009.app.presentation.fragment
 
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.presentation.activity.StatisticsDetailActivity
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
@@ -14,14 +18,18 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 
-class StatisticsActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_statistics)
+class StatisticsFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_statistics, container, false)
 
         // Test Data
         // Vocabulary PieChart
-        val pieChartVocabulary: PieChart = findViewById(R.id.pieChartVocabulary)
+        val pieChartVocabulary: PieChart = view.findViewById(R.id.pieChartVocabulary)
         val totalVocabulary = 100
         setupPieChart(
             pieChartVocabulary,
@@ -31,6 +39,7 @@ class StatisticsActivity : AppCompatActivity() {
             ),
             "Total Vocabulary: $totalVocabulary"
         )
+
         // Add click listener to Vocabulary PieChart
         pieChartVocabulary.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
             override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -47,7 +56,7 @@ class StatisticsActivity : AppCompatActivity() {
         })
 
         // Lessons PieChart
-        val pieChartLessons: PieChart = findViewById(R.id.pieChartLessons)
+        val pieChartLessons: PieChart = view.findViewById(R.id.pieChartLessons)
         val totalLessons = 10
         setupPieChart(
             pieChartLessons,
@@ -72,6 +81,8 @@ class StatisticsActivity : AppCompatActivity() {
 
             override fun onNothingSelected() {}
         })
+
+        return view
     }
 
     // Configure PieChart
@@ -88,26 +99,26 @@ class StatisticsActivity : AppCompatActivity() {
         val legend = pieChart.legend
         legend.isEnabled = true
         legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER // Center horizontally
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM     // Align at the bottom
         legend.orientation = Legend.LegendOrientation.HORIZONTAL             // Display horizontally
         legend.setDrawInside(false) // Ensure it is outside the chart
 
 
         val data = PieData(dataSet)
+        pieChart.setUsePercentValues(true)
         pieChart.data = data
         pieChart.description.isEnabled = false
         pieChart.setDrawEntryLabels(false)
         pieChart.setUsePercentValues(true)
         pieChart.isRotationEnabled = false
         pieChart.centerText = centerText
-        pieChart.setCenterTextSize(16f)
+        pieChart.setCenterTextSize(14f)
         pieChart.invalidate() // Refresh chart
     }
 
-    // Navigate to detail page
+    // Navigate to StatisticsDetailActivity
     private fun navigateToDetailActivity(type: String) {
-        val intent = Intent(this, StatisticsDetailActivity::class.java)
-        intent.putExtra("type", type) // Pass data type (correctWords, incorrectWords, ...)
+        val intent = Intent(activity, StatisticsDetailActivity::class.java)
+        intent.putExtra("type", type)  // Pass data type (correctWords, incorrectWords, etc.)
         startActivity(intent)
     }
 }

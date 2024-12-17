@@ -4,21 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="4dp"
+    android:padding="4dp"
+    android:layout_marginVertical="4dp"
     >
 
 
-    <FrameLayout
-        android:id="@+id/item_letter_slot"
+    <TextView
+        android:id="@+id/item_letter_slot_tv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="#ccc"
+        android:background="@drawable/rounded_semi_transparent_background"
+        android:backgroundTint="@color/coral"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:foregroundGravity="center">
+        >
 
-    </FrameLayout>
+        <!--
+                    android:foregroundGravity="center"
+        -->
+
+    </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

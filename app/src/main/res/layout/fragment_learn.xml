@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
                     android:fontFamily="@font/baloo"
-                    android:text="Học thêm cái mới mỗi ngày"
+                    android:text="Học từ vựng mới mỗi ngày"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/baloo"
-                    android:text="Ôn tập hằng ngày"
+                    android:text="Học tập"
                     android:textAlignment="center"
                     android:textColor="#070000"
                     android:textSize="26sp"
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:fontFamily="@font/baloo"
-                    android:text="GIAO TIẾP"
+                    android:text="Giao tiếp"
                     android:textSize="24sp" />
 
                 <androidx.cardview.widget.CardView

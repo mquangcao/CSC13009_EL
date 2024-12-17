@@ -26,6 +26,7 @@ import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
 import java.util.Calendar
 import android.Manifest
 import android.util.Log
+import androidx.core.app.ActivityOptionsCompat
 
 
 @Suppress("DEPRECATION")
@@ -88,22 +89,23 @@ class MainActivity : AppCompatActivity() {
         slogan.startAnimation(bottomAnim)
 
         Handler().postDelayed({
-            changeFragment()
+//            changeFragment()
 //            val intent = Intent(this, LoginActivity::class.java)
-//
-//            val pairs = listOf(
-//                Pair(imageView, "logo_image"),
-//                Pair(logo, "logo_text"),
-//            )
-//
-//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
-//
-//            startActivity(intent, options.toBundle())
-//            finish()
+            val intent = Intent(this, DashboardActivity::class.java)
+
+            val pairs = listOf(
+                Pair(imageView, "logo_image"),
+                Pair(logo, "logo_text"),
+            )
+
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
+
+            startActivity(intent, options.toBundle())
+            finish()
         }, SPLASH_SCREEN.toLong())
 
-        /*val intent = Intent(this, WordNotificationReceiver::class.java)
-        sendBroadcast(intent)*/
+        val intent = Intent(this, WordNotificationReceiver::class.java)
+        sendBroadcast(intent)
     }
 
     private fun changeFragment() {
@@ -183,4 +185,11 @@ class MainActivity : AppCompatActivity() {
             Toast.LENGTH_LONG
         ).show()
     }
+
+//    private fun changeFragment() {
+//        val intent = Intent(this, DashboardActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//    }
+
 }

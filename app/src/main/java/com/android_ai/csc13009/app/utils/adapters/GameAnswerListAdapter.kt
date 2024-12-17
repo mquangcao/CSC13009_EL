@@ -13,7 +13,7 @@ class GameAnswerListAdapter (
 ) : RecyclerView.Adapter<GameAnswerListAdapter.GameAnswerListViewHolder>() {
 
     class GameAnswerListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val answerTextView: TextView = itemView.findViewById(R.id.item_letter_box)
+        val answerTextView: TextView = itemView.findViewById(R.id.item_letter_box_tv)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameAnswerListViewHolder {

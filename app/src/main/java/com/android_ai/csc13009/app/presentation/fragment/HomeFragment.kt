@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.repository.WordRepository
@@ -14,6 +15,7 @@ import com.android_ai.csc13009.app.presentation.viewmodel.WordViewModelFactory
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collectLatest
+
 
 class HomeFragment : Fragment() {
 
@@ -43,6 +45,10 @@ class HomeFragment : Fragment() {
         }
 
         wordViewModel.fetchRandomWord()
+        // Thêm StatisticsFragment vào HomeFragment
+        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, StatisticsFragment(), StatisticsFragment::class.java.simpleName)
+        transaction.commit()
 
         return view
     }

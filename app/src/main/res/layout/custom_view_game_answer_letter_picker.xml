@@ -20,15 +20,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="#ccc"
+            android:backgroundTint="@color/grayLight"
             android:orientation="horizontal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/game_answer_letter_picker_blocks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="#ccc"
+            android:backgroundTint="@color/grayLight"
             android:orientation="horizontal" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
