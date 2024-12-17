@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import com.android_ai.csc13009.R
@@ -45,12 +46,37 @@ class HomeFragment : Fragment() {
         }
 
         wordViewModel.fetchRandomWord()
-        // Thêm StatisticsFragment vào HomeFragment
-        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, StatisticsFragment(), StatisticsFragment::class.java.simpleName)
-        transaction.commit()
+
+        // Thêm fragment Daily mặc định khi mở Activity
+        if (savedInstanceState == null) {
+            val fragment = DailyStatisticsVocabularyFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .commit()
+        }
+
+        // Thiết lập sự kiện cho nút Daily
+        val btnDaily: Button = view.findViewById(R.id.btnDaily)
+        btnDaily.setOnClickListener {
+            val fragment = DailyStatisticsVocabularyFragment()
+            switchFragment(fragment)
+        }
+
+        // Thiết lập sự kiện cho nút Monthly
+        val btnMonthly: Button = view.findViewById(R.id.btnMonthly)
+        btnMonthly.setOnClickListener {
+            val fragment = MonthlyStatisticsVocabularyFragment()
+            switchFragment(fragment)
+        }
 
         return view
+    }
+
+    private fun switchFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit()
     }
 
 
