@@ -27,6 +27,11 @@ class DashboardActivity : AppCompatActivity() {
         bottomNavView = findViewById(R.id.bottom_nav)
         frame = findViewById(R.id.nav_host_fragment)
 
+        // Mặc định load HomeFragment khi vào DashboardActivity
+        if (savedInstanceState == null) {
+            loadFragment(HomeFragment())
+        }
+
         bottomNavView.setOnItemSelectedListener  {
             when (it.itemId) {
                 R.id.home -> {
