@@ -312,6 +312,51 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cLevel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="0.5dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="12dp"
+
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="2dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp">
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="12dp"
+                            android:src="@drawable/info_24px" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="12dp"
+                            android:layout_toRightOf="@+id/imageView10"
+                            android:fontFamily="@font/roboto_slab"
+                            android:text="Chọn level"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/arrow_forward_ios_24px" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
             </LinearLayout>
         </ScrollView>
 
