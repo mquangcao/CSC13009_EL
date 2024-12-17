@@ -26,6 +26,7 @@ import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
 import java.util.Calendar
 import android.Manifest
 import android.util.Log
+import androidx.core.app.ActivityOptionsCompat
 
 
 @Suppress("DEPRECATION")
@@ -103,8 +104,8 @@ class MainActivity : AppCompatActivity() {
             finish()
         }, SPLASH_SCREEN.toLong())
 
-        /*val intent = Intent(this, WordNotificationReceiver::class.java)
-        sendBroadcast(intent)*/
+        val intent = Intent(this, WordNotificationReceiver::class.java)
+        sendBroadcast(intent)
     }
 
     private fun changeFragment() {

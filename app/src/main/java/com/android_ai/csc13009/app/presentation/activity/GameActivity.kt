@@ -16,7 +16,7 @@ import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 import java.io.Serializable
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+
 class GameActivity : AppCompatActivity() {
     private val database : AppDatabase by lazy { AppDatabase.getInstance(this) }
 
@@ -25,7 +25,7 @@ class GameActivity : AppCompatActivity() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

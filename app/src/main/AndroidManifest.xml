@@ -18,12 +18,12 @@
         <activity
             android:name=".app.presentation.activity.StatisticsDetailActivity"
             android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".app.presentation.activity.StatisticsActivity"-->
+<!--            android:exported="false" />-->
         <activity
-            android:name=".app.presentation.activity.StatisticsActivity"
-            android:exported="false" />
-        <!--<activity
             android:name=".app.presentation.activity.GameActivity"
-             android:exported="false" />-->
+             android:exported="false" />
         <activity
             android:name=".app.presentation.activity.WordDetailActivity"
             android:exported="false" />
