@@ -16,20 +16,14 @@ public class WordGameEngine(override val maxRound: Int,
     override var score: Int = 0;
     override var highScore: Int = 0;
 
-    var index: Int = 0;
-    var currentWord: WordEntity? = null;
+    override var currentWord: WordEntity? = null;
     var streak: Int = 0;
     override val words: ArrayList<WordEntity> = ArrayList();
 
-    override fun startGame() {
-        for (i in 1..maxRound) {
-//            fetchWord();
-        }
-        nextRound()
-    }
-
     override fun endGame() {
-//        updateHighScore()
+        CoroutineScope(Dispatchers.IO).launch {
+            updateHighScore()
+        }
     }
 
     override fun submitAnswer(answer: String) {
@@ -44,15 +38,6 @@ public class WordGameEngine(override val maxRound: Int,
         }
     }
 
-    override fun nextRound() {
-        currentRound++;
-        if (currentRound >= maxRound) {
-            endGame();
-        }
-
-        currentWord = words[index];
-    }
-
     override fun getRule(): String {
         val rule: String =  "* This game is round-based, it will end after a number of round has passed \n" +
                             "* In each round, there will be an image representing a word \n" +
@@ -65,7 +50,7 @@ public class WordGameEngine(override val maxRound: Int,
     }
 
     override fun getGameName(): String {
-        return "Synonym";
+        return "Word game";
     }
 
 }

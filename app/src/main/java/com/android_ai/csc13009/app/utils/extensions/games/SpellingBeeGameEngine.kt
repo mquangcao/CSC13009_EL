@@ -17,19 +17,10 @@ public class SpellingBeeGameEngine(override val maxRound: Int,
     override var currentRound: Int = -1;
     override var score: Int = 0;
     override var highScore: Int = 0;
+    override var currentWord: WordEntity? = null;
 
     override val words: ArrayList<WordEntity> = ArrayList();
-    var index: Int = 0;
-    var currentWord: WordEntity? = null;
     var streak: Int = 0;
-
-
-    override fun startGame() {
-        for (i in 1..maxRound) {
-//            fetchWord();
-        }
-        nextRound()
-    }
 
 
     override fun endGame() {
@@ -52,14 +43,7 @@ public class SpellingBeeGameEngine(override val maxRound: Int,
     }
 
 
-    override fun nextRound() {
-        currentRound++;
-        if (currentRound >= maxRound) {
-            endGame();
-        }
 
-        currentWord = words[index];
-    }
 
     override fun getRule(): String {
         val rule: String =  "* his game is round-based, it will end after a number of round has passed \n" +

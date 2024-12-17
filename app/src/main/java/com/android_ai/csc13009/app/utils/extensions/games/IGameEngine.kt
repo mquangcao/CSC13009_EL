@@ -12,6 +12,7 @@ public interface IGameEngine : Serializable {
     var score: Int;
     var highScore: Int;
     val words: ArrayList<WordEntity>;
+    var currentWord: WordEntity?;
     val wordDao: WordDao;
     val gameDataDao: GameDataDao;
 
@@ -32,6 +33,16 @@ public interface IGameEngine : Serializable {
         val word = wordDao.getRandomWord();
         if (word != null) {
             words.add(word);
+        } else {
+            val defaultWords = WordEntity(
+                999,
+                "default word",
+                "default word meaning",
+                "default word audio",
+                "word",
+                null,
+                null)
+            words.add(defaultWords);
         }
     }
 
@@ -42,7 +53,7 @@ public interface IGameEngine : Serializable {
         }
     };
 
-    abstract fun startGame();
+    abstract suspend fun startGame();
     abstract fun endGame();
     abstract fun submitAnswer   (answer: String);
 

@@ -20,11 +20,11 @@ public class SynonymGameEngine(override var sessionDuration: Int,
     var timeLeft = sessionDuration * 1000L;
 
     var streak: Int = 0;
-    var index: Int = 0;
-    var currentWord: WordEntity? = null;
+//    var index: Int = 0;
     val currentWordAnswers = ArrayList<String>();
 
     override val words: ArrayList<WordEntity> = ArrayList();
+    override var currentWord: WordEntity? = null
 
     override lateinit var timer: CountDownTimer;
 
@@ -54,13 +54,13 @@ public class SynonymGameEngine(override var sessionDuration: Int,
 
 
 
-    override fun startGame() {
-//        fetchWord()
-        timer.start()
-    }
+
 
     override fun endGame() {
-        TODO("Not yet implemented")
+        CoroutineScope(Dispatchers.IO).launch {
+            updateHighScore()
+        }
+
     }
 
     override fun submitAnswer(answer: String) {
@@ -81,10 +81,6 @@ public class SynonymGameEngine(override var sessionDuration: Int,
 
     }
 
-
-    override fun nextRound() {
-//        fetchWord();
-    }
 
     override fun getRule(): String {
         val rule =  "* This game is time-based, which mean that the game will end after a set of time has ended \n" +
