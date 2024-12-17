@@ -64,6 +64,7 @@ abstract class AppDatabase : RoomDatabase() {
                 .createFromAsset("dictionary.db")
                 .fallbackToDestructiveMigration()
                 .build().also {
+
                     instance = it
                 }
             }

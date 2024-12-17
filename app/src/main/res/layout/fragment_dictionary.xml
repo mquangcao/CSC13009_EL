@@ -1,14 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".app.presentation.fragment.DictionaryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Search Bar -->
+    <LinearLayout
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_search_bar"
+        android:padding="8dp"
+        android:layout_margin="16dp"
+        android:layout_toStartOf="@id/ivSaveButton"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/ivSearchIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_search"
+            android:contentDescription="Search Icon"
+            app:tint="@color/greenPrimary" />
+
+        <AutoCompleteTextView
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Search for words..."
+            android:background="@null"
+            android:paddingHorizontal="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grayHint"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <!-- Save Button -->
+    <ImageView
+        android:id="@+id/ivSaveButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_alignTop="@id/searchBar"
+        android:layout_alignBottom="@id/searchBar"
+        android:src="@drawable/ic_save"
+        android:contentDescription="Save Button"
+        app:tint="@color/greenPrimary"
+        android:background="@drawable/bg_circle_button"
+        android:padding="8dp" />
+
+    <!-- RecyclerView for Search Results -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearchResults"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_below="@id/searchBar"
+        android:layout_marginTop="0dp"
+        android:elevation="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_search_bar"
+        android:visibility="gone" />
+
+    <!-- Filter Section -->
+    <HorizontalScrollView
+        android:id="@+id/filterSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchBar"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:id="@+id/tvPopular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Saved"
+                android:background="@drawable/bg_tag_chip_selected"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvDailyRoutine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:text="Daily Routine"
+                android:background="@drawable/bg_tag_chip"
+                android:textColor="@color/greenPrimary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:text="Family"
+                android:background="@drawable/bg_tag_chip"
+                android:textColor="@color/greenPrimary"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Word List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWordList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:layout_below="@id/filterSection"
+        android:layout_marginTop="16dp"
+        android:padding="8dp" />
+</RelativeLayout>
