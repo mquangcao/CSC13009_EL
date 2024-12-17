@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +21,7 @@
         <activity
             android:name=".app.presentation.activity.StatisticsActivity"
             android:exported="false" />
-        <activity
+        <!--<activity
             android:name=".app.presentation.activity.GameActivity"
              android:exported="false" />-->
         <activity
@@ -73,12 +74,15 @@
         <activity android:name=".HomeActivity"
             android:exported="true"> </activity>
 
-        <!--<activity android:name=".BasicActivity"
-            android:exported="true"> </activity>-->
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <receiver
+            android:name=".app.presentation.receiver.WordNotificationReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>

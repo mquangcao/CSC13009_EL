@@ -25,7 +25,7 @@ import com.android_ai.csc13009.app.data.local.entity.*
         GrammarTopicEntity::class,
         GrammarSubtopicEntity::class
                        ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -60,7 +60,6 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-
                 ).createFromAsset("dictionary.db")
                   .fallbackToDestructiveMigration()
                     .addCallback(object : RoomDatabase.Callback() {
