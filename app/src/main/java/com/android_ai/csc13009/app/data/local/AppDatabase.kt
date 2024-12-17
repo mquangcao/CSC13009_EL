@@ -20,7 +20,7 @@ import com.android_ai.csc13009.app.data.local.entity.*
         UserLessonLearnedEntity::class,
         UserChapterLearnedEntity::class,
         LearningDetailEntity::class,
-        GameDataEntity::class
+        GameDataEntity::class,
         LearningDetailEntity::class,
         GrammarLevelEntity::class,
         GrammarTopicEntity::class,
@@ -41,7 +41,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun wordTagDao(): WordTagDao
     abstract fun userProgressDao(): UserProgressDao
     abstract fun learningDetailDao(): LearningDetailDao
-   // abstract fun gameDataDao(): GameDataDao
+    abstract fun gameDataDao(): GameDataDao
 
     // grammar
     abstract fun grammarLevelDao(): GrammarLevelDao
@@ -62,11 +62,10 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     DATABASE_NAME
                 )
-                    .createFromAsset("dictionary.db")
-                    .fallbackToDestructiveMigration()
-                    .build().also {
-                        instance = it
-                    }
+                .createFromAsset("dictionary.db")
+                .fallbackToDestructiveMigration()
+                .build().also {
+                    instance = it
                 }
             }
         }
