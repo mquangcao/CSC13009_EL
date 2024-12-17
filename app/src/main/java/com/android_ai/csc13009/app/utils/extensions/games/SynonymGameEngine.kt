@@ -1,104 +1,101 @@
-//package com.android_ai.csc13009.app.utils.extensions.games;
-//
-//import android.os.CountDownTimer
-//import com.android_ai.csc13009.app.data.local.dao.GameDataDao
-//import com.android_ai.csc13009.app.data.local.dao.WordDao
-//import com.android_ai.csc13009.app.data.local.entity.WordEntity
-//import kotlinx.coroutines.CoroutineScope
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.launch
-//
-//public class SynonymGameEngine(override var sessionDuration: Int,
-//                               override val wordDao: WordDao,
-//                               override val gameDataDao: GameDataDao
-//) :
-//    ITimerBasedGameEngine {
-//    override var score: Int = 0;
-//    override var highScore: Int = 0;
-//
-//    var secLeft = sessionDuration;
-//    var timeLeft = sessionDuration * 1000L;
-//
-//    var streak: Int = 0;
+package com.android_ai.csc13009.app.utils.extensions.games;
+
+import android.os.CountDownTimer
+import com.android_ai.csc13009.app.data.local.dao.GameDataDao
+import com.android_ai.csc13009.app.data.local.dao.WordDao
+import com.android_ai.csc13009.app.data.local.entity.WordEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.Serializable
+
+public class SynonymGameEngine(override var sessionDuration: Int,
+                               override val wordDao: WordDao,
+                               override val gameDataDao: GameDataDao
+) :
+    ITimerBasedGameEngine, Serializable {
+    override var score: Int = 0;
+    override var highScore: Int = 0;
+
+    var secLeft = sessionDuration;
+    var timeLeft = sessionDuration * 1000L;
+
+    var streak: Int = 0;
 //    var index: Int = 0;
-//    var currentWord: WordEntity? = null;
-//    val currentWordAnswers = ArrayList<String>();
-//
-//    override val words: ArrayList<WordEntity> = ArrayList();
-//
-//    override lateinit var timer: CountDownTimer;
-//
-//    fun timerStart(timeLength: Long) {
-//        val timer = object : CountDownTimer(timeLength, 1000) {
-//
-//            override fun onTick(p0: Long) {
-//                timeLeft = p0;
-//                secLeft = (p0 / 1000).toInt()
-//            }
-//            override fun onFinish() {
-//                endGame();
-//            }
-//
-//        }
-//
-//        timer.start()
-//    }
-//
-//    fun timerPause() {
-//        timer.cancel()
-//    }
-//
-//    fun timerResume() {
-//        timerStart(timeLeft)
-//    }
-//
-//
-//
-//    override fun startGame() {
-////        fetchWord()
-//        timer.start()
-//    }
-//
-//    override fun endGame() {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun submitAnswer(answer: String) {
-//        timerPause()
-//
-//        if (answer in currentWordAnswers) {
-//            score += 1000;
-//            score += streak * 100;
-//            streak++;
-//            currentWordAnswers.remove(answer)
-//            if (currentWordAnswers.isEmpty()) {
-//                nextRound();
-//            }
-//        } else {
-//            streak = 0;
-//        }
-//        timerResume();
-//
-//    }
-//
-//
-//    override fun nextRound() {
-////        fetchWord();
-//    }
-//
-//    override fun getRule(): String {
-//        val rule =  "* This game is time-based, which mean that the game will end after a set of time has ended \n" +
-//                    "* In each round, there will be a word \n" +
-//                    "* You need to type out the words that are synonyms of that featured words \n" +
-//                    "* A round will end when all of the synonyms of that word are used, after that a new word will replace the current featured word \n" +
-//                    "* For each correct synonym, you will gain 1000 points, and an extra bonus for subsequent right answers" +
-//                    "* The same correct answer cannot be used twice for each round, the previous answers will be shown in a list \n" +
-//                    "* If the word is incorrect, the bonus will be lost and you will not gain any point for that answer"
-//
-//        return rule;
-//    }
-//
-//    override fun getGameName(): String {
-//        return "Synonym";
-//    }
-//}
+    val currentWordAnswers = ArrayList<String>();
+
+    override val words: ArrayList<WordEntity> = ArrayList();
+    override var currentWord: WordEntity? = null
+
+    override lateinit var timer: CountDownTimer;
+
+    fun timerStart(timeLength: Long) {
+        val timer = object : CountDownTimer(timeLength, 1000) {
+
+            override fun onTick(p0: Long) {
+                timeLeft = p0;
+                secLeft = (p0 / 1000).toInt()
+            }
+            override fun onFinish() {
+                endGame();
+            }
+
+        }
+
+        timer.start()
+    }
+
+    fun timerPause() {
+        timer.cancel()
+    }
+
+    fun timerResume() {
+        timerStart(timeLeft)
+    }
+
+
+
+
+
+    override fun endGame() {
+        CoroutineScope(Dispatchers.IO).launch {
+            updateHighScore()
+        }
+
+    }
+
+    override fun submitAnswer(answer: String) {
+        timerPause()
+
+        if (answer in currentWordAnswers) {
+            score += 1000;
+            score += streak * 100;
+            streak++;
+            currentWordAnswers.remove(answer)
+            if (currentWordAnswers.isEmpty()) {
+                nextRound();
+            }
+        } else {
+            streak = 0;
+        }
+        timerResume();
+
+    }
+
+
+    override fun getRule(): String {
+        val rule =  "* This game is time-based, which mean that the game will end after a set of time has ended \n" +
+                    "* In each round, there will be a word \n" +
+                    "* You need to type out the words that are synonyms of that featured words \n" +
+                    "* A round will end when all of the synonyms of that word are used, after that a new word will replace the current featured word \n" +
+                    "* For each correct synonym, you will gain 1000 points, and an extra bonus for subsequent right answers" +
+                    "* The same correct answer cannot be used twice for each round, the previous answers will be shown in a list \n" +
+                    "* If the word is incorrect, the bonus will be lost and you will not gain any point for that answer"
+
+        return rule;
+    }
+
+    override fun getGameName(): String {
+        return "Synonym";
+    }
+}
