@@ -160,14 +160,14 @@ class GameSessionFragment : Fragment() {
     private fun setAnswerLetterPicker(layout: Int) {
         setAnswer(layout)
         // set adapter for answer choices (n+ items for n-length word (n right and 1+ wrong))
-        val correctAnswer = gameEngine?.words?.lastOrNull()?.word ?: "default"
+        val correctAnswer = gameEngine!!.currentWord!!.word
         val extraCount = correctAnswer.length / 2
 
         val randomExtraChars = (1..extraCount)
             .map { ('A'..'Z').random() }
             .joinToString("")
 
-        val answerWithExtraChars = "$correctAnswer$randomExtraChars"
+        val answerWithExtraChars = "${correctAnswer}${randomExtraChars}"
 
         val scrambledWord = answerWithExtraChars.toCharArray().toList().shuffled()
 
@@ -209,6 +209,7 @@ class GameSessionFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun toResultFragment() {
         (requireActivity() as GameActivity).changeFragment(GameResultFragment.newInstance())
     }

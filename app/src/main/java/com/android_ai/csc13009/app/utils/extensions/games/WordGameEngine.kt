@@ -13,7 +13,7 @@ public class WordGameEngine(override val maxRound: Int,
                             override val gameDataDao: GameDataDao
 ) :
     IProgressBasedGameEngine, Serializable {
-    override var currentRound: Int = 0;
+    override var currentRound: Int = -1;
     override var score: Int = 0;
     override var highScore: Int = 0;
 
