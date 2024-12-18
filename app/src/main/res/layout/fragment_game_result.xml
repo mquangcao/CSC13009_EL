@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/baloo"
             android:text="@string/game_result_score"
             android:textAlignment="center"
             android:textSize="24sp" />
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16sp"
             android:text="9999"
+            android:fontFamily="@font/baloo"
             android:textAlignment="center"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -40,6 +42,7 @@
             android:textAllCaps="true"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:fontFamily="@font/baloo"
             android:textAlignment="center"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -54,12 +57,17 @@
 
         <Button
             android:id="@+id/game_exit_bt"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="64dp"
             android:layout_marginLeft="6sp"
             android:layout_marginRight="6sp"
             android:layout_marginBottom="16sp"
-            android:text="@string/game_result_exit_game_button" />
+            android:layout_gravity="center"
+            android:paddingHorizontal="50dp"
+            android:textColor="@color/white"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@color/greenPrimary"
+            android:text="@string/game_exit_button" />
 
     </LinearLayout>
 </FrameLayout>
