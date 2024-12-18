@@ -6,10 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
+import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 class GameResultFragment : Fragment() {
     private lateinit var gameEngine: IGameEngine
@@ -33,6 +41,26 @@ class GameResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         gameEngine = (requireActivity() as GameActivity).gameEngine!!
+        val scoreView = view.findViewById<TextView>(R.id.game_result_score_content_tv)
+        val score = gameEngine.score
+        var extraText = ""
+        if (score > gameEngine.highScore) {
+            extraText = "\nNew Record!"
+        }
+        scoreView.text = "${score}$extraText"
+
+        CoroutineScope(Dispatchers.IO).launch {
+            gameEngine.updateHighScore()
+        }
+
+        val featuredWordView = view.findViewById<RecyclerView>(R.id.game_result_word_list_rv)
+//        val dictionaryAdapter = DictionaryAdapter(gameEngine.words)
+//        featuredWordView.adapter = dictionaryAdapter(dictionaryAdapter)
+
+        val returnButton = view.findViewById<Button>(R.id.game_exit_bt)
+        returnButton.setOnClickListener {
+            requireActivity().finish()
+        }
     }
 
     companion object {

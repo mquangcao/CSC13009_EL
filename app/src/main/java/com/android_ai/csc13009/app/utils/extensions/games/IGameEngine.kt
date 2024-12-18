@@ -63,9 +63,6 @@ public interface IGameEngine : Serializable {
 
     fun endGame() {
         gameState = GameState.FINISHED;
-        CoroutineScope(Dispatchers.IO).launch {
-            updateHighScore();
-        }
     };
 
     suspend fun startGame() {
