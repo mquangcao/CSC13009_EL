@@ -8,49 +8,54 @@
     android:background="@color/white"
     tools:context=".app.presentation.activity.WordDetailActivity"
     android:fitsSystemWindows="true"
-    android:paddingTop="16dp">
+    android:paddingTop="0dp">
 
-    <!-- Back Button -->
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_back"
-        android:contentDescription="Back"
-        app:tint="@color/greenPrimary"
+    <!-- Header Frame (Back, Title, Bookmark) -->
+    <FrameLayout
+        android:id="@+id/headerFrame"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/white"
+        android:elevation="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fitsSystemWindows="true"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Bookmark Icon -->
-    <ImageView
-        android:id="@+id/ivBookmark"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_save"
-        android:contentDescription="Bookmark"
-        app:tint="@color/greenPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center_vertical|start"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back"
+            app:tint="@color/greenPrimary"
+            android:fitsSystemWindows="true"/>
 
-    <!-- Word Header -->
-    <TextView
-        android:id="@+id/tvWordHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="go"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivBack"
-        app:layout_constraintEnd_toStartOf="@id/ivBookmark"
-        app:layout_constraintHorizontal_bias="0.5" />
+        <!-- Word Header -->
+        <TextView
+            android:id="@+id/tvWordHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="go"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+        <!-- Bookmark Icon -->
+        <ImageView
+            android:id="@+id/ivBookmark"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center_vertical|end"
+            android:src="@drawable/ic_save"
+            android:contentDescription="Bookmark"
+            app:tint="@color/greenPrimary" />
+    </FrameLayout>
 
     <!-- Word and Pronunciation -->
     <LinearLayout
@@ -58,8 +63,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvWordHeader"
+        android:layout_marginTop="0dp"
+        android:padding="20dp"
+        android:elevation="8dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/headerFrame"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -97,9 +105,12 @@
         android:id="@+id/rvWordDetails"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="0dp"
         android:elevation="0dp"
-        android:background="@color/white"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:overScrollMode="never"
+        android:background="@color/background"
         app:layout_constraintTop_toBottomOf="@id/layoutWordPronunciation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
