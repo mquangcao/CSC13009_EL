@@ -18,26 +18,10 @@ public class WordGameEngine(override val maxRound: Int,
     override var highScore: Int = 0;
 
     override var currentWord: WordEntity? = null;
-    var streak: Int = 0;
+    override var streak: Int = 0
+    override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING
     override val words: ArrayList<WordEntity> = ArrayList();
 
-    override fun endGame() {
-        CoroutineScope(Dispatchers.IO).launch {
-            updateHighScore()
-        }
-    }
-
-    override fun submitAnswer(answer: String) {
-        if (answer == currentWord?.word) {
-            score += 1000;
-            score += streak * 100;
-            streak++;
-            nextRound();
-        } else {
-            streak = 0;
-            nextRound();
-        }
-    }
 
     override fun getRule(): String {
         val rule: String =  "* This game is round-based, it will end after a number of round has passed \n" +
@@ -51,7 +35,7 @@ public class WordGameEngine(override val maxRound: Int,
     }
 
     override fun getGameName(): String {
-        return "Word game";
+        return "Guess the meaning";
     }
 
 }

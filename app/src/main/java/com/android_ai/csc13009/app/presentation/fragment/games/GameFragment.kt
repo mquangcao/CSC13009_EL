@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.presentation.fragment
+package com.android_ai.csc13009.app.presentation.fragment.games
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.utils.adapters.GameSelectorAdapter
-import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
