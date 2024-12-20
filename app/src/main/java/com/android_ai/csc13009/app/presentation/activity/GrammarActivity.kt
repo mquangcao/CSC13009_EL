@@ -16,7 +16,7 @@ import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.entity.GrammarLevelEntity
 import com.android_ai.csc13009.app.data.local.repository.GrammarLevelRepository
 import com.android_ai.csc13009.app.data.local.repository.GrammarTopicRepository
-import com.android_ai.csc13009.app.domain.repository.model.GrammarTopic
+import com.android_ai.csc13009.app.domain.models.GrammarTopic
 import com.android_ai.csc13009.app.utils.adapter.GrammarTopicAdapter
 
 class GrammarActivity : AppCompatActivity() {

@@ -7,8 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.data.repository.ChapterRepository
-import com.android_ai.csc13009.app.domain.models.Lesson
+import com.android_ai.csc13009.app.data.local.repository.ChapterRepository
 import com.android_ai.csc13009.app.domain.repository.IChapterRepository
 import com.android_ai.csc13009.app.utils.adapter.LessonAdapter
 import com.bumptech.glide.Glide

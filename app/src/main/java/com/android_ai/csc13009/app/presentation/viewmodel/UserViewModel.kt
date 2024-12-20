@@ -4,8 +4,8 @@ package com.android_ai.csc13009.app.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android_ai.csc13009.app.domain.repository.model.UserModel
-import com.android_ai.csc13009.app.domain.repository.repository.UserRepository
+import com.android_ai.csc13009.app.domain.models.UserModel
+import com.android_ai.csc13009.app.data.local.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

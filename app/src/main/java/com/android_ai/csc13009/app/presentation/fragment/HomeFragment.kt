@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         val tvPronunciation = view.findViewById<TextView>(R.id.tvPronunciation)
 
         lifecycleScope.launchWhenStarted {
-            wordViewModel.wordForToday.collectLatest { word ->
+            wordViewModel.wordModelForToday.collectLatest { word ->
                 word?.let {
                     tvWord.text = it.word
                     tvPronunciation.text = it.pronunciation?.trim() ?: "N/A"// Xử lý khi pronunciation null

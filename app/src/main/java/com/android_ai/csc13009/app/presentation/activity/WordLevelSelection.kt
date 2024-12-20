@@ -10,8 +10,7 @@ import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModelFactory
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.dao.UserDao
-import com.android_ai.csc13009.app.domain.repository.repository.UserRepository
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.android_ai.csc13009.app.data.local.repository.UserRepository
 
 class WordLevelSelection : AppCompatActivity() {
 
