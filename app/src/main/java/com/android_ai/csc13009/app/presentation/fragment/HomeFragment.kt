@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
-import com.android_ai.csc13009.app.data.local.repository.WordRepository
+import com.android_ai.csc13009.app.data.repository.WordRepository
 import com.android_ai.csc13009.app.presentation.viewmodel.WordForTodayViewModel
 import com.android_ai.csc13009.app.presentation.viewmodel.WordViewModelFactory
 import androidx.fragment.app.viewModels

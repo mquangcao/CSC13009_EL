@@ -10,7 +10,7 @@ import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModelFactory
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.dao.UserDao
-import com.android_ai.csc13009.app.data.local.repository.UserRepository
+import com.android_ai.csc13009.app.data.repository.UserRepository
 
 class WordLevelSelection : AppCompatActivity() {
 
@@ -27,10 +27,10 @@ class WordLevelSelection : AppCompatActivity() {
         val tvUserName = findViewById<TextView>(R.id.tvUserName)
 
         // Khởi tạo UserRepository và UserViewModel
-        val userDao: UserDao = AppDatabase.getInstance(this).userDao()
-        val userRepository = UserRepository(userDao)
-        val userViewModelFactory = UserViewModelFactory(userRepository)
-        userViewModel = userViewModelFactory.create(UserViewModel::class.java)
+        //val userDao: UserDao = AppDatabase.getInstance(this).userDao()
+        //val userRepository = UserRepository(userDao)
+        //val userViewModelFactory = UserViewModelFactory(userRepository)
+        //userViewModel = userViewModelFactory.create(UserViewModel::class.java)
 
         // ID của người dùng cần hiển thị
         val userId = "2" // Thay ID của người dùng

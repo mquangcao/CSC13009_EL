@@ -2,12 +2,20 @@ package com.android_ai.csc13009.app.presentation.activity
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreUserRepository
+import com.android_ai.csc13009.app.data.repository.UserRepository
+import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 
 class SingUpActivity : AppCompatActivity() {
     private lateinit var btnCallSingUp : Button
@@ -47,5 +55,42 @@ class SingUpActivity : AppCompatActivity() {
             singup_password_confirm.error = "Please enter password confirm"
             return
         }
+
+        if (password.length < 6) {
+            singup_password.error = "Password must be at least 6 characters long" //Due to FirebaseAuth
+            return
+        }
+
+        if (password != passwordConfirm) {
+            this.singup_password_confirm.error = "Confirm Password not match"
+            return
+        }
+
+        try {
+            // Initialize repositories with Firebase instances
+            val firebaseAuth = FirebaseAuth.getInstance()
+            val firestore = FirebaseFirestore.getInstance()
+
+            val userRepository = UserRepository(FirebaseAuthRepository(firebaseAuth), FirestoreUserRepository(firestore))
+            val viewModel = UserViewModel(userRepository)
+            // Call the register method in the ViewModel (which interacts with Repository)
+            viewModel.registerUser(email, password, "", "")
+            onRegisterSuccess()
+        } catch (e: Exception) {
+            // Handle any errors (e.g., network issues, Firebase errors)
+            onRegisterFailure("Error: ${e.message}")
+        }
+    }
+
+    private fun onRegisterSuccess() {
+        // Logic to handle successful registration (e.g., navigate to another screen)
+        Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+        // Optionally, navigate to the login or main screen
+        // startActivity(Intent(this, MainActivity::class.java))
+    }
+
+    private fun onRegisterFailure(errorMessage: String) {
+        // Logic to handle registration failure
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 }

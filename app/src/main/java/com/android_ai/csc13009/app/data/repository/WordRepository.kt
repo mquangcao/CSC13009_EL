@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.data.local.repository
+package com.android_ai.csc13009.app.data.repository
 
 import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.domain.models.WordModel

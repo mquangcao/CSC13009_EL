@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "927069034699",
+    "project_id": "csc13009el",
+    "storage_bucket": "csc13009el.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927069034699:android:ee880255618cff7544a34e",
+        "android_client_info": {
+          "package_name": "com.android_ai.csc13009"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpx6VF6yDN8a6WESA00COnMlbNVPHeB8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

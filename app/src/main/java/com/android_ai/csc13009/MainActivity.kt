@@ -27,6 +27,7 @@ import java.util.Calendar
 import android.Manifest
 import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
+import com.android_ai.csc13009.app.presentation.activity.LoginActivity
 
 
 @Suppress("DEPRECATION")
@@ -89,9 +90,9 @@ class MainActivity : AppCompatActivity() {
         slogan.startAnimation(bottomAnim)
 
         Handler().postDelayed({
-//            changeFragment()
-//            val intent = Intent(this, LoginActivity::class.java)
-            val intent = Intent(this, DashboardActivity::class.java)
+            //changeFragment()
+            val intent = Intent(this, LoginActivity::class.java)
+            //val intent = Intent(this, DashboardActivity::class.java)
 
             val pairs = listOf(
                 Pair(imageView, "logo_image"),
