@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.remote.model.LoginState
 import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreUserRepository
 import com.android_ai.csc13009.app.data.repository.UserRepository
@@ -66,27 +68,36 @@ class SingUpActivity : AppCompatActivity() {
             return
         }
 
-        try {
-            // Initialize repositories with Firebase instances
-            val firebaseAuth = FirebaseAuth.getInstance()
-            val firestore = FirebaseFirestore.getInstance()
+        // Initialize repositories with Firebase instances
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val firestore = FirebaseFirestore.getInstance()
 
-            val userRepository = UserRepository(FirebaseAuthRepository(firebaseAuth), FirestoreUserRepository(firestore))
-            val viewModel = UserViewModel(userRepository)
-            // Call the register method in the ViewModel (which interacts with Repository)
-            viewModel.registerUser(email, password, "", "")
-            onRegisterSuccess()
-        } catch (e: Exception) {
-            // Handle any errors (e.g., network issues, Firebase errors)
-            onRegisterFailure("Error: ${e.message}")
-        }
+        val userRepository = UserRepository(FirebaseAuthRepository(firebaseAuth), FirestoreUserRepository(firestore))
+        val viewModel = UserViewModel(userRepository)
+        // Call the register method in the ViewModel (which interacts with Repository)
+        viewModel.registerUser(email, password, "", "")
+
+        viewModel.loginState.observe(this, { state ->
+            when (state) {
+                is LoginState.Success -> {
+                    onRegisterSuccess()
+                }
+                is LoginState.Error -> {
+                    // Show error message
+                    onRegisterFailure(state.message)
+                }
+                LoginState.Loading -> {
+                    // Show a loading indicator
+                }
+            }
+        })
     }
 
     private fun onRegisterSuccess() {
         // Logic to handle successful registration (e.g., navigate to another screen)
         Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
         // Optionally, navigate to the login or main screen
-        // startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun onRegisterFailure(errorMessage: String) {

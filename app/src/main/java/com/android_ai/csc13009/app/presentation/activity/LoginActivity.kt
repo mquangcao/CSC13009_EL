@@ -5,14 +5,25 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.remote.model.LoginState
+import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreUserRepository
+import com.android_ai.csc13009.app.data.repository.UserRepository
+import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var email : TextInputLayout
+    private lateinit var password : TextInputLayout
     private lateinit var btnCallSingUp : Button
     private lateinit var  tvLogoName : TextView
     private lateinit var  tvLogoDesc : TextView
@@ -31,6 +42,8 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        email = findViewById(R.id.email)
+        password = findViewById(R.id.password)
         btnCallSingUp = findViewById(R.id.btnCallSingUp)
         tvLogoName = findViewById(R.id.tvLogoName)
         tvLogoDesc = findViewById(R.id.tvLogoDesc)
@@ -54,8 +67,44 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnSingIn.setOnClickListener {
-            val dashboardIntent = Intent(this, DashboardActivity::class.java)
-            startActivity(dashboardIntent)
+            val email = email.editText?.text.toString()
+            val password = password.editText?.text.toString()
+
+
+            // Initialize repositories with Firebase instances
+            val firebaseAuth = FirebaseAuth.getInstance()
+            val firestore = FirebaseFirestore.getInstance()
+
+            val userRepository = UserRepository(FirebaseAuthRepository(firebaseAuth), FirestoreUserRepository(firestore))
+            val viewModel = UserViewModel(userRepository)
+            // Call the register method in the ViewModel (which interacts with Repository)
+            viewModel.loginUser(email, password)
+
+            viewModel.loginState.observe(this) { state ->
+                when (state) {
+                    is LoginState.Success -> {
+                        onLoginSuccess()
+                    }
+                    is LoginState.Error -> {
+                        onLoginFailure(state.message)
+                    }
+                    LoginState.Loading -> {
+                        // Show a loading indicator
+                    }
+                }
+            }
         }
+    }
+
+    private fun onLoginSuccess() {
+        // Logic to handle successful login (e.g., navigate to another screen)
+        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+        // Optionally, navigate to the login or main screen
+        startActivity(Intent(this, DashboardActivity::class.java))
+    }
+
+    private fun onLoginFailure(errorMessage: String) {
+        // Logic to handle login failure
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 }

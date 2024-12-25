@@ -33,15 +33,15 @@ class WordLevelSelection : AppCompatActivity() {
         //userViewModel = userViewModelFactory.create(UserViewModel::class.java)
 
         // ID của người dùng cần hiển thị
-        val userId = "2" // Thay ID của người dùng
-
-        userViewModel.getUserById(userId) { userModel ->
-            if (userModel != null) {
-                tvUserName.text = userModel.fullName // Cập nhật tên đầy đủ
-            } else {
-                tvUserName.text = "User not found" // Không tìm thấy người dùng
-            }
-        }
+//        val userId = "2" // Thay ID của người dùng
+//
+//        userViewModel.getUserById(userId) { userModel ->
+//            if (userModel != null) {
+//                tvUserName.text = userModel.fullName // Cập nhật tên đầy đủ
+//            } else {
+//                tvUserName.text = "User not found" // Không tìm thấy người dùng
+//            }
+//        }
         // Dữ liệu mẫu
         /*val sampleUsers = listOf(
             UserEntity(

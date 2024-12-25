@@ -28,6 +28,7 @@ import android.Manifest
 import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 
 @Suppress("DEPRECATION")
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             //changeFragment()
-            val intent = Intent(this, LoginActivity::class.java)
+            //val intent = Intent(this, LoginActivity::class.java)
             //val intent = Intent(this, DashboardActivity::class.java)
 
             val pairs = listOf(
@@ -101,7 +102,15 @@ class MainActivity : AppCompatActivity() {
 
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
 
-            startActivity(intent, options.toBundle())
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser != null) {
+                val intent = Intent(this, DashboardActivity::class.java)
+                startActivity(intent, options.toBundle())
+            } else {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent, options.toBundle())
+            }
+
             finish()
         }, SPLASH_SCREEN.toLong())
 
