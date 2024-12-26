@@ -3,6 +3,7 @@ package com.android_ai.csc13009.app.presentation.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -81,7 +82,7 @@ class GrammarActivity : AppCompatActivity() {
             GrammarTopic(id = 7, levelId = 1, name = "Conditionals"),
             GrammarTopic(id = 8, levelId = 1, name = "Modals"),
             GrammarTopic(id = 9, levelId = 1, name = "Reported Speech"),
-            GrammarTopic(id = 10, levelId = 1, name = "Phrasal Verbs")
+            GrammarTopic(id = 10, levelId = 1, name = "Phrasal Verbs"),
         )
 
         val mockGrammarLevels = listOf(
@@ -95,8 +96,6 @@ class GrammarActivity : AppCompatActivity() {
             level?.let { mockGrammarTopics.filter { topic -> topic.levelId == level.id } } ?: emptyList()
         }
     }
-
-
 
 
     // Function to set up the RecyclerView with the topics list
