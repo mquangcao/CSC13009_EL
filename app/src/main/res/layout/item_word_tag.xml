@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <!-- Bottom layout (hidden initially, shown on swipe) -->
+    <FrameLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/red">
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Delete"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <!-- Top layout (default visible content) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tvWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:text="Sample Word" />
+    </LinearLayout>
+</com.daimajia.swipe.SwipeLayout>

@@ -62,6 +62,17 @@ class UserViewModel(
         }
     }
 
+    fun getCurrentUser() {
+        viewModelScope.launch {
+            val user = userRepository.getCurrentUser()
+            if (user != null) {
+                _loginState.postValue(LoginState.Success(user))
+            } else {
+                _loginState.postValue(LoginState.Error("Get failed. Please check your brain."))
+            }
+        }
+    }
+
     fun logout() {
         viewModelScope.launch {
             userRepository.logout()

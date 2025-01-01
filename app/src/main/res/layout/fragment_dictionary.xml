@@ -18,7 +18,7 @@
         android:background="@drawable/bg_search_bar"
         android:padding="8dp"
         android:layout_margin="16dp"
-        android:layout_toStartOf="@id/ivSaveButton"
+        android:layout_toStartOf="@id/ivTagButton"
         android:layout_alignParentStart="true">
 
         <ImageView
@@ -45,7 +45,7 @@
 
     <!-- Save Button -->
     <ImageView
-        android:id="@+id/ivSaveButton"
+        android:id="@+id/ivTagButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
@@ -53,7 +53,7 @@
         android:layout_alignTop="@id/searchBar"
         android:layout_alignBottom="@id/searchBar"
         android:src="@drawable/ic_save"
-        android:contentDescription="Save Button"
+        android:contentDescription="Tag Button"
         app:tint="@color/greenPrimary"
         android:background="@drawable/bg_circle_button"
         android:padding="8dp" />
