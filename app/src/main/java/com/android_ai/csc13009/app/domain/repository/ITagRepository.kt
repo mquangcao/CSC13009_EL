@@ -8,4 +8,6 @@ interface ITagRepository {
     suspend fun getUserTags(userId: String): List<Tag>
     suspend fun deleteTag(tagId: String)
     suspend fun getTagById(tagId: String): Tag?
+    suspend fun deleteWordFromTag(wordId: Int, tagId: String)
+    suspend fun updateTagName(tagId: String, newName: String)
 }

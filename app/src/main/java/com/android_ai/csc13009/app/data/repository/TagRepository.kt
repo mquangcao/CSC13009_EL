@@ -26,4 +26,12 @@ class TagRepository(
     override suspend fun getTagById(tagId: String): Tag? {
         return firestoreTagRepository.getTagById(tagId)
     }
+
+    override suspend fun deleteWordFromTag(wordId: Int, tagId: String) {
+        firestoreTagRepository.deleteWordFromTag(wordId, tagId)
+    }
+
+    override suspend fun updateTagName(tagId: String, newName: String) {
+        firestoreTagRepository.updateTagName(tagId, newName)
+    }
 }

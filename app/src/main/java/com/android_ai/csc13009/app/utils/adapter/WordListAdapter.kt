@@ -31,6 +31,10 @@ class WordListAdapter(
         return words.size
     }
 
+    fun currentList(): List<WordModel> {
+        return words
+    }
+
     fun updateList(newWords: List<WordModel>) {
         words = newWords
         notifyDataSetChanged()
@@ -72,7 +76,9 @@ class WordListAdapter(
                     if (openedSwipeLayout == swipeLayout) {
                         openedSwipeLayout = null
                     }
-                    isSwiping = false
+                    itemView.postDelayed({
+                        isSwiping = false
+                    }, 200)
                 }
 
                 override fun onStartClose(layout: SwipeLayout?) {

@@ -63,4 +63,15 @@ class TagViewModel(
             }
         }
     }
+
+    fun deleteWordFromTag(wordId: Int, tagId: String) {
+        viewModelScope.launch {
+            try {
+                tagRepository.deleteWordFromTag(wordId, tagId)
+                _tagState.postValue(TagState.Success("Word deleted successfully from tag."))
+            } catch (e: Exception) {
+                _tagState.postValue(TagState.Error("Error deleting word from tag: ${e.message}"))
+            }
+        }
+    }
 }

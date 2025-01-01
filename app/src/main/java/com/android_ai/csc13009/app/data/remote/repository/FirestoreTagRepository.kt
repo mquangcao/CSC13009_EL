@@ -71,4 +71,36 @@ class FirestoreTagRepository(private val firestore: FirebaseFirestore) {
             null
         }
     }
+
+    suspend fun deleteWordFromTag(wordId: Int, tagId: String) {
+        try {
+            val tagRef = firestore.collection("tags").document(tagId)
+            firestore.runTransaction { transaction ->
+                val tagSnapshot = transaction.get(tagRef)
+
+                // Retrieve the current word IDs as a list of numbers
+                val currentWordIds = (tagSnapshot.get("wordIds") as? List<*>)?.mapNotNull {
+                    (it as? Number)?.toInt()
+                } ?: emptyList()
+
+                // Check if the wordId exists and update if necessary
+                if (wordId in currentWordIds) {
+                    val updatedWordIds = currentWordIds.toMutableList().apply { remove(wordId) }
+                    transaction.update(tagRef, "wordIds", updatedWordIds)
+                }
+            }
+            Log.d("FirestoreTagRepository", "Word with ID $wordId successfully removed from tag $tagId.")
+        } catch (e: Exception) {
+            Log.e("FirestoreTagRepository", "Error deleting word from tag: ${e.message}")
+        }
+    }
+
+    suspend fun updateTagName(tagId: String, newName: String) {
+        try {
+            val tagRef = firestore.collection("tags").document(tagId)
+            tagRef.update("name", newName).await()
+        } catch (e: Exception) {
+            throw Exception("Failed to update tag name: ${e.message}")
+        }
+    }
 }

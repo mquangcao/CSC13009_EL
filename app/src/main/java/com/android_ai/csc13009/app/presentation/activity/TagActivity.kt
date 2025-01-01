@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -74,8 +75,9 @@ class TagActivity : AppCompatActivity() {
             onTagClicked = { tag ->
                 val intent = Intent(this, WordListActivity::class.java).apply {
                     putExtra("TAG_ID", tag.id)
+                    putExtra("TAG_NAME", tag.name)
                 }
-                startActivity(intent)
+                startActivityForResult(intent, 1)  // Request code 1 to handle the result
             },
             onDeleteClicked = { tag ->
                 showDeleteConfirmationDialog(tag)
@@ -169,4 +171,15 @@ class TagActivity : AppCompatActivity() {
         tagViewModel.deleteTag(tagId)
         tagViewModel.getUserTags(userId)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {  // Request code for WordListActivity
+                tagViewModel.getUserTags(userId)
+            }
+        }
+    }
+
 }

@@ -48,12 +48,12 @@
         <!-- Bookmark Icon -->
         <ImageView
             android:id="@+id/ivSettingTag"
-            android:layout_width="24dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_marginEnd="16dp"
             android:layout_gravity="center_vertical|end"
-            android:src="@drawable/ic_three_dots"
+            android:layout_marginEnd="16dp"
             android:contentDescription="SettingTag"
+            android:src="@drawable/ic_three_dots"
             app:tint="@color/greenPrimary" />
     </FrameLayout>
 
