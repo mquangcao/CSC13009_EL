@@ -1,12 +1,8 @@
 package com.android_ai.csc13009
 
 import com.android_ai.csc13009.app.presentation.receiver.WordNotificationReceiver
-import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -23,36 +19,34 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
-import java.util.Calendar
+import com.android_ai.csc13009.app.presentation.receiver.WordNotificationReceiver.Companion.scheduleNotifications
 import android.Manifest
-import android.util.Log
+import android.content.Intent
 import androidx.core.app.ActivityOptionsCompat
-
+import androidx.preference.PreferenceManager
 
 @Suppress("DEPRECATION")
-
-
 class MainActivity : AppCompatActivity() {
 
-    // Đăng ký yêu cầu quyền POST_NOTIFICATIONS
+    // Đăng ký yêu cầu quyền POST_NOTIFICATIONS cho Android 13+
     private val requestNotificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                setDailyNotification()
+                scheduleNotifications(this) // Lên lịch thông báo khi có quyền
             } else {
-                // Người dùng từ chối quyền
                 showPermissionDeniedMessage()
             }
         }
 
-    lateinit var topAnim : Animation
-    lateinit var bottomAnim : Animation
-    lateinit var imageView : ImageView
-    lateinit var logo : TextView
-    lateinit var slogan : TextView
+    // Khai báo biến cho hiệu ứng Splash
+    private lateinit var topAnim: Animation
+    private lateinit var bottomAnim: Animation
+    private lateinit var imageView: ImageView
+    private lateinit var logo: TextView
+    private lateinit var slogan: TextView
 
     companion object {
-        const val SPLASH_SCREEN = 3500
+        const val SPLASH_SCREEN = 3500 // Thời gian Splash Screen (ms)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,61 +54,65 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Tạo Notification Channel (Android 8+)
+        // Tạo kênh thông báo
         createNotificationChannel()
 
-        // Kiểm tra và yêu cầu quyền (nếu cần)
+        // Kiểm tra và yêu cầu quyền thông báo
         checkAndRequestNotificationPermission()
 
-        // Đặt lịch thông báo mỗi ngày
-        setDailyNotification()
+        // Hiệu ứng chuyển động cho Splash Screen
+        setupSplashAnimations()
 
+        // Điều hướng sau Splash
+        Handler().postDelayed({
+            navigateToDashboard()
+        }, SPLASH_SCREEN.toLong())
+
+        // Lên lịch thông báo dựa trên cài đặt (nếu đã cấp quyền)
+        scheduleNotifications(this)
+    }
+
+    // Tạo hiệu ứng Splash Screen
+    private fun setupSplashAnimations() {
+        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation)
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation)
+
+        // Kết nối giao diện
+        imageView = findViewById(R.id.imageView)
+        logo = findViewById(R.id.textView)
+        slogan = findViewById(R.id.textView2)
+
+        // Áp dụng hiệu ứng
+        imageView.startAnimation(topAnim)
+        logo.startAnimation(bottomAnim)
+        slogan.startAnimation(bottomAnim)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation)
-        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation)
-
-        // hooks
-        imageView = findViewById(R.id.imageView)
-        logo = findViewById(R.id.textView)
-        slogan = findViewById(R.id.textView2)
-
-
-        imageView.startAnimation(topAnim)
-        logo.startAnimation(bottomAnim)
-        slogan.startAnimation(bottomAnim)
-
-        Handler().postDelayed({
-//            changeFragment()
-//            val intent = Intent(this, LoginActivity::class.java)
-            val intent = Intent(this, DashboardActivity::class.java)
-
-            val pairs = listOf(
-                Pair(imageView, "logo_image"),
-                Pair(logo, "logo_text"),
-            )
-
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
-
-            startActivity(intent, options.toBundle())
-            finish()
-        }, SPLASH_SCREEN.toLong())
-
-        val intent = Intent(this, WordNotificationReceiver::class.java)
-        sendBroadcast(intent)
     }
 
-    private fun changeFragment() {
+    // Điều hướng tới Dashboard
+    private fun navigateToDashboard() {
         val intent = Intent(this, DashboardActivity::class.java)
-        startActivity(intent)
+
+        // Hiệu ứng chuyển tiếp
+        val pairs = listOf(
+            Pair(imageView, "logo_image"),
+            Pair(logo, "logo_text")
+        )
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            this,
+            *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray()
+        )
+
+        startActivity(intent, options.toBundle())
         finish()
     }
 
-
+    // Tạo kênh thông báo cho Android 8+
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -129,8 +127,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Kiểm tra và yêu cầu quyền thông báo cho Android 13+ (API 33+)
     private fun checkAndRequestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Chỉ cho API 33 trở lên
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
                     this,
                     Manifest.permission.POST_NOTIFICATIONS
@@ -138,58 +137,20 @@ class MainActivity : AppCompatActivity() {
             ) {
                 requestNotificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
             } else {
-                setDailyNotification()
+                scheduleNotifications(this) // Lên lịch thông báo ngay nếu đã có quyền
             }
         } else {
-            // Trường hợp API 30 trở xuống không cần quyền POST_NOTIFICATIONS
-            setDailyNotification()
+            // Android 12 trở xuống không cần quyền đặc biệt
+            scheduleNotifications(this)
         }
-
     }
 
-    private fun setDailyNotification() {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, WordNotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // Đặt giờ cố định cho thông báo (ví dụ: 8:00 AM)
-        val calendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 19)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-        }
-
-        // Nếu đã quá thời gian hiện tại, đặt cho ngày hôm sau
-        if (calendar.timeInMillis < System.currentTimeMillis()) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1)
-        }
-
-        // Đặt Alarm để lặp lại hàng ngày
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
-        Log.d("AlarmManager", "Notification set for: ${calendar.time}")
-
-    }
-
+    // Hiển thị thông báo nếu người dùng từ chối quyền
     private fun showPermissionDeniedMessage() {
-        // Hiển thị thông báo nếu người dùng từ chối cấp quyền
         Toast.makeText(
             this,
             "Ứng dụng cần quyền thông báo để gửi nhắc nhở hàng ngày.",
             Toast.LENGTH_LONG
         ).show()
     }
-
-//    private fun changeFragment() {
-//        val intent = Intent(this, DashboardActivity::class.java)
-//        startActivity(intent)
-//        finish()
-//    }
-
 }

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.domain.models.GrammarTopic
+import com.android_ai.csc13009.app.domain.repository.model.GrammarTopic
 import com.android_ai.csc13009.app.data.local.entity.GrammarTopicEntity
 
 class GrammarTopicAdapter(

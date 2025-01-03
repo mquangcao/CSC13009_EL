@@ -5,11 +5,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.domain.models.WordDetailItem
+import com.android_ai.csc13009.app.domain.repository.model.WordDetailItem
 import com.android_ai.csc13009.app.utils.adapter.WordDetailAdapter
+import org.w3c.dom.Text
 
 class WordDetailActivity : AppCompatActivity() {
     private lateinit var tvWordHeader: TextView

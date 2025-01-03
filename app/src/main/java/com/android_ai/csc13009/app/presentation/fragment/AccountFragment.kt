@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
 import com.android_ai.csc13009.app.presentation.activity.EditProfileActivity
+import com.android_ai.csc13009.app.presentation.activity.NotificationSettingsActivity
 import com.android_ai.csc13009.app.presentation.activity.WordLevelSelection
 import kotlin.math.log
 
@@ -19,6 +20,7 @@ import kotlin.math.log
 class AccountFragment : Fragment() {
     private lateinit var cLevel : CardView
     private lateinit var cInfo : CardView
+    private lateinit var cNotification : CardView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_account, container, false)
@@ -35,6 +37,11 @@ class AccountFragment : Fragment() {
             startActivity(intent)
         }
 
+        cNotification = view.findViewById(R.id.cNotification)
+        cNotification.setOnClickListener{
+            val intent = Intent(activity, NotificationSettingsActivity::class.java)
+            startActivity(intent)
+        }
 
         return view
     }

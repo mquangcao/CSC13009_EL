@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.repository.WordRepository
-import com.android_ai.csc13009.app.domain.models.WordModel
+import com.android_ai.csc13009.app.domain.repository.model.Word
 import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -27,7 +27,7 @@ class DictionaryFragment : Fragment() {
     private lateinit var rvSearchResults: RecyclerView
     private lateinit var dictionaryAdapter: DictionaryAdapter
 
-    private val wordModelList = mutableListOf<WordModel>()
+    private val wordList = mutableListOf<Word>()
     private lateinit var wordRepository: WordRepository
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
