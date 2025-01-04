@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,8 @@ import com.android_ai.csc13009.app.data.repository.WordRepository
 import com.android_ai.csc13009.app.domain.models.WordModel
 import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
 import com.android_ai.csc13009.app.presentation.activity.TagActivity
+import com.android_ai.csc13009.app.presentation.activity.WordDetailActivity
+import com.android_ai.csc13009.app.presentation.activity.WordScheduleActivity
 import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -30,6 +33,7 @@ class DictionaryFragment : Fragment() {
     private lateinit var etSearch: AutoCompleteTextView
     private lateinit var rvSearchResults: RecyclerView
     private lateinit var btnTag: ImageView
+    private lateinit var wordScheduleBanner: RelativeLayout
     private lateinit var dictionaryAdapter: DictionaryAdapter
 
     private val wordModelList = mutableListOf<WordModel>()
@@ -43,9 +47,18 @@ class DictionaryFragment : Fragment() {
         etSearch = view.findViewById(R.id.etSearch)
         rvSearchResults = view.findViewById(R.id.rvSearchResults)
         btnTag = view.findViewById(R.id.ivTagButton)
+        wordScheduleBanner = view.findViewById(R.id.rlWordSchedule)
 
         rvSearchResults.layoutManager = LinearLayoutManager(requireContext())
-        dictionaryAdapter = DictionaryAdapter(emptyList()) // Initial empty list
+        dictionaryAdapter = DictionaryAdapter(emptyList()) { wordModel ->
+            val context = requireContext()
+            val intent = Intent(context, WordDetailActivity::class.java)
+            intent.putExtra("word_id", wordModel.id)
+            intent.putExtra("word_text", wordModel.word) // Truyền từ cần hiển thị
+            intent.putExtra("word_pronunciation", wordModel.pronunciation)
+            intent.putExtra("word_details", wordModel.details)
+            context.startActivity(intent)
+        }// Initial empty list
         rvSearchResults.adapter = dictionaryAdapter // Attach adapter immediately
         return view
     }
@@ -64,7 +77,6 @@ class DictionaryFragment : Fragment() {
         val database = AppDatabase.getInstance(requireContext())
         val wordDao = database.wordDao()
         wordRepository = WordRepository(wordDao)
-
 
 
         // Setup RecyclerView
@@ -90,6 +102,11 @@ class DictionaryFragment : Fragment() {
 
         btnTag.setOnClickListener{
             startActivity(Intent(requireContext(), TagActivity::class.java))
+        }
+
+        wordScheduleBanner.setOnClickListener {
+            val intent = Intent(context, WordScheduleActivity::class.java)
+            startActivity(intent)
         }
     }
 

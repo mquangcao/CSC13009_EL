@@ -14,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSC13009"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
+        <activity
+            android:name=".app.presentation.activity.WordScheduleActivity"
+            android:exported="false" />
         <activity
             android:name=".app.presentation.activity.WordListActivity"
             android:exported="false" />

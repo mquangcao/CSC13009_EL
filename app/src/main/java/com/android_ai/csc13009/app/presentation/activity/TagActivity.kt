@@ -34,7 +34,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class TagActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityTagBinding
     private lateinit var tagViewModel: TagViewModel
     private lateinit var tagAdapter: TagAdapter
     private lateinit var rvTagList: RecyclerView

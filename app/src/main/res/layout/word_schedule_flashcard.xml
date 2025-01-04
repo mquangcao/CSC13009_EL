@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/navyBlue">
+
+    <!-- Word Display -->
+    <TextView
+        android:id="@+id/tvWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Word"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Phonetics -->
+    <TextView
+        android:id="@+id/tvPhonetics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvWord"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:text="phonetics"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <!-- Progress Indicator -->
+    <TextView
+        android:id="@+id/tvProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="1 / 10"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <!-- Remembered and Forgot Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnRemembered"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/greenPrimary"
+            android:text="Remembered"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnForgot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/greenSecondary"
+            android:text="Forgot"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</RelativeLayout>
