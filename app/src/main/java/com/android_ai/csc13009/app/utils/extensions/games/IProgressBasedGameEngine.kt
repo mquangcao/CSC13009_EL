@@ -4,7 +4,7 @@ public interface IProgressBasedGameEngine : IGameEngine {
     val maxRound: Int
     var currentRound: Int;
 
-    override fun submitAnswer(answer: String) {
+    override suspend fun submitAnswer(answer: String) {
         if (answer.uppercase() == currentWord?.word!!.uppercase()) {
             score += 1000;
             score += streak * 100;

@@ -12,11 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
+import com.android_ai.csc13009.app.data.local.repository.WordRepository
 import com.android_ai.csc13009.app.presentation.fragment.games.GameInterface
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
-import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.Serializable
 
 
@@ -44,10 +48,19 @@ class GameActivity : AppCompatActivity() {
     }
 
     public fun submitAnswer(answer: String) {
-        gameEngine?.submitAnswer(answer)
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.gamescreen_fcv)
-        if (currentFragment is GameInterface)  {
-            currentFragment.nextRound()
+
+//        gameEngine?.submitAnswer(answer)
+//        val currentFragment = supportFragmentManager.findFragmentById(R.id.gamescreen_fcv)
+//        if (currentFragment is GameInterface)  {
+//            currentFragment.nextRound()
+//        }
+        CoroutineScope(Dispatchers.Main).launch {
+            gameEngine?.submitAnswer(answer) // Ensure this completes first
+
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.gamescreen_fcv)
+            if (currentFragment is GameInterface) {
+                currentFragment.nextRound() // Now, this will only execute after `submitAnswer`
+            }
         }
     }
 
@@ -61,22 +74,17 @@ class GameActivity : AppCompatActivity() {
 
         val dataDao = database.gameDataDao()
         val wordDao = database.wordDao()
-
+        val wordRepository = WordRepository(wordDao);
         return when (passedData) {
-            0 -> SpellingBeeGameEngine(
+            0 -> LexiconGameEngine(
                 maxRound = 5,
                 gameDataDao = dataDao,
-                wordDao = wordDao
-            )
-            1 -> SynonymGameEngine(
-                sessionDuration = 60,
-                gameDataDao = dataDao,
-                wordDao = wordDao
+                wordRepository = wordRepository
             )
             2 -> WordGameEngine(
                 maxRound = 5,
                 gameDataDao = dataDao,
-                wordDao = wordDao
+                wordRepository = wordRepository
             )
             else -> null // Handle invalid cases gracefully
         }

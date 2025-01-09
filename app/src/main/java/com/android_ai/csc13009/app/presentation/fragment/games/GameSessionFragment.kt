@@ -20,7 +20,7 @@ import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
-import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 import kotlinx.coroutines.CoroutineScope
@@ -84,9 +84,9 @@ class GameSessionFragment : Fragment(), GameInterface {
 
     private fun setCanvas(){
         when (gameEngine?.javaClass) {
-            SpellingBeeGameEngine::class.java -> {
-                setQuestion(R.layout.custom_view_game_question_audio)
-                setAnswerLetterPicker(R.layout.custom_view_game_answer_letter_picker)
+            LexiconGameEngine::class.java -> {
+                setQuestion(R.layout.custom_view_game_question_text)
+                setAnswerListWriter(R.layout.custom_view_game_answer_list_writer)
             }
             SynonymGameEngine::class.java -> {
                 setQuestion(R.layout.custom_view_game_question_text)
@@ -111,8 +111,9 @@ class GameSessionFragment : Fragment(), GameInterface {
         questionLayout.addView(questionView)
 
         when (gameEngine?.javaClass) {
-            SpellingBeeGameEngine::class.java -> {
-//                setQuestionSpellingBeeGame(questionView)
+            LexiconGameEngine::class.java -> {
+                setQuestionLexiconGame(questionView)
+
             }
             SynonymGameEngine::class.java -> {
 //                setQuestionSynonymGame(questionView)
@@ -125,26 +126,33 @@ class GameSessionFragment : Fragment(), GameInterface {
 
     private fun setQuestionWordGame(view: View) {
         val wordTextView = view.findViewById<TextView>(R.id.game_session_question_prompt)
-        wordTextView.text = "What is this?"
-        // debug
-        wordTextView.text = "What is this \n ${gameEngine?.currentWord?.word}"
-
-//        val wordImageView = view.findViewById<ImageView>(R.id.game_session_question_content)
-//        val uri = gameEngine?.currentWord?.image
-//        val bitmap = bit
-//        wordImageView.setImageBitmap(gameEngine?.currentWord?.image)
+        val scrambledWord = gameEngine?.currentWord?.word?.toCharArray()?.toList()?.shuffled().toString()
+        wordTextView.text = "Unscramble this word \n $scrambledWord"
     }
 
-    private fun setQuestionSpellingBeeGame(view: View) {
+    private fun setQuestionLexiconGame(view: View) {
         val wordTextView = view.findViewById<TextView>(R.id.game_session_question_prompt)
-        wordTextView.text = "Spell this word"
-        // debug
-        wordTextView.text = "Spell this word (${gameEngine?.currentWord?.word})"
 
-//        val audioPlayer = view.findViewById<ImageButton>(R.id.game_session_question_content)
-//        audioPlayer.setOnClickListener(view, event -> {
-//            val audio = gameEngine?.currentWord?.audio
-//        })
+        val lexiconGameEngine = gameEngine as LexiconGameEngine;
+        val conditionText = lexiconGameEngine.currentCondition?.getConditionPrompt();
+
+        val stringbuilder = StringBuilder();
+        stringbuilder.appendLine(conditionText);
+
+        stringbuilder.appendLine("Entered words:")
+
+        val roundCount = lexiconGameEngine.maxRound;
+        val words = lexiconGameEngine.words
+        for (i in 1..roundCount) {
+            var text = "${i}.)";
+            if (i <= words.size) {
+                text += words[i-1].word
+            }
+            stringbuilder.appendLine(text);
+        }
+
+        wordTextView.text = stringbuilder.toString();
+
     }
 
     private fun setAnswer(layout: Int) {
@@ -198,13 +206,16 @@ class GameSessionFragment : Fragment(), GameInterface {
 
                 // Add the entered text to the RecyclerView's adapter
                 if (enteredText.isNotEmpty()) {
-                    gameEngine?.submitAnswer(enteredText)
+//                    gameEngine?.submitAnswer(enteredText)
+//                    nextRound()
+                    val activity = requireActivity() as GameActivity
+                    activity.submitAnswer(enteredText);
                 }
-
                 true // Indicate the event was handled
             } else {
                 false // Let the system handle other keys
             }
+
         }
     }
 

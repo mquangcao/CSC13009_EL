@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
+import com.android_ai.csc13009.app.data.local.repository.WordRepository
 import com.android_ai.csc13009.app.utils.adapters.GameSelectorAdapter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
-import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 
@@ -25,20 +27,24 @@ class GameFragment : Fragment() {
     }
 
     private fun createGameEngines(): List<IGameEngine> {
+        val wordDao = database.wordDao();
+        val wordRepository = WordRepository(wordDao)
         return listOf(
-            SpellingBeeGameEngine(
+            LexiconGameEngine(
                 maxRound = configMaxRound,
                 gameDataDao = database.gameDataDao(),
-                wordDao = database.wordDao()
-            ),
-            SynonymGameEngine(
-                sessionDuration = configSessionDuration,
-                gameDataDao = database.gameDataDao(),
-                wordDao = database.wordDao()
-            ), WordGameEngine(
+                wordRepository = wordRepository
+            )
+            , SynonymGameEngine(
                 maxRound = configMaxRound,
                 gameDataDao = database.gameDataDao(),
-                wordDao = database.wordDao()
+                wordRepository = wordRepository,
+                currentRound = 1
+            )
+            ,  WordGameEngine(
+                maxRound = configMaxRound,
+                gameDataDao = database.gameDataDao(),
+                wordRepository = wordRepository
             )
         )
     }
@@ -56,7 +62,7 @@ class GameFragment : Fragment() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.game_selector_list_rv)
         val adapter = GameSelectorAdapter(requireActivity(), gameEngines)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onCreateView(

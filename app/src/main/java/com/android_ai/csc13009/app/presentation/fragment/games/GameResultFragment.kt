@@ -54,8 +54,9 @@ class GameResultFragment : Fragment() {
         }
 
         val featuredWordView = view.findViewById<RecyclerView>(R.id.game_result_word_list_rv)
-//        val dictionaryAdapter = DictionaryAdapter(gameEngine.words)
-//        featuredWordView.adapter = dictionaryAdapter(dictionaryAdapter)
+        val dictionaryAdapter = DictionaryAdapter(gameEngine.words)
+        featuredWordView.adapter = dictionaryAdapter
+        featuredWordView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 
         val returnButton = view.findViewById<Button>(R.id.game_exit_bt)
         returnButton.setOnClickListener {

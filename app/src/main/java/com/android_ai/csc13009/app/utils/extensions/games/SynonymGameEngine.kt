@@ -1,24 +1,20 @@
 package com.android_ai.csc13009.app.utils.extensions.games;
 
-import android.os.CountDownTimer
 import com.android_ai.csc13009.app.data.local.dao.GameDataDao
-import com.android_ai.csc13009.app.data.local.dao.WordDao
-import com.android_ai.csc13009.app.data.local.entity.WordEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.android_ai.csc13009.app.data.local.repository.WordRepository
+import com.android_ai.csc13009.app.domain.repository.model.Word
 import java.io.Serializable
 
-public class SynonymGameEngine(override var sessionDuration: Int,
-                               override val wordDao: WordDao,
-                               override val gameDataDao: GameDataDao
+public class SynonymGameEngine(
+//    override val wordDao: WordDao,
+    override val wordRepository: WordRepository,
+    override val gameDataDao: GameDataDao,
+    override val maxRound: Int,
+    override var currentRound: Int
 ) :
-    ITimerBasedGameEngine, Serializable {
+    IProgressBasedGameEngine, Serializable {
     override var score: Int = 0;
     override var highScore: Int = 0;
-
-    var secLeft = sessionDuration;
-    var timeLeft = sessionDuration * 1000L;
 
     override var streak: Int = 0;
     override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING;
@@ -26,42 +22,11 @@ public class SynonymGameEngine(override var sessionDuration: Int,
     //    var index: Int = 0;
     val currentWordAnswers = ArrayList<String>();
 
-    override val words: ArrayList<WordEntity> = ArrayList();
-    override var currentWord: WordEntity? = null
-
-    override lateinit var timer: CountDownTimer;
-
-    fun timerStart(timeLength: Long) {
-        val timer = object : CountDownTimer(timeLength, 1000) {
-
-            override fun onTick(p0: Long) {
-                timeLeft = p0;
-                secLeft = (p0 / 1000).toInt()
-            }
-            override fun onFinish() {
-                endGame();
-            }
-
-        }
-
-        timer.start()
-    }
-
-    fun timerPause() {
-        timer.cancel()
-    }
-
-    fun timerResume() {
-        timerStart(timeLeft)
-    }
+    override val words: ArrayList<Word> = ArrayList();
+    override var currentWord: Word? = null
 
 
-
-
-
-
-    override fun submitAnswer(answer: String) {
-        timerPause()
+    override suspend fun submitAnswer(answer: String) {
 
         if (answer in currentWordAnswers) {
             score += 1000;
@@ -74,8 +39,6 @@ public class SynonymGameEngine(override var sessionDuration: Int,
         } else {
             streak = 0;
         }
-        timerResume();
-
     }
 
 

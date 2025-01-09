@@ -4,6 +4,8 @@ import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.GameDataEntity
 import com.android_ai.csc13009.app.data.local.entity.WordEntity;
+import com.android_ai.csc13009.app.domain.repository.model.Word;
+import com.android_ai.csc13009.app.data.local.repository.WordRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,9 +16,10 @@ import java.util.ArrayList;
 public interface IGameEngine : Serializable {
     var score: Int;
     var highScore: Int;
-    val words: ArrayList<WordEntity>;
-    var currentWord: WordEntity?;
-    val wordDao: WordDao;
+    val words: ArrayList<Word>;
+    var currentWord: Word?;
+//    val wordDao: WordDao;
+    val wordRepository: WordRepository;
     val gameDataDao: GameDataDao;
     var streak: Int
 
@@ -41,16 +44,17 @@ public interface IGameEngine : Serializable {
     };
 
     suspend fun fetchWord() {
-        val word = wordDao.getRandomWord();
+//        val word = wordDao.getRandomWord();
+        val word = wordRepository.getRandomWord();
         if (word != null) {
             words.add(word);
         } else {
-            val defaultWords = WordEntity(
-                999,
+            val defaultWord = Word(
+                -1,
                 "default word",
-                "default word meaning",
-                "default word audio")
-            words.add(defaultWords);
+                "",
+                "")
+            words.add(defaultWord);
         }
     }
 
@@ -69,7 +73,7 @@ public interface IGameEngine : Serializable {
         gameState = GameState.PLAYING;
     };
 
-    abstract fun submitAnswer   (answer: String);
+    abstract suspend fun submitAnswer   (answer: String);
 
     abstract fun nextRound();
     abstract fun getRule(): String;
