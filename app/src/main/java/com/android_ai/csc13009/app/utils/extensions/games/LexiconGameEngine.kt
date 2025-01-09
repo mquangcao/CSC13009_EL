@@ -18,10 +18,10 @@ public class LexiconGameEngine(
     override val gameDataDao: GameDataDao,
     override val wordRepository: WordRepository,
 ) :
+
     IGameEngine, Serializable {
     override var score: Int = 0;
     override var highScore: Int = 0;
-//    override var currentWord: WordEntity? = null;
     override var currentWord: Word? = null
     override var streak: Int = 0;
     override val words: ArrayList<Word> = ArrayList();
@@ -34,9 +34,19 @@ public class LexiconGameEngine(
     )
     var currentCondition: GameCondition? = null;
 
+    init {
+        CoroutineScope(Dispatchers.IO).launch {
+            fetchHighScore()
+        }
+    }
+
+
+
     override suspend fun submitAnswer(answer: String) {
         val currentWord = findWord(answer)
-        if (currentWord != null) {
+        if (currentWord != null && !words.contains(currentWord)) {
+
+
             val answerLength = answer.length;
             var answerScore = 100 * answerLength
             if (currentCondition?.validate(answer) == true) {

@@ -126,8 +126,26 @@ class GameSessionFragment : Fragment(), GameInterface {
 
     private fun setQuestionWordGame(view: View) {
         val wordTextView = view.findViewById<TextView>(R.id.game_session_question_prompt)
-        val scrambledWord = gameEngine?.currentWord?.word?.toCharArray()?.toList()?.shuffled().toString()
+        val word = gameEngine?.currentWord?.word
+        val scrambledWord = scrambleWord(word?: "")
+//        val scrambledWord = gameEngine?.currentWord?.word?.toCharArray()?.toList()?.shuffled().toString()
         wordTextView.text = "Unscramble this word \n $scrambledWord"
+    }
+
+    private fun scrambleWord(word: String, minGroupSize: Int = 2, maxGroupSize: Int = 4): String {
+        if (word.length <= minGroupSize) return word.toCharArray().toList().shuffled().joinToString("/")
+
+        val chunks = mutableListOf<String>()
+        var i = 0
+
+        while (i < word.length) {
+            val groupSize = (minGroupSize..maxGroupSize).random() // Randomly choose group size
+            val end = (i + groupSize).coerceAtMost(word.length) // Ensure within bounds
+            chunks.add(word.substring(i, end))
+            i = end
+        }
+
+        return chunks.shuffled().joinToString("/")
     }
 
     private fun setQuestionLexiconGame(view: View) {

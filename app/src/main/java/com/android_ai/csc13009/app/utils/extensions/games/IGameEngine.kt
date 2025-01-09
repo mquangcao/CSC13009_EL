@@ -9,6 +9,7 @@ import com.android_ai.csc13009.app.data.local.repository.WordRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.Serializable
 
 import java.util.ArrayList;
@@ -29,8 +30,6 @@ public interface IGameEngine : Serializable {
         FINISHED
     }
     var gameState: GameState;
-
-
 
     // default functions
     suspend fun fetchHighScore() {
@@ -67,6 +66,9 @@ public interface IGameEngine : Serializable {
 
     fun endGame() {
         gameState = GameState.FINISHED;
+        CoroutineScope(Dispatchers.IO).launch {
+            updateHighScore()
+        }
     };
 
     suspend fun startGame() {
