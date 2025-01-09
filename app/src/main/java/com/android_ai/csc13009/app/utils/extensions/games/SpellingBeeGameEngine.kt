@@ -34,13 +34,13 @@ public class SpellingBeeGameEngine(
     }
 
     override fun getRule(): String {
-        val rule =  "* This game is time-based, which mean that the game will end after a set of time has ended \n" +
-                    "* In each round, there will be a word \n" +
-                    "* You need to type out the words that are synonyms of that featured words \n" +
-                    "* A round will end when all of the synonyms of that word are used, after that a new word will replace the current featured word \n" +
-                    "* For each correct synonym, you will gain 1000 points, and an extra bonus for subsequent right answers" +
-                    "* The same correct answer cannot be used twice for each round, the previous answers will be shown in a list \n" +
-                    "* If the word is incorrect, the bonus will be lost and you will not gain any point for that answer"
+        val rule =  "* This game is round-based, which mean that the game will end after a number of rounds has ended \n" +
+                    "* In each round, there will be a word which you need to spell out \n" +
+                    "* You will be only provided with an audio and IPA of the word\n" +
+                    "* You need to drag and drop each letter into the correct position to form the correct word \n" +
+                    "* A round will end when all positions have been filled, after that point will be added and a new word will be generated to start a new round \n" +
+                    "* For each word you get correct, you will get 1000 points, and a bonus for each subsequent correct word \n" +
+                    "* When the word is incorrect, the bonus is lost and you will not gain any point for that round \n";
 
         return rule;
     }

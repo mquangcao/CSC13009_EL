@@ -37,4 +37,8 @@ class TTSHelper(context: Context) : TextToSpeech.OnInitListener {
         tts?.stop()
         tts?.shutdown()
     }
+
+    fun stop() {
+        tts?.stop()
+    }
 }

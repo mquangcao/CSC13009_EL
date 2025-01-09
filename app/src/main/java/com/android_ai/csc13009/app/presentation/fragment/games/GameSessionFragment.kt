@@ -157,20 +157,26 @@ class GameSessionFragment : Fragment(), GameInterface {
         stringBuilder.appendLine("Spell this word:")
         stringBuilder.appendLine(pronunciation)
         wordTextView.text = stringBuilder.toString()
+        val handler = Handler(Looper.getMainLooper())
+        var updateProgress: Runnable? = null
 
         val tts = TTSHelper(requireContext())
         audioButton.setOnClickListener {
             if (word != null) {
+                tts.stop()
+                updateProgress?.let { it -> handler.removeCallbacks(it) }
+
                 audioProgress.progress = 0
                 val estimatedDuration = tts.estimateSpeechDuration(word)
                 val updateInterval = 100 // Update every 100ms
 
+
                 tts.speak(word)
 
-                val handler = Handler(Looper.getMainLooper())
+
                 val startTime = System.currentTimeMillis()
 
-                val updateProgress = object : Runnable {
+                updateProgress = object : Runnable {
                     override fun run() {
                         val elapsedTime = System.currentTimeMillis() - startTime
                         val progress = ((elapsedTime.toFloat() / estimatedDuration) * 100).toInt()
@@ -184,7 +190,7 @@ class GameSessionFragment : Fragment(), GameInterface {
                     }
                 }
 
-                handler.post(updateProgress)
+                handler.post(updateProgress as Runnable)
             }
         }
     }

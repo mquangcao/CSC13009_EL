@@ -54,27 +54,38 @@
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/game_canvas_question_fl"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp">
+                <FrameLayout
+                    android:id="@+id/game_canvas_question_fl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
 
-            <FrameLayout
-                android:id="@+id/game_canvas_answer_fl"
+                    />
+            </ScrollView>
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5"
-                android:layout_gravity="center"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp">
+                <FrameLayout
+                    android:id="@+id/game_canvas_answer_fl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    />
+            </ScrollView>
         </LinearLayout>
 
 
