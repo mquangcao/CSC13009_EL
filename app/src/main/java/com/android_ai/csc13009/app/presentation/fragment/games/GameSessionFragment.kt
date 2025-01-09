@@ -1,16 +1,19 @@
 package com.android_ai.csc13009.app.presentation.fragment.games
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -23,9 +26,10 @@ import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
+import com.android_ai.csc13009.app.utils.extensions.TTSHelper
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
-import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -106,9 +110,9 @@ class GameSessionFragment : Fragment(), GameInterface {
                 setQuestion(R.layout.custom_view_game_question_text)
                 setAnswerListWriter(R.layout.custom_view_game_answer_list_writer)
             }
-            SynonymGameEngine::class.java -> {
-                setQuestion(R.layout.custom_view_game_question_text)
-                setAnswerListWriter(R.layout.custom_view_game_answer_list_writer)
+            SpellingBeeGameEngine::class.java -> {
+                setQuestion(R.layout.custom_view_game_question_audio)
+                setAnswerLetterPicker(R.layout.custom_view_game_answer_letter_picker)
             }
             WordGameEngine::class.java -> {
                 setQuestion(R.layout.custom_view_game_question_image)
@@ -131,13 +135,56 @@ class GameSessionFragment : Fragment(), GameInterface {
         when (gameEngine?.javaClass) {
             LexiconGameEngine::class.java -> {
                 setQuestionLexiconGame(questionView)
-
             }
-            SynonymGameEngine::class.java -> {
-//                setQuestionSynonymGame(questionView)
+            SpellingBeeGameEngine::class.java -> {
+                setQuestionSpellingBeeGame(questionView)
             }
             WordGameEngine::class.java -> {
                 setQuestionWordGame(questionView)
+            }
+        }
+    }
+
+    private fun setQuestionSpellingBeeGame(view: View) {
+        val word = gameEngine?.currentWord?.word
+        val pronunciation = gameEngine?.currentWord?.pronunciation
+
+        val audioButton = view.findViewById<ImageButton>(R.id.game_session_question_content)
+        val audioProgress = view.findViewById<ProgressBar>(R.id.game_session_question_content_extra)
+        val wordTextView = view.findViewById<TextView>(R.id.game_session_question_prompt)
+
+        val stringBuilder = StringBuilder()
+        stringBuilder.appendLine("Spell this word:")
+        stringBuilder.appendLine(pronunciation)
+        wordTextView.text = stringBuilder.toString()
+
+        val tts = TTSHelper(requireContext())
+        audioButton.setOnClickListener {
+            if (word != null) {
+                audioProgress.progress = 0
+                val estimatedDuration = tts.estimateSpeechDuration(word)
+                val updateInterval = 100 // Update every 100ms
+
+                tts.speak(word)
+
+                val handler = Handler(Looper.getMainLooper())
+                val startTime = System.currentTimeMillis()
+
+                val updateProgress = object : Runnable {
+                    override fun run() {
+                        val elapsedTime = System.currentTimeMillis() - startTime
+                        val progress = ((elapsedTime.toFloat() / estimatedDuration) * 100).toInt()
+                        audioProgress.progress = progress
+
+                        if (elapsedTime < estimatedDuration) {
+                            handler.postDelayed(this, updateInterval.toLong())
+                        } else {
+                            audioProgress.progress = 100
+                        }
+                    }
+                }
+
+                handler.post(updateProgress)
             }
         }
     }
@@ -146,7 +193,6 @@ class GameSessionFragment : Fragment(), GameInterface {
         val wordTextView = view.findViewById<TextView>(R.id.game_session_question_prompt)
         val word = gameEngine?.currentWord?.word
         val scrambledWord = scrambleWord(word?: "")
-//        val scrambledWord = gameEngine?.currentWord?.word?.toCharArray()?.toList()?.shuffled().toString()
         wordTextView.text = "Unscramble this word \n $scrambledWord"
     }
 
@@ -251,6 +297,10 @@ class GameSessionFragment : Fragment(), GameInterface {
             }
 
         }
+    }
+
+    private fun setAnswerListReader(layout: Int) {
+
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)

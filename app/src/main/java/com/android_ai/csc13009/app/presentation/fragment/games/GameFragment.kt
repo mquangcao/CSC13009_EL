@@ -13,7 +13,7 @@ import com.android_ai.csc13009.app.data.local.repository.WordRepository
 import com.android_ai.csc13009.app.utils.adapters.GameSelectorAdapter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
-import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 
 
@@ -35,11 +35,10 @@ class GameFragment : Fragment() {
                 gameDataDao = database.gameDataDao(),
                 wordRepository = wordRepository
             )
-            , SynonymGameEngine(
+            , SpellingBeeGameEngine(
                 maxRound = configMaxRound,
                 gameDataDao = database.gameDataDao(),
                 wordRepository = wordRepository,
-                currentRound = 1
             )
             ,  WordGameEngine(
                 maxRound = configMaxRound,

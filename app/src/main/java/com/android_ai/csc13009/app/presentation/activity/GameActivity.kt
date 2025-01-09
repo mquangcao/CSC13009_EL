@@ -19,7 +19,7 @@ import com.android_ai.csc13009.app.presentation.fragment.games.GameInterface
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
-import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
+import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +87,11 @@ class GameActivity : AppCompatActivity() {
                 maxRound = 5,
                 gameDataDao = dataDao,
                 wordRepository = wordRepository
+            )
+            1 -> SpellingBeeGameEngine(
+                maxRound = 5,
+                gameDataDao = dataDao,
+                wordRepository = wordRepository,
             )
             2 -> WordGameEngine(
                 maxRound = 5,

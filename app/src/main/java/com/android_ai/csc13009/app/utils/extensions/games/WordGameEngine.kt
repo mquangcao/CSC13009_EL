@@ -10,7 +10,6 @@ import java.io.Serializable
 
 public class WordGameEngine(
     override val maxRound: Int,
-//    override val wordDao: WordDao,
     override val wordRepository: WordRepository,
     override val gameDataDao: GameDataDao
 ) :
