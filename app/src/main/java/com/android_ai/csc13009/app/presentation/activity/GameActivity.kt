@@ -3,6 +3,8 @@ package com.android_ai.csc13009.app.presentation.activity
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +16,7 @@ import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.repository.WordRepository
 import com.android_ai.csc13009.app.presentation.fragment.games.GameInterface
+import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
@@ -44,16 +47,20 @@ class GameActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        NavigationSetter.setActivityBackConfirmation(this, "Are you sure?", "Do you really want to exit the game?")
+    }
 
+    public fun showLoading() {
+        val loadingProgressBar = findViewById<ProgressBar>(R.id.game_loading_pb)
+        loadingProgressBar.visibility = View.VISIBLE
+    }
+
+    public fun hideLoading() {
+        val loadingProgressBar = findViewById<ProgressBar>(R.id.game_loading_pb)
+        loadingProgressBar.visibility = View.GONE
     }
 
     public fun submitAnswer(answer: String) {
-
-//        gameEngine?.submitAnswer(answer)
-//        val currentFragment = supportFragmentManager.findFragmentById(R.id.gamescreen_fcv)
-//        if (currentFragment is GameInterface)  {
-//            currentFragment.nextRound()
-//        }
         CoroutineScope(Dispatchers.Main).launch {
             gameEngine?.submitAnswer(answer) // Ensure this completes first
 
@@ -95,5 +102,7 @@ class GameActivity : AppCompatActivity() {
             .replace(R.id.gamescreen_fcv, fragment)
             .commit()
     }
+
+
 
 }

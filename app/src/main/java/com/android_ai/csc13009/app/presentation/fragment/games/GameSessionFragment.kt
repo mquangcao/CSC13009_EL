@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.presentation.fragment.games
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -12,6 +13,8 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +22,7 @@ import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
+import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SynonymGameEngine
@@ -28,8 +32,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.ArrayList
-
-//private const val ARG_ENGN_IDX = "GameEngineIndex"
 
 class GameSessionFragment : Fragment(), GameInterface {
     private var gameEngine: IGameEngine? = null
@@ -55,7 +57,10 @@ class GameSessionFragment : Fragment(), GameInterface {
         gameEngine = activity.gameEngine!!
 
 
+        setBackButton()
         setHighScoreText()
+
+        activity.showLoading()
 
         CoroutineScope(Dispatchers.IO).launch {
             startGame()
@@ -65,8 +70,21 @@ class GameSessionFragment : Fragment(), GameInterface {
                 load()
             }
         }
-
     }
+
+
+
+    private fun setBackButton() {
+        val toolbar: Toolbar = requireView().findViewById(R.id.game_result_header_tb)
+
+        val backTitle = "Are you sure?"
+        val backMessage = "Do you really want to end the game and go back?"
+        val activity = requireActivity() as AppCompatActivity
+
+        NavigationSetter.setBackButton(toolbar, activity)
+    }
+
+
 
     private suspend fun startGame() {
         gameEngine?.startGame()
@@ -224,8 +242,6 @@ class GameSessionFragment : Fragment(), GameInterface {
 
                 // Add the entered text to the RecyclerView's adapter
                 if (enteredText.isNotEmpty()) {
-//                    gameEngine?.submitAnswer(enteredText)
-//                    nextRound()
                     val activity = requireActivity() as GameActivity
                     activity.submitAnswer(enteredText);
                 }
@@ -254,6 +270,8 @@ class GameSessionFragment : Fragment(), GameInterface {
     override fun load() {
         setCanvas()
         setScoreText()
+
+        (activity as GameActivity).hideLoading()
     }
 
     @SuppressLint("NewApi")
