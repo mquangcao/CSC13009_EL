@@ -1,12 +1,12 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".app.presentation.activity.WordDetailActivity"
+    tools:context=".app.presentation.activity.TagActivity"
     android:fitsSystemWindows="true"
     android:paddingTop="0dp">
 
@@ -40,69 +40,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="go"
+            android:text="Tags"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black" />
 
         <!-- Bookmark Icon -->
         <ImageView
-            android:id="@+id/ivBookmark"
-            android:layout_width="wrap_content"
+            android:id="@+id/ivCreateTag"
+            android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="16dp"
-            android:contentDescription="Bookmark"
-            android:src="@drawable/ic_save"
+            android:layout_gravity="center_vertical|end"
+            android:src="@drawable/ic_create_folder"
+            android:contentDescription="CreateTag"
             app:tint="@color/greenPrimary" />
     </FrameLayout>
 
-    <!-- Word and Pronunciation -->
-    <LinearLayout
-        android:id="@+id/layoutWordPronunciation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="0dp"
-        android:padding="20dp"
-        android:elevation="8dp"
-        android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/headerFrame"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/tvWord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="go"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp" />
-
-        <TextView
-            android:id="@+id/tvPronunciation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/geu/"
-            android:textSize="18sp"
-            android:textColor="@color/gray"
-            android:layout_marginStart="8dp" />
-
-        <ImageView
-            android:id="@+id/ivSound"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Sound"
-            android:src="@drawable/ic_sound"
-            app:tint="@color/greenSecondary" />
-    </LinearLayout>
-
-    <!-- RecyclerView for Details -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvWordDetails"
+        android:id="@+id/rvTagList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="0dp"
@@ -111,7 +67,7 @@
         android:clipChildren="false"
         android:overScrollMode="never"
         android:background="@color/background"
-        app:layout_constraintTop_toBottomOf="@id/layoutWordPronunciation"
+        app:layout_constraintTop_toBottomOf="@id/headerFrame"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

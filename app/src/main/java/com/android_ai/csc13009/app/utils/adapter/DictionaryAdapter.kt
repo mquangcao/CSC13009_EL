@@ -40,6 +40,7 @@ class DictionaryAdapter(private var wordModels: List<WordModel>) : RecyclerView.
             itemView.setOnClickListener {
                 val context = itemView.context
                 val intent = Intent(context, WordDetailActivity::class.java)
+                intent.putExtra("word_id", wordModel.id)
                 intent.putExtra("word_text", wordModel.word) // Truyền từ cần hiển thị
                 intent.putExtra("word_pronunciation", wordModel.pronunciation)
                 intent.putExtra("word_details", wordModel.details)
