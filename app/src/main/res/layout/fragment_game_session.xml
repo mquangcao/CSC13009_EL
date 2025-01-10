@@ -86,7 +86,17 @@
                     android:layout_gravity="center"
                     />
             </ScrollView>
+
+            <ProgressBar
+                android:id="@+id/game_session_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="32dp"
+                android:paddingBottom="4dp"/>
+
         </LinearLayout>
+
 
 
     </LinearLayout>

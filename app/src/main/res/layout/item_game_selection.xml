@@ -11,6 +11,14 @@
     app:cardElevation="4dp"
     >
 
+    <ImageView
+        android:id="@+id/item_game_selection_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:maxHeight="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/game_logo_unscramble" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +31,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -31,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/baloo"
             android:text="Game A" />
 

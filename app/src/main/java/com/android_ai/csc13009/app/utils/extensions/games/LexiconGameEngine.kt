@@ -91,6 +91,10 @@ public class LexiconGameEngine(
         return "Lexicon"
     }
 
+    override fun getProgress(): Int {
+        return (words.size + 1) * 100 / maxRound ;
+    }
+
     override suspend fun startGame() {
         super.startGame();
         getNewCondition();

@@ -25,6 +25,8 @@ import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
+import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
+import com.android_ai.csc13009.app.utils.adapter.WordAdapter
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 import com.android_ai.csc13009.app.utils.extensions.TTSHelper
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
@@ -203,7 +205,7 @@ class GameSessionFragment : Fragment(), GameInterface {
     }
 
     private fun scrambleWord(word: String, minGroupSize: Int = 2, maxGroupSize: Int = 4): String {
-        if (word.length <= minGroupSize) return word.toCharArray().toList().shuffled().joinToString("/")
+        if (word.length <= maxGroupSize + minGroupSize) return word.toCharArray().toList().shuffled().joinToString("/")
 
         val chunks = mutableListOf<String>()
         var i = 0
@@ -227,19 +229,12 @@ class GameSessionFragment : Fragment(), GameInterface {
         val stringbuilder = StringBuilder();
         stringbuilder.appendLine(conditionText);
 
-        stringbuilder.appendLine("Entered words:")
+        wordTextView.text = stringbuilder.toString();
 
         val roundCount = lexiconGameEngine.maxRound;
-        val words = lexiconGameEngine.words
-        for (i in 1..roundCount) {
-            var text = "${i}.)";
-            if (i <= words.size) {
-                text += words[i-1].word
-            }
-            stringbuilder.appendLine(text);
-        }
-
-        wordTextView.text = stringbuilder.toString();
+        val currentRound = lexiconGameEngine.words.size
+        val textView = view.findViewById<TextView>(R.id.game_session_question_content)
+        textView.text = "${currentRound} out of ${roundCount}"
 
     }
 
@@ -282,7 +277,25 @@ class GameSessionFragment : Fragment(), GameInterface {
     private fun setAnswerListWriter(layout: Int) {
         setAnswer(layout)
         // set event listeners
+
+//        stringbuilder.appendLine("Entered words:")
+//
+//        val roundCount = lexiconGameEngine.maxRound;
+//        val words = lexiconGameEngine.words
+//        for (i in 1..roundCount) {
+//            var text = "${i}.)";
+//            if (i <= words.size) {
+//                text += words[i-1].word
+//            }
+//            stringbuilder.appendLine(text);
+//        }
+
         val answerList = requireView().findViewById<RecyclerView>(R.id.game_answer_writer_list)
+        answerList.adapter = DictionaryAdapter(
+            words = gameEngine!!.words
+        )
+        answerList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+
         val answerEd = requireView().findViewById<TextView>(R.id.game_answer_writer_ed)
 
         // when enter button is pressed
@@ -326,8 +339,14 @@ class GameSessionFragment : Fragment(), GameInterface {
     override fun load() {
         setCanvas()
         setScoreText()
+        setProgress()
 
         (activity as GameActivity).hideLoading()
+    }
+
+    private fun setProgress() {
+        val progressBar = requireView().findViewById<ProgressBar>(R.id.game_session_progress)
+        progressBar.progress = gameEngine?.getProgress() ?: 0
     }
 
     @SuppressLint("NewApi")

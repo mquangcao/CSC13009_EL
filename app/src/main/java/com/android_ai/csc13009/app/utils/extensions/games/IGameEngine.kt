@@ -80,4 +80,5 @@ public interface IGameEngine : Serializable {
     abstract fun nextRound();
     abstract fun getRule(): String;
     abstract fun getGameName(): String;
+    abstract fun getProgress(): Int
 }

@@ -48,4 +48,8 @@ public class SpellingBeeGameEngine(
     override fun getGameName(): String {
         return "Spelling bee";
     }
+
+    override fun getProgress(): Int {
+        return (currentRound + 1) * 100 / maxRound;
+    }
 }

@@ -46,4 +46,8 @@ public class WordGameEngine(
         return "Unscramble";
     }
 
+    override fun getProgress(): Int {
+        return (currentRound + 1) * 100 / maxRound;
+    }
+
 }
