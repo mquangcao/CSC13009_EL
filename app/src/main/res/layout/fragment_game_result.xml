@@ -1,73 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.presentation.fragment.games.GameResultFragment">
+    tools:context=".app.presentation.fragment.games.GameResultFragment"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/game_result_score_title_tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/baloo"
+        android:text="@string/game_result_score"
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/game_result_score_title_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/baloo"
-            android:text="@string/game_result_score"
-            android:textAlignment="center"
-            android:textSize="24sp" />
+    <TextView
+        android:id="@+id/game_result_score_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16sp"
+        android:text=""
+        android:fontFamily="@font/baloo"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/game_result_score_content_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16sp"
-            android:text="9999"
-            android:fontFamily="@font/baloo"
-            android:textAlignment="center"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/game_result_word_list_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6sp"
+        android:layout_marginRight="6sp"
+        android:text="@string/game_result_word_list_title"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/baloo"
+        android:textAlignment="center"/>
 
-        <TextView
-            android:id="@+id/game_result_word_list_title_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6sp"
-            android:layout_marginRight="6sp"
-            android:text="@string/game_result_word_list_title"
-            android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/baloo"
-            android:textAlignment="center"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/game_result_word_list_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="6sp"
+        android:layout_marginRight="6sp"
+        android:layout_weight="1">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/game_result_word_list_rv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="6sp"
-            android:layout_marginRight="6sp"
-            android:layout_weight="1">
+    </androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.recyclerview.widget.RecyclerView>
+    <Button
+        android:id="@+id/game_exit_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_marginLeft="6sp"
+        android:layout_marginRight="6sp"
+        android:layout_marginBottom="16sp"
+        android:layout_gravity="center"
+        android:paddingHorizontal="50dp"
+        android:textColor="@color/white"
+        android:background="@drawable/card_background"
+        android:backgroundTint="@color/greenPrimary"
+        android:text="@string/game_exit_button" />
 
-        <Button
-            android:id="@+id/game_exit_bt"
-            android:layout_width="wrap_content"
-            android:layout_height="64dp"
-            android:layout_marginLeft="6sp"
-            android:layout_marginRight="6sp"
-            android:layout_marginBottom="16sp"
-            android:layout_gravity="center"
-            android:paddingHorizontal="50dp"
-            android:textColor="@color/white"
-            android:background="@drawable/card_background"
-            android:backgroundTint="@color/greenPrimary"
-            android:text="@string/game_exit_button" />
-
-    </LinearLayout>
-</FrameLayout>
+<!--    </LinearLayout>-->
+</LinearLayout>

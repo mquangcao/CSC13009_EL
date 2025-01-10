@@ -10,4 +10,7 @@
     <string name="app_name">English Learning</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="game_exit_button">Return to menu</string>
+    <string name="game_menu_title">Game</string>
+    <string name="game_menu_prompt">Choose a Game</string>
+    <string name="back_description">back</string>
 </resources>
