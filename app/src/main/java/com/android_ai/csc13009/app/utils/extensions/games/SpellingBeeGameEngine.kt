@@ -19,17 +19,9 @@ public class SpellingBeeGameEngine(override val maxRound: Int,
     override var score: Int = 0;
     override var highScore: Int = 0;
     override var currentWord: WordEntity? = null;
-
+    override var streak: Int = 0;
     override val words: ArrayList<WordEntity> = ArrayList();
-    var streak: Int = 0;
-
-
-    override fun endGame() {
-//        coroutineScope.launch {
-//            updateHighScore();
-//        }
-
-    }
+    override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING;
 
     override fun submitAnswer(answer: String) {
         if (answer == currentWord?.word) {

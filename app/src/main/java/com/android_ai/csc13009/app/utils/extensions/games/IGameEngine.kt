@@ -4,6 +4,9 @@ import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.local.dao.WordDao
 import com.android_ai.csc13009.app.data.local.entity.GameDataEntity
 import com.android_ai.csc13009.app.data.local.entity.WordEntity;
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.Serializable
 
 import java.util.ArrayList;
@@ -15,6 +18,14 @@ public interface IGameEngine : Serializable {
     var currentWord: WordEntity?;
     val wordDao: WordDao;
     val gameDataDao: GameDataDao;
+    var streak: Int
+
+    enum class GameState {
+        WAITING,
+        PLAYING,
+        FINISHED
+    }
+    var gameState: GameState;
 
 
 
@@ -50,8 +61,14 @@ public interface IGameEngine : Serializable {
         }
     };
 
-    abstract suspend fun startGame();
-    abstract fun endGame();
+    fun endGame() {
+        gameState = GameState.FINISHED;
+    };
+
+    suspend fun startGame() {
+        gameState = GameState.PLAYING;
+    };
+
     abstract fun submitAnswer   (answer: String);
 
     abstract fun nextRound();

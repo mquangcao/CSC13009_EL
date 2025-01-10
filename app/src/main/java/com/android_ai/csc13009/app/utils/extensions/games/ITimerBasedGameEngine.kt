@@ -18,8 +18,8 @@ public interface ITimerBasedGameEngine : IGameEngine {
 
     override suspend fun startGame() {
         fetchWord()
+        super.startGame()
         timer.start()
-
     }
 
 }
