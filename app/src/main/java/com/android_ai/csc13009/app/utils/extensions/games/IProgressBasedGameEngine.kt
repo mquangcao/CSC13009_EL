@@ -1,20 +1,20 @@
-package com.android_ai.csc13009.app.utils.extensions.games;
+package com.android_ai.csc13009.app.utils.extensions.games
 
-public interface IProgressBasedGameEngine : IGameEngine {
+interface IProgressBasedGameEngine : IGameEngine {
     val maxRound: Int
-    var currentRound: Int;
+    var currentRound: Int
 
     override suspend fun submitAnswer(answer: String) {
         if (answer.uppercase() == currentWord?.word!!.uppercase()) {
-            score += 1000;
-            score += streak * 100;
-            streak++;
-            nextRound();
+            score += 1000
+            score += streak * 100
+            streak++
+            nextRound()
         } else {
             // neu dung 80% van tinh diem
-            score += (1000 * gaugeCorrectness(answer)).toInt();
-            streak = 0;
-            nextRound();
+            score += (1000 * gaugeCorrectness(answer)).toInt()
+            streak = 0
+            nextRound()
         }
     }
 
@@ -25,7 +25,7 @@ public interface IProgressBasedGameEngine : IGameEngine {
         val length = correctAnswer.length
         var correctLetterCount = 0
 
-        for (i in 0 until answerUppercase.length) {
+        for (i in answerUppercase.indices) {
             if (answerUppercase[i] == correctAnswer[i]) {
                 correctLetterCount++
             }
@@ -39,13 +39,13 @@ public interface IProgressBasedGameEngine : IGameEngine {
     }
 
     override fun nextRound() {
-        currentRound++;
+        currentRound++
         if (currentRound >= maxRound) {
-            endGame();
-            return;
+            endGame()
+            return
         }
 
-        currentWord = words[currentRound];
+        currentWord = words[currentRound]
     }
 
     override suspend fun startGame() {

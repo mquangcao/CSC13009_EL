@@ -3,13 +3,13 @@ package com.android_ai.csc13009.app.utils.extensions.games
 import kotlin.random.Random
 
 class WordLenCondition: GameCondition {
-    var letterCount: Int = 0
+    private var letterCount: Int = 0
     init {
         randomize()
     }
 
     override fun validate(answer: String): Boolean {
-        return answer.length == letterCount;
+        return answer.length == letterCount
     }
 
     override fun getConditionPrompt(): String {

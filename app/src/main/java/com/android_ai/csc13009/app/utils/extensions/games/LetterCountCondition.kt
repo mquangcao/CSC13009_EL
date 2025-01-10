@@ -3,8 +3,8 @@ package com.android_ai.csc13009.app.utils.extensions.games
 import kotlin.random.Random
 
 class LetterCountCondition : GameCondition {
-    var letterCount: Int = 0
-    var letter: Char = 'A'
+    private var letterCount: Int = 0
+    private var letter: Char = 'A'
     init {
         randomize()
     }
@@ -12,7 +12,7 @@ class LetterCountCondition : GameCondition {
     override fun validate(answer: String): Boolean {
         val upperAns = answer.uppercase()
         val answerLetterCount = upperAns.count { it == letter }
-        return letterCount == answerLetterCount;
+        return letterCount == answerLetterCount
     }
 
     override fun getConditionPrompt(): String {

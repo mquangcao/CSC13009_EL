@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.repository.WordRepository
@@ -24,8 +23,6 @@ import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.Serializable
-
 
 @SuppressLint("NewApi")
 class GameActivity : AppCompatActivity() {
@@ -50,17 +47,17 @@ class GameActivity : AppCompatActivity() {
         NavigationSetter.setActivityBackConfirmation(this, "Are you sure?", "Do you really want to exit the game?")
     }
 
-    public fun showLoading() {
+    fun showLoading() {
         val loadingProgressBar = findViewById<ProgressBar>(R.id.game_loading_pb)
         loadingProgressBar.visibility = View.VISIBLE
     }
 
-    public fun hideLoading() {
+    fun hideLoading() {
         val loadingProgressBar = findViewById<ProgressBar>(R.id.game_loading_pb)
         loadingProgressBar.visibility = View.GONE
     }
 
-    public fun submitAnswer(answer: String) {
+    fun submitAnswer(answer: String) {
         CoroutineScope(Dispatchers.Main).launch {
             gameEngine?.submitAnswer(answer) // Ensure this completes first
 
@@ -71,17 +68,13 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    public fun nextRound() {
-        gameEngine?.nextRound()
-    }
-
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun createGameEngine(): IGameEngine? {
         val passedData = intent.getIntExtra("passedData", 1)
 
         val dataDao = database.gameDataDao()
         val wordDao = database.wordDao()
-        val wordRepository = WordRepository(wordDao);
+        val wordRepository = WordRepository(wordDao)
         return when (passedData) {
             0 -> LexiconGameEngine(
                 maxRound = 5,
@@ -102,7 +95,7 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    public fun changeFragment(fragment: Fragment) {
+    fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.gamescreen_fcv, fragment)
             .commit()

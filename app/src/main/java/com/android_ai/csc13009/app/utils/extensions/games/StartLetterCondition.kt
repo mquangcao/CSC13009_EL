@@ -3,7 +3,7 @@ package com.android_ai.csc13009.app.utils.extensions.games
 import kotlin.random.Random
 
 class StartLetterCondition : GameCondition {
-    var startLetter: Char = 'A'
+    private var startLetter: Char = 'A'
 
     init {
         randomize()

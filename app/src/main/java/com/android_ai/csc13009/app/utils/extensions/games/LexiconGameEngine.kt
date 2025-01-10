@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.utils.extensions.games;
+package com.android_ai.csc13009.app.utils.extensions.games
 import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.local.repository.WordRepository
 import com.android_ai.csc13009.app.domain.repository.model.Word
@@ -10,26 +10,26 @@ import java.io.Serializable
 
 import kotlin.collections.ArrayList
 
-public class LexiconGameEngine(
+class LexiconGameEngine(
     val maxRound: Int,
     override val gameDataDao: GameDataDao,
     override val wordRepository: WordRepository,
 ) :
 
     IGameEngine, Serializable {
-    override var score: Int = 0;
-    override var highScore: Int = 0;
+    override var score: Int = 0
+    override var highScore: Int = 0
     override var currentWord: Word? = null
-    override var streak: Int = 0;
-    override val words: ArrayList<Word> = ArrayList();
-    override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING;
+    override var streak: Int = 0
+    override val words: ArrayList<Word> = ArrayList()
+    override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING
 
     private val gameConditions = listOf(
         WordLenCondition(),
         LetterCountCondition(),
         StartLetterCondition()
     )
-    var currentCondition: GameCondition? = null;
+    var currentCondition: GameCondition? = null
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
@@ -42,31 +42,31 @@ public class LexiconGameEngine(
         if (currentWord != null && !words.contains(currentWord)) {
 
 
-            val answerLength = answer.length;
+            val answerLength = answer.length
             var answerScore = 100 * answerLength
             if (currentCondition?.validate(answer) == true) {
-                answerScore *= 2;
+                answerScore *= 2
             }
-            score += answerScore;
-            words.add(currentWord);
-            nextRound();
+            score += answerScore
+            words.add(currentWord)
+            nextRound()
         } else {
-            score -= 100;
+            score -= 100
         }
     }
 
     override fun nextRound() {
         if (words.size >= maxRound) {
-            endGame();
-            return;
+            endGame()
+            return
         }
 
         // get random GameCondition subclass
-        getNewCondition();
+        getNewCondition()
     }
 
     private fun getNewCondition() {
-        currentCondition = gameConditions.random();
+        currentCondition = gameConditions.random()
         currentCondition?.randomize()
     }
 
@@ -83,8 +83,8 @@ public class LexiconGameEngine(
                 "* The point you gain will based on the length of the word you entered \n" +
                 "* An extra random condition appear for each new input, fulfil them to double the point of the word \n" +
                 "* When the word is incorrect / not found in our codex, you get deduced 100 points and have to try again \n"
-        ;
-        return rule;
+
+        return rule
     }
 
     override fun getGameName(): String {
@@ -92,11 +92,11 @@ public class LexiconGameEngine(
     }
 
     override fun getProgress(): Int {
-        return (words.size + 1) * 100 / maxRound ;
+        return (words.size + 1) * 100 / maxRound
     }
 
     override suspend fun startGame() {
-        super.startGame();
-        getNewCondition();
+        super.startGame()
+        getNewCondition()
     }
 }
