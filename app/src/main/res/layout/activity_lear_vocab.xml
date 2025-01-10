@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gelasio_medium"
-                    android:text="12 bài học"
+                    android:text="@string/_12_b_i_h_c"
                     android:textColor="@color/black"
                     android:layout_below="@id/chapInfo"
                     android:textSize="24sp" />

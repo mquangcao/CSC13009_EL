@@ -28,6 +28,7 @@ import android.Manifest
 import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
+import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -194,6 +195,16 @@ class MainActivity : AppCompatActivity() {
             "Ứng dụng cần quyền thông báo để gửi nhắc nhở hàng ngày.",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val context = newBase
+
+        val savedLocale = LocaleUtils.getLocale(newBase as Context)
+
+        context!!.resources.configuration.setLocale(savedLocale)
+
+        super.attachBaseContext(newBase)
     }
 
 //    private fun changeFragment() {
