@@ -18,16 +18,17 @@ import com.android_ai.csc13009.app.utils.extensions.games.WordGameEngine
 
 
 class GameFragment : Fragment() {
-    private var configMaxRound: Int = 5;
-    private var configSessionDuration: Int = 60;
+    private var configMaxRound: Int = 5
+
+    //    private var configSessionDuration: Int = 60;
     private val database : AppDatabase by lazy { AppDatabase.getInstance(requireContext()) }
 
-    public val gameEngines: List<IGameEngine> by lazy {
+    private val gameEngines: List<IGameEngine> by lazy {
         createGameEngines()
     }
 
     private fun createGameEngines(): List<IGameEngine> {
-        val wordDao = database.wordDao();
+        val wordDao = database.wordDao()
         val wordRepository = WordRepository(wordDao)
         return listOf(
             LexiconGameEngine(
@@ -72,11 +73,11 @@ class GameFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_game_selector, container, false)
     }
 
-    companion object {
-        fun newInstance(param1: Int, param2: Int) =
-            GameFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
+//    companion object {
+//        fun newInstance(param1: Int, param2: Int) =
+//            GameFragment().apply {
+//                arguments = Bundle().apply {
+//                }
+//            }
+//    }
 }

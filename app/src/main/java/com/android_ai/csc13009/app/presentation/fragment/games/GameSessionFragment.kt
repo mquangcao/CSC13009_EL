@@ -22,11 +22,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
-import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
-import com.android_ai.csc13009.app.utils.adapter.WordAdapter
+import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
+import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 import com.android_ai.csc13009.app.utils.extensions.TTSHelper
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
@@ -37,7 +36,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.ArrayList
 
 class GameSessionFragment : Fragment(), GameInterface {
     private var gameEngine: IGameEngine? = null
@@ -82,15 +80,10 @@ class GameSessionFragment : Fragment(), GameInterface {
 
     private fun setBackButton() {
         val toolbar: Toolbar = requireView().findViewById(R.id.game_result_header_tb)
-
-        val backTitle = "Are you sure?"
-        val backMessage = "Do you really want to end the game and go back?"
         val activity = requireActivity() as AppCompatActivity
 
         NavigationSetter.setBackButton(toolbar, activity)
     }
-
-
 
     private suspend fun startGame() {
         gameEngine?.startGame()
@@ -103,7 +96,10 @@ class GameSessionFragment : Fragment(), GameInterface {
 
     private fun setHighScoreText() {
         val scoreTextView = requireView().findViewById<TextView>(R.id.game_session_header_tb_title)
-        scoreTextView.text = "High Score: ${gameEngine?.highScore}"
+        
+        val highScore = getString(R.string.game_high_score)
+        val highScoreText = "${highScore}: ${gameEngine?.highScore}"
+        scoreTextView.text = highScoreText
     }
 
     private fun setCanvas(){
@@ -166,7 +162,7 @@ class GameSessionFragment : Fragment(), GameInterface {
         audioButton.setOnClickListener {
             if (word != null) {
                 tts.stop()
-                updateProgress?.let { it -> handler.removeCallbacks(it) }
+                updateProgress?.let { handler.removeCallbacks(it) }
 
                 audioProgress.progress = 0
                 val estimatedDuration = tts.estimateSpeechDuration(word)
@@ -201,7 +197,13 @@ class GameSessionFragment : Fragment(), GameInterface {
         val wordTextView = view.findViewById<TextView>(R.id.game_session_question_prompt)
         val word = gameEngine?.currentWord?.word
         val scrambledWord = scrambleWord(word?: "")
-        wordTextView.text = "Unscramble this word \n $scrambledWord"
+        val stringBuilder = StringBuilder()
+        
+        val prompt = getString(R.string.game_word_question_prompt)
+        stringBuilder.appendLine(prompt)
+        stringBuilder.appendLine(scrambledWord)
+
+        wordTextView.text = stringBuilder.toString()
     }
 
     private fun scrambleWord(word: String, minGroupSize: Int = 2, maxGroupSize: Int = 4): String {
@@ -223,18 +225,20 @@ class GameSessionFragment : Fragment(), GameInterface {
     private fun setQuestionLexiconGame(view: View) {
         val wordTextView = view.findViewById<TextView>(R.id.game_session_question_prompt)
 
-        val lexiconGameEngine = gameEngine as LexiconGameEngine;
-        val conditionText = lexiconGameEngine.currentCondition?.getConditionPrompt();
+        val lexiconGameEngine = gameEngine as LexiconGameEngine
+        val conditionText = lexiconGameEngine.currentCondition?.getConditionPrompt()
 
-        val stringbuilder = StringBuilder();
-        stringbuilder.appendLine(conditionText);
+        val stringBuilder = StringBuilder()
+        stringBuilder.appendLine(conditionText)
 
-        wordTextView.text = stringbuilder.toString();
+        wordTextView.text = stringBuilder.toString()
 
-        val roundCount = lexiconGameEngine.maxRound;
+        val roundCount = lexiconGameEngine.maxRound
         val currentRound = lexiconGameEngine.words.size
         val textView = view.findViewById<TextView>(R.id.game_session_question_content)
-        textView.text = "${currentRound} out of ${roundCount}"
+
+        val text = "$currentRound / $roundCount"
+        textView.text = text
 
     }
 
@@ -276,20 +280,6 @@ class GameSessionFragment : Fragment(), GameInterface {
 
     private fun setAnswerListWriter(layout: Int) {
         setAnswer(layout)
-        // set event listeners
-
-//        stringbuilder.appendLine("Entered words:")
-//
-//        val roundCount = lexiconGameEngine.maxRound;
-//        val words = lexiconGameEngine.words
-//        for (i in 1..roundCount) {
-//            var text = "${i}.)";
-//            if (i <= words.size) {
-//                text += words[i-1].word
-//            }
-//            stringbuilder.appendLine(text);
-//        }
-
         val answerList = requireView().findViewById<RecyclerView>(R.id.game_answer_writer_list)
         answerList.adapter = DictionaryAdapter(
             words = gameEngine!!.words
@@ -299,7 +289,7 @@ class GameSessionFragment : Fragment(), GameInterface {
         val answerEd = requireView().findViewById<TextView>(R.id.game_answer_writer_ed)
 
         // when enter button is pressed
-        answerEd.setOnEditorActionListener { v, actionId, event ->
+        answerEd.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE ||
                 (event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
 
@@ -308,7 +298,7 @@ class GameSessionFragment : Fragment(), GameInterface {
                 // Add the entered text to the RecyclerView's adapter
                 if (enteredText.isNotEmpty()) {
                     val activity = requireActivity() as GameActivity
-                    activity.submitAnswer(enteredText);
+                    activity.submitAnswer(enteredText)
                 }
                 true // Indicate the event was handled
             } else {
@@ -316,10 +306,6 @@ class GameSessionFragment : Fragment(), GameInterface {
             }
 
         }
-    }
-
-    private fun setAnswerListReader(layout: Int) {
-
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)

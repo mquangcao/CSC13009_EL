@@ -13,4 +13,6 @@
     <string name="game_menu_title">Game</string>
     <string name="game_menu_prompt">Choose a Game</string>
     <string name="back_description">back</string>
+    <string name="game_word_question_prompt">Unscramble this word:</string>
+    <string name="game_spelling_bee_question_prompt">Spell this word:</string>
 </resources>

@@ -64,12 +64,12 @@ class GameRuleFragment : Fragment() {
         button.setOnClickListener(listener)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            GameRuleFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
+//    companion object {
+//        @JvmStatic
+//        fun newInstance() =
+//            GameRuleFragment().apply {
+//                arguments = Bundle().apply {
+//                }
+//            }
+//    }
 }
