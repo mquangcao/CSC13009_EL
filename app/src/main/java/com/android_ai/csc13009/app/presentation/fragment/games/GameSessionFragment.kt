@@ -109,7 +109,7 @@ class GameSessionFragment : Fragment(), GameInterface {
                 setAnswerListWriter(R.layout.custom_view_game_answer_list_writer)
             }
             SpellingBeeGameEngine::class.java -> {
-                setQuestion(R.layout.custom_view_game_question_audio)
+                setQuestion(R.layout.custom_view_audio_player)
                 setAnswerLetterPicker(R.layout.custom_view_game_answer_letter_picker)
             }
             WordGameEngine::class.java -> {
