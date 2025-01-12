@@ -1,16 +1,15 @@
 package com.android_ai.csc13009.app.utils.extensions;
 
 
-import android.app.Activity
 import android.app.AlertDialog
-import androidx.appcompat.widget.*;
 import android.view.View;
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 
 public class NavigationSetter {
     companion object {
-        fun setBackButton(widget: View, activity: AppCompatActivity) {
+        fun setBackButton(widget: View, activity: FragmentActivity) {
             widget.setOnClickListener {
                 activity.onBackPressedDispatcher.onBackPressed()
             }

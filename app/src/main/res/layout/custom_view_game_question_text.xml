@@ -24,7 +24,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/game_session_question_content"
+            android:id="@+id/learn_question_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

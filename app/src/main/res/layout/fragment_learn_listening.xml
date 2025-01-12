@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/game_result_header_tb"
+            android:id="@+id/learn_header_tb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/design_default_color_on_primary"
@@ -19,7 +19,7 @@
             app:navigationIcon="@drawable/baseline_arrow_back_ios_new_24">
 
             <Button
-                android:id="@+id/game_session_header_tb_title"
+                android:id="@+id/learn_header_tb_skip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -36,7 +36,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
-            android:id="@+id/game_session_question_prompt"
+            android:id="@+id/learn_question_prompt"
             android:padding="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/game_session_question_content"
+                android:id="@+id/learn_question_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_sound"
