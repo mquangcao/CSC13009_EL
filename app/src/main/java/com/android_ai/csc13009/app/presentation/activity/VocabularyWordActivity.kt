@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTypeChat1
 import com.android_ai.csc13009.app.presentation.fragment.WordQuestionFragment
 import com.google.android.material.button.MaterialButton
 
@@ -25,7 +26,7 @@ class VocabularyWordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_vocabulary_word)
-        loadFragment(WordQuestionFragment())
+        loadFragment(FragmentWordQuestionTypeChat1())
 
         //Hooks
         btnClose = findViewById(R.id.btnClose)
@@ -43,11 +44,11 @@ class VocabularyWordActivity : AppCompatActivity() {
             dialog.dismiss()
         }
 
-        btnCheckAnswer = findViewById(R.id.btn_check_answer)
+        //btnCheckAnswer = findViewById(R.id.btn_check_answer)
 
-        btnCheckAnswer.setOnClickListener {
-            dialog.show()
-        }
+//        btnCheckAnswer.setOnClickListener {
+//            dialog.show()
+//        }
 
         btnClose.setOnClickListener {
             finish()

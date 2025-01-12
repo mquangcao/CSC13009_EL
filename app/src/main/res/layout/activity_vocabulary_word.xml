@@ -67,32 +67,10 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:layout_weight="30"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_check_answer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:layout_weight="1"
-        android:backgroundTint="#EDC806"
-        android:fontFamily="@font/bungee"
-        android:padding="16dp"
-        android:text="Check Answer"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:cornerRadius="12dp"
-        app:icon="@drawable/search_check_2_24px"
-        app:iconGravity="textStart"
-        app:iconPadding="12dp"
 
-        app:iconTint="@color/white" />
 
 
 </LinearLayout>
