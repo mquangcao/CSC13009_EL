@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ChatBubbleView">
+        <attr name="chatWidth" format="dimension" />
+        <attr name="chatHeight" format="dimension" />
+        <attr name="chatTextSize" format="dimension" />
+        <attr name="chatTextColor" format="color" />
+        <attr name="chatBackground" format="reference|color" />
+        <attr name="chatPadding" format="dimension" />
+        <attr name="chatFontFamily" format="string" />
+    </declare-styleable>
+</resources>
