@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.domain.repository.model.GrammarTopic
+import com.android_ai.csc13009.app.domain.models.GrammarTopic
 import com.android_ai.csc13009.app.data.local.entity.GrammarTopicEntity
 
 class GrammarTopicAdapter(
     private val topics: List<GrammarTopic>,
-    private val onItemClick: (GrammarTopicEntity) -> Unit
+    private val onItemClick: (GrammarTopic) -> Unit // Chỉnh sửa ở đây
 ) : RecyclerView.Adapter<GrammarTopicAdapter.GrammarTopicViewHolder>() {
 
     // ViewHolder cho mỗi item trong danh sách
@@ -33,15 +33,10 @@ class GrammarTopicAdapter(
 
         // Xử lý sự kiện nhấn vào item
         holder.itemView.setOnClickListener {
-            // Chuyển đổi từ GrammarTopic sang GrammarTopicEntity
-            val topicEntity = GrammarTopicEntity(
-                id = topic.id,
-                name = topic.name,
-                levelId = topic.levelId
-            )
-            onItemClick(topicEntity)
+            onItemClick(topic) // Truyền GrammarTopic trực tiếp
         }
     }
 
     override fun getItemCount(): Int = topics.size
 }
+

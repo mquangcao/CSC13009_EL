@@ -9,11 +9,13 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.domain.models.AnswerWord
 import com.android_ai.csc13009.app.domain.models.Word
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
 
-class WordAdapter (private val words: List<Word>) : RecyclerView.Adapter<WordAdapter.WordViewHolder>()
+class WordAdapter (private val words: List<AnswerWord>) : RecyclerView.Adapter<WordAdapter.WordViewHolder>()
 {
     class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgWord: ShapeableImageView = itemView.findViewById(R.id.img_word)
@@ -30,8 +32,10 @@ class WordAdapter (private val words: List<Word>) : RecyclerView.Adapter<WordAda
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val word = words[position]
-        holder.tvWord.text = word.word
-        holder.imgWord.setImageResource(word.avatar)
+        holder.tvWord.text = word.text
+        Glide.with(holder.itemView.context.applicationContext)
+            .load(word.imgUrl) // URL ảnh
+            .into(holder.imgWord)
 
         if (word.isSelected) {
             holder.cardWord.strokeColor = holder.itemView.context.getColor(R.color.green)

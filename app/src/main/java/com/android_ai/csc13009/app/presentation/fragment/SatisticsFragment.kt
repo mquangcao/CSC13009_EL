@@ -1,124 +1,87 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.presentation.activity.StatisticsDetailActivity
-import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.android_ai.csc13009.databinding.FragmentStatisticsBinding
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 
 class StatisticsFragment : Fragment() {
+
+    private var _binding: FragmentStatisticsBinding? = null
+    private val binding get() = _binding!!
+
+    companion object {
+        const val PROGRESS_MAX = 100f
+    }
+
+    data class ProgressData(
+        val title: String,
+        val progress: Int,
+        val description: String,
+        val color: String
+    )
+
+    private val progressDataList = listOf(
+        ProgressData("Vocab", 70, "70% success vocab", "#FC8890"),
+        ProgressData("Listening", 33, "33% success vocab", "#CEB7D4"),
+        ProgressData("Grammar", 10, "10% success vocab", "#0EADD2")
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_statistics, container, false)
-
-        // Test Data
-        // Vocabulary PieChart
-        val pieChartVocabulary: PieChart = view.findViewById(R.id.pieChartVocabulary)
-        val totalVocabulary = 100
-        setupPieChart(
-            pieChartVocabulary,
-            listOf(
-                PieEntry(68f, "Correct Vocabulary"), // 68%
-                PieEntry(32f, "Incorrect Vocabulary")  // 32%
-            ),
-            "Total Vocabulary: $totalVocabulary"
-        )
-
-        // Add click listener to Vocabulary PieChart
-        pieChartVocabulary.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
-            override fun onValueSelected(e: Entry?, h: Highlight?) {
-                e?.let {
-                    val pieEntry = it as PieEntry
-                    when (pieEntry.label) {
-                        "Correct Vocabulary" -> navigateToDetailActivity("correctWords")
-                        "Incorrect Vocabulary" -> navigateToDetailActivity("incorrectWords")
-                    }
-                }
-            }
-
-            override fun onNothingSelected() {}
-        })
-
-        // Lessons PieChart
-        val pieChartLessons: PieChart = view.findViewById(R.id.pieChartLessons)
-        val totalLessons = 10
-        setupPieChart(
-            pieChartLessons,
-            listOf(
-                PieEntry(6f, "Completed Lessons"),  // 60%
-                PieEntry(4f, "Pending Lessons")     // 40%
-            ),
-            "Total Lessons: $totalLessons"
-        )
-
-        // Add click listener to Lessons PieChart
-        pieChartLessons.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
-            override fun onValueSelected(e: Entry?, h: Highlight?) {
-                e?.let {
-                    val pieEntry = it as PieEntry
-                    when (pieEntry.label) {
-                        "Completed Lessons" -> navigateToDetailActivity("completedLessons")
-                        "Pending Lessons" -> navigateToDetailActivity("pendingLessons")
-                    }
-                }
-            }
-
-            override fun onNothingSelected() {}
-        })
-
-        return view
+    ): View {
+        _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    // Configure PieChart
-    private fun setupPieChart(pieChart: PieChart, entries: List<PieEntry>, centerText: String) {
-        val dataSet = PieDataSet(entries, "")
-        dataSet.colors = listOf(
-            Color.parseColor("#00C1FF"),  // Blue
-            Color.parseColor("#FF9500"),  // Orange
-            Color.parseColor("#FF00C1")   // Pink
-        )
-        dataSet.valueTextColor = Color.BLACK
-        dataSet.valueTextSize = 14f
-
-        val legend = pieChart.legend
-        legend.isEnabled = true
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER // Center horizontally
-        legend.orientation = Legend.LegendOrientation.HORIZONTAL             // Display horizontally
-        legend.setDrawInside(false) // Ensure it is outside the chart
-
-
-        val data = PieData(dataSet)
-        pieChart.setUsePercentValues(true)
-        pieChart.data = data
-        pieChart.description.isEnabled = false
-        pieChart.setDrawEntryLabels(false)
-        pieChart.setUsePercentValues(true)
-        pieChart.isRotationEnabled = false
-        pieChart.centerText = centerText
-        pieChart.setCenterTextSize(14f)
-        pieChart.invalidate() // Refresh chart
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupProgressBars()
     }
 
-    // Navigate to StatisticsDetailActivity
-    private fun navigateToDetailActivity(type: String) {
-        val intent = Intent(activity, StatisticsDetailActivity::class.java)
-        intent.putExtra("type", type)  // Pass data type (correctWords, incorrectWords, etc.)
-        startActivity(intent)
+    private fun setupProgressBars() {
+        val progressBars = listOf(
+            binding.circularProgressBar to progressDataList[0],
+            binding.circularProgressBar2 to progressDataList[1],
+            binding.circularProgressBar3 to progressDataList[2]
+        )
+
+        for ((progressBar, data) in progressBars) {
+            updateProgressBar(progressBar, data)
+        }
+
+        // Update TextViews
+        binding.tvWord1.text = progressDataList[0].title
+        binding.tvDescription1.text = progressDataList[0].description
+
+        binding.tvWord2.text = progressDataList[1].title
+        binding.tvDescription2.text = progressDataList[1].description
+
+        binding.tvWord3.text = progressDataList[2].title
+        binding.tvDescription3.text = progressDataList[2].description
+    }
+
+
+    private fun updateProgressBar(progressBar: CircularProgressBar, data: ProgressData) {
+        progressBar.progress = data.progress.toFloat()
+        progressBar.progressMax = PROGRESS_MAX
+        progressBar.progressBarColor = safeParseColor(data.color, android.graphics.Color.GRAY)
+    }
+
+    private fun safeParseColor(colorString: String, defaultColor: Int): Int {
+        return try {
+            android.graphics.Color.parseColor(colorString)
+        } catch (e: IllegalArgumentException) {
+            defaultColor
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

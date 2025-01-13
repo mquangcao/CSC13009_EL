@@ -2,7 +2,13 @@ package com.android_ai.csc13009.app.domain.models;
 
 import com.android_ai.csc13009.app.domain.repository.model.Word
 
-public class Answer (
+class Answer (
     var answerWord: Word,
-    var isCorrect: Boolean
-){}
+    var id : Int,
+    var answer : String,
+    var isCorrect : Boolean,
+    var thumbNails : String
+) {
+
+
+}
