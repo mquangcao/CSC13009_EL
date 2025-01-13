@@ -17,7 +17,6 @@ import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.coroutines.coroutineContext
 
 class GameResultFragment : Fragment() {
     private lateinit var gameEngine: IGameEngine
@@ -47,15 +46,17 @@ class GameResultFragment : Fragment() {
         if (score > gameEngine.highScore) {
             extraText = "\nNew Record!"
         }
-        scoreView.text = "${score}$extraText"
+        val text = "${score}$extraText"
+        scoreView.text = text
 
         CoroutineScope(Dispatchers.IO).launch {
             gameEngine.updateHighScore()
         }
 
         val featuredWordView = view.findViewById<RecyclerView>(R.id.game_result_word_list_rv)
-//        val dictionaryAdapter = DictionaryAdapter(gameEngine.words)
-//        featuredWordView.adapter = dictionaryAdapter(dictionaryAdapter)
+        val dictionaryAdapter = DictionaryAdapter(gameEngine.words)
+        featuredWordView.adapter = dictionaryAdapter
+        featuredWordView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 
         val returnButton = view.findViewById<Button>(R.id.game_exit_bt)
         returnButton.setOnClickListener {

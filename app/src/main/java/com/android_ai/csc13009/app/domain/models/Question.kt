@@ -6,5 +6,9 @@ class Question(
     var id : Int,
     var question : String,
     var type : String,
-    var answer : ArrayList<AnswerWord>
+    var answer : ArrayList<AnswerWord>,
+
+    // chon 1 trong 2
+    var answers: List<Answer>,
+    var isCorrect: Boolean?
 ): Serializable

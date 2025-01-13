@@ -261,6 +261,8 @@
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
 
+
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="125dp"
@@ -278,25 +280,26 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="5dp">
+                            android:padding="5dp"
+                            android:visibility="visible">
 
                             <ImageView
                                 android:id="@+id/ivLearnVocab3"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_centerHorizontal="true"
-                                android:src="@drawable/learn_vocab_learn"/>
+                                android:src="@drawable/img_thumbnail_temp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:layout_centerHorizontal="true"
-                                android:text="Học ngữ pháp"
-                                android:fontFamily="@font/baloo"
                                 android:layout_below="@+id/ivLearnVocab3"
-
-                                android:textSize="16sp" />
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/baloo"
+                                android:text="Học nghe"
+                                android:textSize="16sp"
+                                android:visibility="visible" />
 
 
                         </RelativeLayout>

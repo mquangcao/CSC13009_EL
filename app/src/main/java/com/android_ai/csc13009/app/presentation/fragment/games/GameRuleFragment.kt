@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
+import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 
 class GameRuleFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +50,8 @@ class GameRuleFragment : Fragment() {
         val highScoreTextView = view.findViewById<TextView>(R.id.game_high_score_value_tv)
         highScoreTextView.text = "${gameEngine.highScore}"
 
+        val toolBar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.game_rule_header_tb)
+        NavigationSetter.setBackButton(toolBar, requireActivity() as GameActivity)
     }
 
     private fun setRuleText(rule: String) {
@@ -61,12 +64,12 @@ class GameRuleFragment : Fragment() {
         button.setOnClickListener(listener)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            GameRuleFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
+//    companion object {
+//        @JvmStatic
+//        fun newInstance() =
+//            GameRuleFragment().apply {
+//                arguments = Bundle().apply {
+//                }
+//            }
+//    }
 }

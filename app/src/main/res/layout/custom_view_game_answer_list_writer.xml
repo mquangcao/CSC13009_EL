@@ -18,20 +18,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/game_answer_writer_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <EditText
             android:id="@+id/game_answer_writer_ed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_rectangle"
-            android:backgroundTint="#ccc"
+            android:backgroundTint="@color/coral"
             android:ems="10"
             android:inputType="text"
-            android:text="Name"
+            android:text=""
+            android:textColor="@color/white"
+            android:hint="write your answer here!"
             />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/game_answer_writer_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:minHeight="300dp"
+            android:layout_weight="6"
+            android:background="@drawable/rounded_semi_transparent_background"
+            android:backgroundTint="@color/green"/>
+
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

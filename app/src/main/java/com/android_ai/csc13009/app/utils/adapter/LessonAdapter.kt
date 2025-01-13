@@ -24,7 +24,7 @@ class LessonAdapter (
         val rlLesson = itemView.findViewById<RelativeLayout>(R.id.rl_lesson)
         val txtProgress = itemView.findViewById<TextView>(R.id.tv_progress)
         val ivStart = itemView.findViewById<ImageView>(R.id.iv_star)
-        val progressBar = itemView.findViewById<ProgressBar>(R.id.progressBar)
+        val progressBar = itemView.findViewById<ProgressBar>(R.id.game_session_question_content_extra)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {

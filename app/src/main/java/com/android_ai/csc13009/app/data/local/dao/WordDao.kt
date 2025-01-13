@@ -21,6 +21,9 @@ interface WordDao : Serializable {
     @Query("SELECT * FROM Word WHERE word LIKE :query LIMIT 50")
     suspend fun getWordByName(query: String): List<WordEntity>
 
+    @Query("SELECT * FROM Word WHERE LOWER(word) = LOWER(:query) LIMIT 1")
+    suspend fun getExactWord(query: String): WordEntity?
+
     @Query("SELECT * FROM Word WHERE word LIKE :prefix || '%' LIMIT 100")
     suspend fun getSuggestions(prefix: String): List<WordEntity>
 
