@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 
-class LearnListeningActivity : AppCompatActivity() {
+class LearnListeningActivity : AppCompatActivity(), ILearnActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,5 +25,29 @@ class LearnListeningActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    override fun skipLesson() {
+        TODO("Not yet implemented")
+    }
+
+    override fun fetchLesson() {
+        TODO("Not yet implemented")
+    }
+
+    override fun nextLesson() {
+        TODO("Not yet implemented")
+    }
+
+    override fun startLesson(lessonId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun resumeLesson(lessonId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun saveProgress(lessonId: Int) {
+        TODO("Not yet implemented")
     }
 }

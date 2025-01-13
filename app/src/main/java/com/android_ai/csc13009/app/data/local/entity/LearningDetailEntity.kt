@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.data.local.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "LearningDetail")
 data class LearningDetailEntity(
@@ -10,4 +11,4 @@ data class LearningDetailEntity(
     val questionId: Int,     // ID của câu hỏi
     val isCorrect: Boolean,  // Kết quả đúng/sai
     val userId: String       // ID của người dùng
-)
+) : Serializable
