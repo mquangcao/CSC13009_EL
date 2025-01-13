@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.activity
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,18 +45,26 @@ class GrammarDetailsActivity : AppCompatActivity() {
         backButton.setOnClickListener { finish() }
 
         // Get topicId from intent
-        val topicId = intent.getIntExtra("topic_id", -1)  // Default value is -1
+        val grammarTopicId = intent.getIntExtra("topic_id", -1)  // Default value is -1
 
-        if (topicId != -1) {
+        if (grammarTopicId != -1) {
             uiScope.launch {
-                val subtopics = getSubtopicsForTopic(topicId)
-                val topicName = getTopicNameById(topicId)  // Fetch the topic name
+                val subtopics = getSubtopicsForTopic(grammarTopicId)
+                val topicName = getTopicNameById(grammarTopicId)  // Fetch the topic name
                 topicNameTextView.text = topicName  // Display the topic name
                 setupRecyclerView(subtopics)
             }
         } else {
             // Handle case when topicId is invalid
             topicNameTextView.text = "Invalid Topic ID"
+        }
+
+        val btnPractice:Button = findViewById(R.id.btnPractice)
+        btnPractice.setOnClickListener{
+            // đi đến trang luyện tập ngữ pháp theo topic này với random các câu trắc nghiệm
+            val intent = android.content.Intent(this, GrammarTopicPracticeActivity::class.java)
+            intent.putExtra("grammarTopicId", grammarTopicId)
+            startActivity(intent)
         }
     }
 
@@ -175,14 +184,14 @@ class GrammarDetailsActivity : AppCompatActivity() {
         val mockGrammarTopics = listOf(
             GrammarTopic(id = 1, levelId = 1, name = "Present Tense"),
             GrammarTopic(id = 2, levelId = 1, name = "Past Tense"),
-            GrammarTopic(id = 3, levelId = 2, name = "Future Tense"),
-            GrammarTopic(id = 4, levelId = 2, name = "Parts of Speech"),
-            GrammarTopic(id = 5, levelId = 3, name = "Sentence Structures"),
+            GrammarTopic(id = 3, levelId = 1, name = "Future Tense"),
+            GrammarTopic(id = 4, levelId = 1, name = "Parts of Speech"),
+            GrammarTopic(id = 5, levelId = 1, name = "Sentence Structures"),
             GrammarTopic(id = 6, levelId = 1, name = "Subject-Verb Agreement"),
-            GrammarTopic(id = 7, levelId = 3, name = "Conditionals"),
-            GrammarTopic(id = 8, levelId = 2, name = "Modals"),
-            GrammarTopic(id = 9, levelId = 3, name = "Reported Speech"),
-            GrammarTopic(id = 10, levelId = 3, name = "Phrasal Verbs")
+            GrammarTopic(id = 7, levelId = 1, name = "Conditionals"),
+            GrammarTopic(id = 8, levelId = 1, name = "Modals"),
+            GrammarTopic(id = 9, levelId = 1, name = "Reported Speech"),
+            GrammarTopic(id = 10, levelId = 1, name = "Phrasal Verbs")
         )
 
         return withContext(Dispatchers.IO) {
