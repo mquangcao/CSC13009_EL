@@ -26,8 +26,10 @@ class LearVocabActivity : AppCompatActivity() {
         val btnBack = findViewById<ImageView>(R.id.arrow_back)
         val backgroundImage = findViewById<ImageView>(R.id.backgroundImage)
 
+        val chapterId = intent.getIntExtra("chapterId", 0)
 
-        val chapter = IChapterRepository.getChapterDetail(1)
+
+        val chapter = IChapterRepository.getChapterDetail(chapterId)
         recyclerView.adapter = LessonAdapter(chapter.lessons)
 
         Glide.with(this)

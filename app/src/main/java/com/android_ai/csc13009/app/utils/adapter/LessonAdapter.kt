@@ -37,11 +37,10 @@ class LessonAdapter (
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         val lesson = lessons[position]
 
-
-
         holder.titleView.text = lesson.lessonName
         holder.cardView.setOnClickListener {
             val intent = Intent(holder.cardView.context, VocabularyWordActivity::class.java)
+            intent.putExtra("question", ArrayList(lesson.questions))
             holder.cardView.context.startActivity(intent)
         }
     }

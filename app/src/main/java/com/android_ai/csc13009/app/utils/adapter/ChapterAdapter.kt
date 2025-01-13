@@ -51,6 +51,7 @@ class ChapterAdapter(
 
         holder.itemCard.setOnClickListener {
             val intent = Intent(holder.itemCard.context, LearVocabActivity::class.java)
+            intent.putExtra("chapterId", lesson.id)
             holder.itemCard.context.startActivity(intent)
         }
     }

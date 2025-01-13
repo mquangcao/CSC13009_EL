@@ -1,41 +1,31 @@
 package com.android_ai.csc13009.app.utils.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.AnswerWord
-import com.android_ai.csc13009.app.domain.models.Word
-import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.imageview.ShapeableImageView
 
-class WordAdapter (private val words: List<AnswerWord>) : RecyclerView.Adapter<WordAdapter.WordViewHolder>()
-{
-    class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgWord: ShapeableImageView = itemView.findViewById(R.id.img_word)
-        val tvWord: TextView = itemView.findViewById(R.id.tv_word)
+
+class WordMeaningAdapter(private val words: List<AnswerWord>) : RecyclerView.Adapter<WordMeaningAdapter.WordMeaningViewHolder>() {
+    class WordMeaningViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvWord: TextView = itemView.findViewById(R.id.tvWord)
         val cardWord: MaterialCardView = itemView.findViewById(R.id.card_word)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_word, parent, false)
-        return WordViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordMeaningViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_word_meaning, parent, false)
+        return WordMeaningViewHolder(view)
     }
 
     override fun getItemCount(): Int = words.size
 
-    override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: WordMeaningViewHolder, position: Int) {
         val word = words[position]
         holder.tvWord.text = word.text
-        Glide.with(holder.itemView.context.applicationContext)
-            .load(word.imgUrl) // URL ảnh
-            .into(holder.imgWord)
 
         if (word.isSelected) {
             holder.cardWord.strokeColor = holder.itemView.context.getColor(R.color.green)

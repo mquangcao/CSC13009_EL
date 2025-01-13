@@ -32,7 +32,7 @@
                 app:srcCompat="@drawable/close_24px" />
 
             <ProgressBar
-                android:id="@+id/progressBar2"
+                android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="8dp"
@@ -43,12 +43,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:progressDrawable="@drawable/custom_progress"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="50" />
+                android:indeterminate="false" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tv_question"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

@@ -1,15 +1,13 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
 import android.app.Dialog
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.presentation.model.Language
+import com.android_ai.csc13009.app.domain.models.Language
 import com.android_ai.csc13009.app.utils.adapter.LanguageAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

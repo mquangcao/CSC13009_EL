@@ -8,9 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.domain.models.Word
-import com.android_ai.csc13009.app.presentation.model.Language
-import com.android_ai.csc13009.app.utils.adapter.WordAdapter.WordViewHolder
+import com.android_ai.csc13009.app.domain.models.Language
 import de.hdodenhof.circleimageview.CircleImageView
 
 class LanguageAdapter(var lang: List<Language>) : RecyclerView.Adapter<LanguageAdapter.LanguageViewHolder>() {

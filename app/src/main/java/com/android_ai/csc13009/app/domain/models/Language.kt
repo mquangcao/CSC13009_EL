@@ -1,4 +1,4 @@
-package com.android_ai.csc13009.app.presentation.model
+package com.android_ai.csc13009.app.domain.models
 
 data class Language(
     val id: Int,

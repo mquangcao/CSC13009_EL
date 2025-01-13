@@ -1,11 +1,13 @@
 package com.android_ai.csc13009.app.data.repository
 
 import com.android_ai.csc13009.app.domain.models.Answer
+import com.android_ai.csc13009.app.domain.models.AnswerWord
 import com.android_ai.csc13009.app.domain.models.Chapter
 import com.android_ai.csc13009.app.domain.models.Chapters
 import com.android_ai.csc13009.app.domain.models.Lesson
 import com.android_ai.csc13009.app.domain.models.Question
 import com.android_ai.csc13009.app.domain.repository.IChapterRepository
+import kotlin.collections.ArrayList
 
 class ChapterRepository : IChapterRepository {
     override fun getChapterList(): List<Chapters> {
@@ -41,23 +43,84 @@ class ChapterRepository : IChapterRepository {
                         Question(
                             1,
                             "Mèo",
-                            "word",
-                            listOf(
-                                Answer(1, "Dog", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(2, "Cat", true, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(3, "Bird", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(4, "Fish", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png")
+                            "new_word",
+                            ArrayList(
+                                listOf(
+                                    AnswerWord().apply {
+                                        text = "Dog"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Cat"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = true
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Bird"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Fish"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    }
+                                )
                             )
                         ),
                         Question(
                             2,
                             "Chó",
-                            "word",
-                            listOf(
-                                Answer(1, "Dog", true, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(2, "Cat", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(3, "Bird", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(4, "Fish", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png")
+                            "new_word",
+                            ArrayList(
+                                listOf(
+                                    AnswerWord().apply {
+                                        text = "Dog"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = true
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Cat"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Bird"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Fish"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    }
+                                )
+                            )
+                        ),
+                        Question(
+                            3,
+                            "This is my cat",
+                            "meaning",
+                            ArrayList(
+                                listOf(
+                                    AnswerWord().apply {
+                                        text = "Đây là con mèo của tôi"
+                                        isCorrect = true
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Đây là con chó của tôi"
+                                        isCorrect = false
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Đây là con chim của tôi"
+                                        isCorrect = false
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Đây là con cá của tôi"
+                                        isCorrect = false
+                                    }
+                                )
                             )
                         ),
                     )
@@ -72,25 +135,32 @@ class ChapterRepository : IChapterRepository {
                         Question(
                             1,
                             "Mèo",
-                            "word",
-                            listOf(
-                                Answer(1, "Dog", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(2, "Cat", true, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(3, "Bird", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(4, "Fish", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png")
+                            "new_word",
+                            ArrayList(
+                                listOf(
+                                    AnswerWord().apply {
+                                        text = "Dog"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Cat"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = true
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Bird"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    },
+                                    AnswerWord().apply {
+                                        text = "Fish"
+                                        imgUrl = "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"
+                                        isCorrect = false
+                                    }
+                                )
                             )
-                        ),
-                        Question(
-                            2,
-                            "Chó",
-                            "word",
-                            listOf(
-                                Answer(1, "Dog", true, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(2, "Cat", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(3, "Bird", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png"),
-                                Answer(4, "Fish", false, "https://res.cloudinary.com/dxz9cc66y/image/upload/v1733676003/mqc/img_thumnail_entrypoint.png")
-                            )
-                        ),
+                        )
                     )
                 )
             )
