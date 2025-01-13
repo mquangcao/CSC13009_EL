@@ -1,32 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.presentation.fragment.StatisticsFragment">
+    android:orientation="horizontal"
+    android:padding="16dp">
 
-    <!-- Biểu đồ từ vựng -->
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChartVocabulary"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+    <!-- Circular Progress Bars -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <!-- Biểu đồ bài học -->
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChartLessons"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:layout_constraintTop_toBottomOf="@id/pieChartVocabulary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_width="13dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#FC8890"
+            app:cpb_progressbar_width="12dp"
+            app:cpb_round_border="true"
+            app:cpb_progress="70"
+            app:cpb_progress_max="100"
+            android:layout_centerInParent="true" />
 
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_width="17dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#CEB7D4"
+            app:cpb_progressbar_width="16dp"
+            app:cpb_round_border="true"
+            app:cpb_progress="33"
+            app:cpb_progress_max="100"
+            android:layout_centerInParent="true" />
 
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar3"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_width="24dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#0EADD2"
+            app:cpb_progressbar_width="23dp"
+            app:cpb_round_border="true"
+            app:cpb_progress="90"
+            app:cpb_progress_max="100"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Text Descriptions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp">
+
+        <!-- Vocab -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                android:id="@+id/imgWord"
+                android:layout_width="3dp"
+                android:layout_height="35dp"
+                android:background="#FC8890" />
+
+            <TextView
+                android:id="@+id/tvWord1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imgWord"
+                android:text="Vocab"
+                android:textSize="16sp"
+                android:fontFamily="@font/baloo"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvDescription1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvWord1"
+                android:layout_marginStart="12dp"
+                android:text="70% success vocab"
+                android:textSize="8sp"
+                android:fontFamily="@font/baloo" />
+        </RelativeLayout>
+
+        <!-- Listening -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/imgWord2"
+                android:layout_width="3dp"
+                android:layout_height="35dp"
+                android:background="#CEB7D4" />
+
+            <TextView
+                android:id="@+id/tvWord2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imgWord2"
+                android:text="Listening"
+                android:textSize="16sp"
+                android:fontFamily="@font/baloo"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvDescription2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvWord2"
+                android:layout_marginStart="12dp"
+                android:text="33% success vocab"
+                android:textSize="8sp"
+                android:fontFamily="@font/baloo" />
+        </RelativeLayout>
+
+        <!-- Grammar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/imgWord3"
+                android:layout_width="3dp"
+                android:layout_height="35dp"
+                android:background="#0EADD2" />
+
+            <TextView
+                android:id="@+id/tvWord3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imgWord3"
+                android:text="Grammar"
+                android:textSize="16sp"
+                android:fontFamily="@font/baloo"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvDescription3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvWord3"
+                android:layout_marginStart="12dp"
+                android:text="90% success vocab"
+                android:textSize="8sp"
+                android:fontFamily="@font/baloo" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

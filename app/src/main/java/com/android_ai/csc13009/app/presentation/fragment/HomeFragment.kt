@@ -48,6 +48,13 @@ class HomeFragment : Fragment() {
 
         wordViewModel.fetchRandomWord()
 
+        if (savedInstanceState == null) {
+            val fragment = StatisticsFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.statisticsFragmentContainer, fragment)
+                .commit()
+        }
+
         // Set default fragment (Daily)
         if (savedInstanceState == null) {
             val fragment = DailyStatisticsVocabularyFragment()
@@ -87,8 +94,6 @@ class HomeFragment : Fragment() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }
-
-
 
     private fun setButtonDefaultStyle(btnDaily: Button, btnMonthly: Button) {
         btnDaily.setBackgroundColor(Color.parseColor("#FFFFFF"))
