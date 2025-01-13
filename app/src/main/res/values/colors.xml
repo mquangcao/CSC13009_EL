@@ -26,4 +26,8 @@
     <color name="yellow">#E7E716</color>
     <color name="background">#F4F5F9</color>
 
+    <color name="questionBackground">#C37C2B</color>
+    <color name="answerBackground">#EFF1F5</color>
+    <color name="correctAnswerBackground">#2BC716</color>
+    <color name="incorrectAnswerBackground">#FF6060</color>
 </resources>

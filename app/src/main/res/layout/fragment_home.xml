@@ -7,7 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
 
-
    <ScrollView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
@@ -83,222 +82,65 @@
                        android:layout_marginTop="90dp"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                          android:text="Ngày hôm nay của bạn:"
+                       android:text="Ngày hôm nay của bạn:"
                        android:fontFamily="@font/baloo"
                        android:textSize="24sp"
                        android:textColor="@color/black"/>
 
-                   <LinearLayout
-                       android:layout_marginTop="16dp"
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       android:padding="0dp"
-                       android:layout_marginEnd="-10dp"
-                       >
 
-                       <RelativeLayout
-
-
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content">
-                           <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                               android:id="@+id/circularProgressBar"
-                               android:layout_width="75dp"
-                               android:layout_height="75dp"
-                               app:cpb_background_progressbar_color="#b6bbd8"
-                               app:cpb_background_progressbar_width="13dp"
-                               app:cpb_progress_direction="to_right"
-                               app:cpb_progressbar_color="#FC8890"
-                               app:cpb_progressbar_width="12dp"
-                               app:cpb_round_border="true"
-                               app:cpb_progress="70"
-                               app:cpb_progress_max="100"
-                               android:layout_centerInParent="true"
-                               app:cpb_progressbar_color_end="#FC8890"
-                               app:cpb_background_progressbar_color_start="#EAEAEA"
-                               app:cpb_background_progressbar_color_direction="top_to_bottom"
-                               />
-
-                           <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                               android:id="@+id/circularProgressBar2"
-                               android:layout_width="120dp"
-                               android:layout_height="120dp"
-                               app:cpb_background_progressbar_color="#b6bbd8"
-                               app:cpb_background_progressbar_width="17dp"
-                               app:cpb_progress_direction="to_right"
-                               app:cpb_progressbar_color="#CEB7D4"
-                               app:cpb_progressbar_width="16dp"
-                               app:cpb_round_border="true"
-                               app:cpb_progress="33"
-                               app:cpb_progress_max="100"
-                               android:layout_centerInParent="true"
-                               app:cpb_progressbar_color_end="#CEB7D4"
-                               app:cpb_background_progressbar_color_start="#EAEAEA"
-                               app:cpb_background_progressbar_color_direction="top_to_bottom"
-                               />
-
-                           <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                               android:id="@+id/circularProgressBar3"
-                               android:layout_width="180dp"
-                               android:layout_height="180dp"
-                               app:cpb_background_progressbar_color="#b6bbd8"
-                               app:cpb_background_progressbar_width="24dp"
-                               app:cpb_progress_direction="to_right"
-                               app:cpb_progressbar_color="#0EADD2"
-                               app:cpb_progressbar_width="23dp"
-                               app:cpb_round_border="true"
-                               app:cpb_progress="90"
-                               app:cpb_progress_max="100"
-                               android:layout_centerInParent="true"
-                               app:cpb_progressbar_color_end="#0EADD2"
-                               app:cpb_background_progressbar_color_start="#EAEAEA"
-                               app:cpb_background_progressbar_color_direction="top_to_bottom"
-                               />
-
-
-                       </RelativeLayout>
-
-                       <LinearLayout
-                           android:layout_marginStart="20dp"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:orientation="vertical">
-
-                           <RelativeLayout
-                               android:layout_marginTop="12dp"
-                               android:layout_marginEnd="24dp"
-                               android:layout_width="match_parent"
-                               android:layout_height="wrap_content">
-                               <ImageView
-                                   android:id="@+id/imgWord"
-                                   android:layout_width="3dp"
-                                   android:layout_height="35dp"
-                                   android:background="#FC8890"/>
-                                 <TextView
-                                        android:id="@+id/tvWord1"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="18dp"
-                                        android:text="Vocab"
-                                        android:textSize="16sp"
-
-                                        android:layout_marginStart="8dp"
-                                        android:layout_below="@id/imgWord"
-                                        android:fontFamily="@font/baloo"
-                                        android:textColor="@color/black"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_toRightOf="@+id/imgWord"/>
-                                     />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="70% success vocab"
-                                    android:textSize="8sp"
-                                    android:layout_below="@+id/tvWord1"
-                                    android:layout_marginStart="12dp"
-                                    android:fontFamily="@font/baloo"/>
-
-
-
-                           </RelativeLayout>
-                           <RelativeLayout
-                               android:layout_marginTop="20dp"
-                               android:layout_marginEnd="24dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content">
-                               <ImageView
-                                   android:id="@+id/imgWord2"
-                                   android:layout_width="3dp"
-                                   android:layout_height="35dp"
-                                   android:background="#CEB7D4"/>
-                               <TextView
-                                   android:id="@+id/tvWord2"
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="18dp"
-                                   android:text="Listening"
-                                   android:textSize="16sp"
-
-                                   android:layout_marginStart="8dp"
-                                   android:layout_below="@id/imgWord2"
-                                   android:fontFamily="@font/baloo"
-                                   android:textColor="@color/black"
-                                   android:layout_alignParentTop="true"
-                                   android:layout_toRightOf="@+id/imgWord2"/>
-                               />
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="33% success vocab"
-                                   android:textSize="8sp"
-                                   android:layout_below="@+id/tvWord2"
-                                   android:layout_marginStart="12dp"
-                                   android:fontFamily="@font/baloo"/>
-
-
-
-                           </RelativeLayout>
-                           <RelativeLayout
-                               android:layout_marginTop="20dp"
-                               android:layout_marginEnd="24dp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content">
-                               <ImageView
-                                   android:id="@+id/imgWord3"
-                                   android:layout_width="3dp"
-                                   android:layout_height="35dp"
-                                   android:background="#0EADD2"/>
-                               <TextView
-                                   android:id="@+id/tvWord3"
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="18dp"
-                                   android:text="Grammar"
-                                   android:textSize="16sp"
-
-                                   android:layout_marginStart="8dp"
-                                   android:layout_below="@id/imgWord3"
-                                   android:fontFamily="@font/baloo"
-                                   android:textColor="@color/black"
-                                   android:layout_alignParentTop="true"
-                                   android:layout_toRightOf="@+id/imgWord3"/>
-                               />
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="90% success vocab"
-                                   android:textSize="8sp"
-                                   android:layout_below="@+id/tvWord3"
-                                   android:layout_marginStart="12dp"
-                                   android:fontFamily="@font/baloo"/>
-
-
-
-                           </RelativeLayout>
-
-
-                       </LinearLayout>
-
-
-                   </LinearLayout>
-
-
+                   <!-- FrameLayout để chứa StatisticsFragment -->
                    <FrameLayout
-                       android:id="@+id/fragmentContainer"
-                       android:layout_marginTop="35dp"
-
+                       android:id="@+id/statisticsFragmentContainer"
                        android:layout_width="match_parent"
-                       android:layout_height="match_parent"/>
-               </LinearLayout>
+                       android:layout_height="wrap_content" />
 
+               </LinearLayout>
            </FrameLayout>
 
-           <!-- Container cho StatisticsFragment -->
+           <!-- Buttons for Daily and Monthly -->
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical"
+               android:padding="16dp">
 
+               <!-- Buttons for Daily and Monthly -->
+               <LinearLayout
+                   android:orientation="horizontal"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="16dp">
+
+                   <Button
+                       android:id="@+id/btnDaily"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Daily"
+                       android:layout_marginEnd="16dp"
+                       android:backgroundTint="#FFFFFF"
+                       android:textColor="#000000"
+                       android:padding="8dp"
+                       android:layout_gravity="center_vertical" />
+
+                   <Button
+                       android:id="@+id/btnMonthly"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Monthly"
+                       android:backgroundTint="#FFFFFF"
+                       android:textColor="#000000"
+                       android:padding="8dp"
+                       android:layout_gravity="center_vertical" />
+               </LinearLayout>
+
+               <!-- Container for the fragment -->
+               <FrameLayout
+                   android:id="@+id/fragmentContainer"
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"/>
+           </LinearLayout>
        </LinearLayout>
-
    </ScrollView>
-
-
 </FrameLayout>
 

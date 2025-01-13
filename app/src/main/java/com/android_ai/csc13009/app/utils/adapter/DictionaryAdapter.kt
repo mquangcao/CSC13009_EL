@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.domain.repository.model.Word
+import com.android_ai.csc13009.app.domain.models.WordModel
 import com.android_ai.csc13009.app.presentation.activity.WordDetailActivity
 
-class DictionaryAdapter(private var words: List<Word>) : RecyclerView.Adapter<DictionaryAdapter.DictionaryViewHolder>() {
+class DictionaryAdapter(private var wordModels: List<WordModel>) : RecyclerView.Adapter<DictionaryAdapter.DictionaryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DictionaryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_word_search, parent, false)
@@ -18,31 +18,32 @@ class DictionaryAdapter(private var words: List<Word>) : RecyclerView.Adapter<Di
     }
 
     override fun onBindViewHolder(holder: DictionaryViewHolder, position: Int) {
-        holder.bind(words[position])
+        holder.bind(wordModels[position])
     }
 
     override fun getItemCount(): Int {
-        return words.size
+        return wordModels.size
     }
 
-    fun updateList(newWords: List<Word>) {
-        words = newWords
+    fun updateList(newWordModels: List<WordModel>) {
+        wordModels = newWordModels
         notifyDataSetChanged()
     }
 
     inner class DictionaryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val wordTextView: TextView = itemView.findViewById(R.id.tvWord)
 
-        fun bind(word: Word) {
-            wordTextView.text = word.word
+        fun bind(wordModel: WordModel) {
+            wordTextView.text = wordModel.word
 
             // Thêm sự kiện click vào item
             itemView.setOnClickListener {
                 val context = itemView.context
                 val intent = Intent(context, WordDetailActivity::class.java)
-                intent.putExtra("word_text", word.word) // Truyền từ cần hiển thị
-                intent.putExtra("word_pronunciation", word.pronunciation)
-                intent.putExtra("word_details", word.details)
+                intent.putExtra("word_id", wordModel.id)
+                intent.putExtra("word_text", wordModel.word) // Truyền từ cần hiển thị
+                intent.putExtra("word_pronunciation", wordModel.pronunciation)
+                intent.putExtra("word_details", wordModel.details)
                 context.startActivity(intent)
             }
         }

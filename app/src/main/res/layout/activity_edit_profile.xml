@@ -46,7 +46,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/genz_it"
+            android:src="@drawable/account_circle_24px"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp" />
     </androidx.cardview.widget.CardView>

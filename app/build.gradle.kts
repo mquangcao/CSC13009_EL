@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.kapt")
     id("kotlin-kapt")
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -51,6 +53,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.coordinatorlayout)
     //implementation(libs.androidx.games.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -69,6 +72,18 @@ dependencies {
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    implementation("com.daimajia.swipelayout:library:1.2.0")
 }
 
 

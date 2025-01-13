@@ -105,7 +105,7 @@
                 android:id="@+id/btnCallSingUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sing In"
+                android:text="Sing Up"
                 android:background="#000"
                 android:textColor="#fff"
                 android:transitionName="go_btn"

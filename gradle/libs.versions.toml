@@ -19,6 +19,7 @@ mpandroidchart = "v3.1.0"
 gamesActivity = "3.0.5"
 roomRuntime = "2.6.1"
 lifecycleKtx = "2.8.0"
+coordinatorlayout = "1.2.0"
 
 
 
@@ -40,6 +41,7 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleKtx" }
 kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 fragment-ktx = "androidx.fragment:fragment-ktx:1.6.2"
+androidx-coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

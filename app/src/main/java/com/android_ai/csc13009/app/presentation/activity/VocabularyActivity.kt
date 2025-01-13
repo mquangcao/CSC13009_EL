@@ -1,6 +1,5 @@
 package com.android_ai.csc13009.app.presentation.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
@@ -10,7 +9,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.data.local.entity.ChapterEntity
 import com.android_ai.csc13009.app.data.repository.ChapterRepository
 import com.android_ai.csc13009.app.domain.repository.IChapterRepository
 import com.android_ai.csc13009.app.utils.adapter.ChapterAdapter

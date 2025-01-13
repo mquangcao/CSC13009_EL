@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".app.presentation.activity.SummaryLearnVocabActivity">
+
+    <ImageView
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:src="@drawable/img_thumb_accout"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/tvTitle"
+        />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đã luyện tập xong!"
+        android:textSize="28sp"
+        android:fontFamily="@font/baloo"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFCB01"
+        android:layout_above="@+id/llContainer"
+        android:layout_marginBottom="36dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/llContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnFinish"
+        android:layout_marginBottom="76dp"
+        android:gravity="center"
+
+        >
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:backgroundTint="#49C0F8"
+            android:background="#49C0F8"
+            app:cardCornerRadius="18dp"
+            android:layout_marginEnd="24dp"
+            >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NHANH"
+                    android:textColor="@color/background"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/baloo"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:background="@color/background"
+                    android:backgroundTint="@color/background"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        >
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_time"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3:48"
+                            android:fontFamily="@font/baloo"
+                            android:textSize="18sp"
+                            android:layout_marginStart="4dp"
+                            android:textColor="#45C0FB"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:backgroundTint="#93D334"
+            android:background="#93D334"
+            app:cardCornerRadius="18dp"
+            android:layout_marginStart="24dp"
+            >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CHÍNH XÁC"
+                    android:textColor="@color/background"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/baloo"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:background="@color/background"
+                    android:backgroundTint="@color/background"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        >
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_success"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3:48"
+                            android:fontFamily="@font/baloo"
+                            android:textSize="18sp"
+                            android:layout_marginStart="4dp"
+                            android:textColor="#95D132"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#49C0F8"
+        android:fontFamily="@font/bungee"
+        android:padding="16dp"
+        android:text="Hoàn thành"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:cornerRadius="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

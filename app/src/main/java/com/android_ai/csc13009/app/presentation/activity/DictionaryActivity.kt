@@ -13,10 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
-import com.android_ai.csc13009.app.data.local.repository.WordRepository
-import com.android_ai.csc13009.app.domain.repository.model.Word
+import com.android_ai.csc13009.app.data.repository.WordRepository
+import com.android_ai.csc13009.app.domain.models.WordModel
 import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
-import com.android_ai.csc13009.app.utils.adapter.WordAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,7 +26,7 @@ class DictionaryActivity : AppCompatActivity() {
     private lateinit var rvSearchResults: RecyclerView
     private lateinit var wordAdapter: DictionaryAdapter
 
-    private val wordList = mutableListOf<Word>()
+    private val wordModelList = mutableListOf<WordModel>()
     private lateinit var wordRepository: WordRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +50,7 @@ class DictionaryActivity : AppCompatActivity() {
 
         // Thiết lập RecyclerView
         rvSearchResults.layoutManager = LinearLayoutManager(this)
-        wordAdapter = DictionaryAdapter(wordList)
+        wordAdapter = DictionaryAdapter(wordModelList)
         rvSearchResults.adapter = wordAdapter
 
         // Lắng nghe sự thay đổi trong ô tìm kiếm
