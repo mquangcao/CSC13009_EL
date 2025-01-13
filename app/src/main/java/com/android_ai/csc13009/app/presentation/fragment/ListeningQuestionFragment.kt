@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.domain.models.AnswerWord
 import com.android_ai.csc13009.app.domain.models.Word
 import com.android_ai.csc13009.app.utils.adapter.WordAdapter
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
@@ -71,10 +72,9 @@ class ListeningQuestionFragment : Fragment() {
 
         // mock data
         val words = listOf(
-            Word("Apple", "A fruit", R.drawable.apple),
-            Word("Banana", "A fruit", R.drawable.banana),
-            Word("Cherry", "A fruit", R.drawable.cherry),
-            Word("Grape", "A fruit", R.drawable.grape)
+           AnswerWord(
+
+           ),
         )
         val adapter = WordAdapter(words)
         val gridLayoutManager = GridLayoutManager(context, 2)

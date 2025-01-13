@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
-import com.android_ai.csc13009.app.data.local.repository.WordRepository
+import com.android_ai.csc13009.app.data.repository.WordRepository
 import com.android_ai.csc13009.app.presentation.fragment.games.GameInterface
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine

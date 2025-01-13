@@ -9,7 +9,7 @@ fun QuestionsEntity.toDomain(answers: List<Answer>, isCorrect: Boolean): Questio
     return Question(
         id = this.id,
         type = this.type,
-        answers = answers,
-        isCorrect = isCorrect
+        question = TODO(),
+        answer = TODO()
     )
 }

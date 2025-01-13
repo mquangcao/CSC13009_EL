@@ -2,6 +2,7 @@ package com.android_ai.csc13009.app.data.local.repository
 
 import com.android_ai.csc13009.app.data.local.dao.LearningDetailDao
 import com.android_ai.csc13009.app.data.local.dao.QuestionDao
+import com.android_ai.csc13009.app.data.repository.WordRepository
 import com.android_ai.csc13009.app.domain.models.Question
 import com.android_ai.csc13009.app.domain.repository.repository.IQuestionRepository
 import com.android_ai.csc13009.app.utils.mapper.toDomain
@@ -12,7 +13,7 @@ class QuestionRepository(private val questionDao: QuestionDao, private val learn
             val answers = questionDao.getAnswersByQuestionId(question.id)
             val answersModels = answers.map { answer ->
                 val word = answer.answerWordId?.let { wordRepository.getWordById(it) }
-                answer.toDomain(word?: throw Exception("Word not found"))
+                answer.toDomain(word!!)
             }
             val learningDetails = learningDetailDao.getLearningDetailsByQuestionAndUser(question.id, userId)
             val isCorrect = learningDetails.any { it.isCorrect }

@@ -38,7 +38,6 @@ class ChapterRepository : IChapterRepository {
                     lessonName = "Animal",
                     totalQuestion = 2,
                     questionSuccess = 1,
-                    totalWord = 2,
                     listOf(
                         Question(
                             1,
@@ -130,7 +129,6 @@ class ChapterRepository : IChapterRepository {
                     lessonName = "Bird",
                     totalQuestion = 2,
                     questionSuccess = 1,
-                    totalWord = 2,
                     listOf(
                         Question(
                             1,

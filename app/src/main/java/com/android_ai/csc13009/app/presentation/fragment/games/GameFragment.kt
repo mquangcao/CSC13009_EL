@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
-import com.android_ai.csc13009.app.data.local.repository.WordRepository
+import com.android_ai.csc13009.app.data.repository.WordRepository
+
 import com.android_ai.csc13009.app.utils.adapters.GameSelectorAdapter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine

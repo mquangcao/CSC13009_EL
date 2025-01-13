@@ -1,8 +1,8 @@
 package com.android_ai.csc13009.app.domain.models;
 
-import com.android_ai.csc13009.app.domain.repository.model.Word
+import com.android_ai.csc13009.app.domain.models.Word
 
-class Answer (
+data class Answer (
     var answerWord: Word,
     var id : Int,
     var answer : String,

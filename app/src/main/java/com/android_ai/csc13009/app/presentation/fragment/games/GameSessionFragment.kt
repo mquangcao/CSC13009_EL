@@ -284,7 +284,7 @@ class GameSessionFragment : Fragment(), GameInterface {
         setAnswer(layout)
         val answerList = requireView().findViewById<RecyclerView>(R.id.game_answer_writer_list)
         answerList.adapter = DictionaryAdapter(
-            words = gameEngine!!.words
+            gameEngine!!.words,
         )
         answerList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 
