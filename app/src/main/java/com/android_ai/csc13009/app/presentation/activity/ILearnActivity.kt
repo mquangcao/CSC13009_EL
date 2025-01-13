@@ -1,22 +1,20 @@
 package com.android_ai.csc13009.app.presentation.activity;
 
-import android.os.Bundle
-import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.data.local.dao.QuestionDao
+import com.android_ai.csc13009.app.data.local.dao.LearningDetailDao
+import com.android_ai.csc13009.app.data.local.dao.LessonDao
 import com.android_ai.csc13009.app.domain.models.Answer
 import com.android_ai.csc13009.app.domain.models.Lesson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 interface ILearnActivity {
 
     var lesson: Lesson
     var currentQuestionIndex: Int
-//    var questionRespository: QuestionDao
-//    var lessonRepository: Repository
+    var lessonDao: LessonDao
+    var learningDetailDao: LearningDetailDao
+    var userId: String
 
     public fun fetchLesson(lesson: Lesson) {
         this.lesson = lesson
@@ -29,6 +27,12 @@ interface ILearnActivity {
             lesson.questionSuccess++
         }
         lesson.questions[currentQuestionIndex].isCorrect = answer.isCorrect
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val learningDetail = learningDetailDao.getLearningDetailByQuestionAndUser(lesson.questions[currentQuestionIndex].id, userId)
+            learningDetail.isCorrect = answer.isCorrect
+            learningDetailDao.insertLearningDetail(learningDetail)
+        }
         nextQuestion()
     }
 
@@ -36,7 +40,7 @@ interface ILearnActivity {
         currentQuestionIndex++
         if (currentQuestionIndex >= lesson.questions.size) {
 //            nextLesson()
-            saveProgress()
+//            saveProgress()
         }
     }
 
@@ -54,9 +58,9 @@ interface ILearnActivity {
 
     }
 
-    fun saveProgress() {
-        
-    }
+//    fun saveProgress() {
+//
+//    }
 
 //    fun
 }
