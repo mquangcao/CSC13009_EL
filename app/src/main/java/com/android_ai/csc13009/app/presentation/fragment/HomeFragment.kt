@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
-import com.android_ai.csc13009.app.data.local.repository.WordRepository
+import com.android_ai.csc13009.app.data.repository.WordRepository
 import com.android_ai.csc13009.app.presentation.viewmodel.WordForTodayViewModel
 import com.android_ai.csc13009.app.presentation.viewmodel.WordViewModelFactory
 import androidx.fragment.app.viewModels
@@ -47,6 +47,13 @@ class HomeFragment : Fragment() {
         }
 
         wordViewModel.fetchRandomWord()
+
+        if (savedInstanceState == null) {
+            val fragment = StatisticsFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.statisticsFragmentContainer, fragment)
+                .commit()
+        }
 
         // Set default fragment (Daily)
         if (savedInstanceState == null) {
@@ -87,8 +94,6 @@ class HomeFragment : Fragment() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }
-
-
 
     private fun setButtonDefaultStyle(btnDaily: Button, btnMonthly: Button) {
         btnDaily.setBackgroundColor(Color.parseColor("#FFFFFF"))

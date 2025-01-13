@@ -27,6 +27,9 @@ import java.util.Calendar
 import android.Manifest
 import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
+import com.android_ai.csc13009.app.presentation.activity.LoginActivity
+import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
+import com.google.firebase.auth.FirebaseAuth
 
 
 @Suppress("DEPRECATION")
@@ -89,9 +92,9 @@ class MainActivity : AppCompatActivity() {
         slogan.startAnimation(bottomAnim)
 
         Handler().postDelayed({
-//            changeFragment()
-//            val intent = Intent(this, LoginActivity::class.java)
-            val intent = Intent(this, DashboardActivity::class.java)
+            //changeFragment()
+            //val intent = Intent(this, LoginActivity::class.java)
+            //val intent = Intent(this, DashboardActivity::class.java)
 
             val pairs = listOf(
                 Pair(imageView, "logo_image"),
@@ -100,7 +103,15 @@ class MainActivity : AppCompatActivity() {
 
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs.map { androidx.core.util.Pair(it.first, it.second) }.toTypedArray())
 
-            startActivity(intent, options.toBundle())
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser != null) {
+                val intent = Intent(this, DashboardActivity::class.java)
+                startActivity(intent, options.toBundle())
+            } else {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent, options.toBundle())
+            }
+
             finish()
         }, SPLASH_SCREEN.toLong())
 
@@ -184,6 +195,16 @@ class MainActivity : AppCompatActivity() {
             "Ứng dụng cần quyền thông báo để gửi nhắc nhở hàng ngày.",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val context = newBase
+
+        val savedLocale = LocaleUtils.getLocale(newBase as Context)
+
+        context!!.resources.configuration.setLocale(savedLocale)
+
+        super.attachBaseContext(newBase)
     }
 
 //    private fun changeFragment() {

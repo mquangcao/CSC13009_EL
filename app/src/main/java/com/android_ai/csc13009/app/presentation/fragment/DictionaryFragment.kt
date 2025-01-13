@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,14 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
-import com.android_ai.csc13009.app.data.local.repository.WordRepository
+import com.android_ai.csc13009.app.data.repository.WordRepository
 import com.android_ai.csc13009.app.domain.models.WordModel
+import com.android_ai.csc13009.app.presentation.activity.DashboardActivity
+import com.android_ai.csc13009.app.presentation.activity.TagActivity
 import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,6 +29,7 @@ import kotlinx.coroutines.withContext
 class DictionaryFragment : Fragment() {
     private lateinit var etSearch: AutoCompleteTextView
     private lateinit var rvSearchResults: RecyclerView
+    private lateinit var btnTag: ImageView
     private lateinit var dictionaryAdapter: DictionaryAdapter
 
     private val wordModelList = mutableListOf<WordModel>()
@@ -37,6 +42,7 @@ class DictionaryFragment : Fragment() {
         // Initialize AutoCompleteTextView
         etSearch = view.findViewById(R.id.etSearch)
         rvSearchResults = view.findViewById(R.id.rvSearchResults)
+        btnTag = view.findViewById(R.id.ivTagButton)
 
         rvSearchResults.layoutManager = LinearLayoutManager(requireContext())
         dictionaryAdapter = DictionaryAdapter(emptyList()) // Initial empty list
@@ -81,6 +87,10 @@ class DictionaryFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        btnTag.setOnClickListener{
+            startActivity(Intent(requireContext(), TagActivity::class.java))
+        }
     }
 
     // Function to search words as user types

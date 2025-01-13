@@ -9,5 +9,6 @@ data class AnswersEntity(
     val id: Int,
     val questionId: Int,
     val answerWordId: Int?,
+    val text : String,
     val isCorrect: Boolean
 )

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.fragment.AccountFragment
 import com.android_ai.csc13009.app.presentation.fragment.DictionaryFragment
-import com.android_ai.csc13009.app.presentation.fragment.GameFragment
+import com.android_ai.csc13009.app.presentation.fragment.games.GameFragment
 import com.android_ai.csc13009.app.presentation.fragment.HomeFragment
 import com.android_ai.csc13009.app.presentation.fragment.LearnFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

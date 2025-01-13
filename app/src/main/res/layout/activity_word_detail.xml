@@ -48,12 +48,12 @@
         <!-- Bookmark Icon -->
         <ImageView
             android:id="@+id/ivBookmark"
-            android:layout_width="24dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_marginEnd="16dp"
             android:layout_gravity="center_vertical|end"
-            android:src="@drawable/ic_save"
+            android:layout_marginEnd="16dp"
             android:contentDescription="Bookmark"
+            android:src="@drawable/ic_save"
             app:tint="@color/greenPrimary" />
     </FrameLayout>
 

@@ -1,5 +1,6 @@
-package com.android_ai.csc13009.app.presentation.fragment
+package com.android_ai.csc13009.app.presentation.fragment.games
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -8,12 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +31,7 @@ import java.util.ArrayList
 
 //private const val ARG_ENGN_IDX = "GameEngineIndex"
 
-class GameSessionFragment : Fragment() {
+class GameSessionFragment : Fragment(), GameInterface {
     private var gameEngine: IGameEngine? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +54,7 @@ class GameSessionFragment : Fragment() {
         val activity = requireActivity() as GameActivity
         gameEngine = activity.gameEngine!!
 
-        setScoreText()
+
         setHighScoreText()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -64,9 +62,10 @@ class GameSessionFragment : Fragment() {
 
             // quay lai main thread de tao ui
             withContext(Dispatchers.Main) {
-                setCanvas()
+                load()
             }
         }
+
     }
 
     private suspend fun startGame() {
@@ -221,5 +220,19 @@ class GameSessionFragment : Fragment() {
                 arguments = Bundle().apply {
                 }
             }
+    }
+
+    override fun load() {
+        setCanvas()
+        setScoreText()
+    }
+
+    @SuppressLint("NewApi")
+    override fun nextRound() {
+        if (gameEngine!!.gameState == IGameEngine.GameState.FINISHED) {
+            toResultFragment()
+            return
+        }
+        load()
     }
 }

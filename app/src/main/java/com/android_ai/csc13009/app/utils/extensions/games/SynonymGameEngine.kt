@@ -20,8 +20,10 @@ public class SynonymGameEngine(override var sessionDuration: Int,
     var secLeft = sessionDuration;
     var timeLeft = sessionDuration * 1000L;
 
-    var streak: Int = 0;
-//    var index: Int = 0;
+    override var streak: Int = 0;
+    override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING;
+
+    //    var index: Int = 0;
     val currentWordAnswers = ArrayList<String>();
 
     override val words: ArrayList<WordEntity> = ArrayList();
@@ -57,12 +59,6 @@ public class SynonymGameEngine(override var sessionDuration: Int,
 
 
 
-    override fun endGame() {
-        CoroutineScope(Dispatchers.IO).launch {
-            updateHighScore()
-        }
-
-    }
 
     override fun submitAnswer(answer: String) {
         timerPause()

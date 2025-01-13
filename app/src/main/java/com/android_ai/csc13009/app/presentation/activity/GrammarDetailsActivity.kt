@@ -12,8 +12,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
-import com.android_ai.csc13009.app.data.local.repository.GrammarSubtopicRepository
-import com.android_ai.csc13009.app.data.local.repository.GrammarTopicRepository
+import com.android_ai.csc13009.app.data.repository.GrammarSubtopicRepository
+import com.android_ai.csc13009.app.data.repository.GrammarTopicRepository
 import com.android_ai.csc13009.app.domain.models.GrammarSubtopic
 import com.android_ai.csc13009.app.domain.models.GrammarTopic
 import com.android_ai.csc13009.app.utils.adapter.GrammarSubtopicAdapter

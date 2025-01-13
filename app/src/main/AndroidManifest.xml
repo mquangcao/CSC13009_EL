@@ -19,6 +19,15 @@
             android:name=".app.presentation.activity.GrammarTopicPracticeActivity"
             android:exported="false" />
         <activity
+            android:name=".app.presentation.activity.SummaryLearnVocabActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.WordListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.TagActivity"
+            android:exported="false" />
+        <activity
             android:name=".app.presentation.activity.StatisticsDetailActivity"
             android:exported="false" /> <!-- <activity -->
         <!-- android:name=".app.presentation.activity.StatisticsActivity" -->
@@ -73,7 +82,11 @@
         </activity>
         <activity
             android:name=".HomeActivity"
+
             android:exported="true"></activity>
+//=======
+//            android:exported="true" />
+//>>>>>>> develop
 
         <meta-data
             android:name="preloaded_fonts"
