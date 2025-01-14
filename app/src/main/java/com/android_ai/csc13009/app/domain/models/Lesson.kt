@@ -4,6 +4,6 @@ data class Lesson(
     var id: Int,
     var lessonName: String,
     var totalQuestion : Int,
-    var questionSuccess : Int,
+//    var questionSuccess : Int,
     var questions : List<Question>
 )
