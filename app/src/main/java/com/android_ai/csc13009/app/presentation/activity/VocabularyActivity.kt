@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.repository.ChapterRepository
 import com.android_ai.csc13009.app.domain.repository.IChapterRepository
-import com.android_ai.csc13009.app.utils.adapter.ChapterAdapter
+//import com.android_ai.csc13009.app.utils.adapter.ChapterAdapter
 
 class VocabularyActivity : AppCompatActivity() {
     private lateinit var btnBack : ImageButton
@@ -40,7 +40,7 @@ class VocabularyActivity : AppCompatActivity() {
 
         //Set adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ChapterAdapter(list)
+//        recyclerView.adapter = ChapterAdapter(list)
 
         recyclerView.post {
             val totalHeight = recyclerView.adapter?.itemCount?.let { count ->

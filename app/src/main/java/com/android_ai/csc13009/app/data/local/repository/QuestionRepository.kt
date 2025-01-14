@@ -12,12 +12,12 @@ class QuestionRepository(private val questionDao: QuestionDao, private val learn
         return questionDao.getQuestionsByLessonId(lessonId).map { question ->
             val answers = questionDao.getAnswersByQuestionId(question.id)
             val answersModels = answers.map { answer ->
-                val word = answer.answerWordId?.let { wordRepository.getWordById(it) }
-                answer.toDomain(word!!)
+//                val word = answer.answerWordId?.let { wordRepository.getWordById(it) }
+                answer.toDomain()
             }
             val learningDetails = learningDetailDao.getLearningDetailsByQuestionAndUser(question.id, userId)
             val isCorrect = learningDetails.any { it.isCorrect }
-            question.toDomain(answersModels, isCorrect)
+            question.toDomain(answersModels)
         }
     }
 }

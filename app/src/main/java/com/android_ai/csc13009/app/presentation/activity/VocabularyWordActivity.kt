@@ -105,7 +105,7 @@ class VocabularyWordActivity : AppCompatActivity() {
     private fun loadQuestion(question: Question) {
         if(question.type == "new_word") {
             tvQuestion.text = "Choose the correct word"
-            loadFragment(WordQuestionFragment(question.question, question.answer))
+//            loadFragment(WordQuestionFragment(question.type, ))
         }
         else {
             tvQuestion.text = "Điền từ còn thếu vào chỗ trống"

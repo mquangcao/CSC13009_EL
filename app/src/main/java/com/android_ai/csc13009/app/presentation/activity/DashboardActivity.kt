@@ -12,7 +12,7 @@ import com.android_ai.csc13009.app.presentation.fragment.AccountFragment
 import com.android_ai.csc13009.app.presentation.fragment.DictionaryFragment
 import com.android_ai.csc13009.app.presentation.fragment.games.GameFragment
 import com.android_ai.csc13009.app.presentation.fragment.HomeFragment
-import com.android_ai.csc13009.app.presentation.fragment.LearnFragment
+//import com.android_ai.csc13009.app.presentation.fragment.LearnFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.Serializable
 
@@ -39,10 +39,10 @@ class DashboardActivity : AppCompatActivity() {
                     loadFragment(HomeFragment())
                     true
                 }
-                R.id.learn -> {
-                    loadFragment(LearnFragment())
-                    true
-                }
+//                R.id.learn -> {
+//                    loadFragment(LearnFragment())
+//                    true
+//                }
                 R.id.game -> {
                     loadFragment(GameFragment())
                     true

@@ -27,6 +27,7 @@ import java.util.Calendar
 import android.Manifest
 import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
+import com.android_ai.csc13009.app.presentation.activity.IntroActivity
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
 import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -108,7 +109,8 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, DashboardActivity::class.java)
                 startActivity(intent, options.toBundle())
             } else {
-                val intent = Intent(this, LoginActivity::class.java)
+//                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, IntroActivity::class.java)
                 startActivity(intent, options.toBundle())
             }
 

@@ -37,12 +37,10 @@ class ChapterRepository : IChapterRepository {
                     id = 1,
                     lessonName = "Animal",
                     totalQuestion = 2,
-                    questionSuccess = 1,
                     listOf(
                         Question(
                             1,
                             "Mèo",
-                            "new_word",
                             ArrayList(
                                 listOf(
                                     AnswerWord().apply {
@@ -71,7 +69,6 @@ class ChapterRepository : IChapterRepository {
                         Question(
                             2,
                             "Chó",
-                            "new_word",
                             ArrayList(
                                 listOf(
                                     AnswerWord().apply {
@@ -100,7 +97,6 @@ class ChapterRepository : IChapterRepository {
                         Question(
                             3,
                             "This is my cat",
-                            "meaning",
                             ArrayList(
                                 listOf(
                                     AnswerWord().apply {
@@ -128,12 +124,10 @@ class ChapterRepository : IChapterRepository {
                     id = 2,
                     lessonName = "Bird",
                     totalQuestion = 2,
-                    questionSuccess = 1,
                     listOf(
                         Question(
                             1,
                             "Mèo",
-                            "new_word",
                             ArrayList(
                                 listOf(
                                     AnswerWord().apply {
