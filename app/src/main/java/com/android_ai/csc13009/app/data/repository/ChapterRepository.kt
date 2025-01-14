@@ -122,6 +122,18 @@ class ChapterRepository : IChapterRepository {
                                 )
                             )
                         ),
+                        Question(
+                            4,
+                            "Đây là Việt Nam",
+                            "translate",
+                            ArrayList(
+                                listOf(
+                                    AnswerWord().apply {
+                                        text = "This is Vietnam"
+                                    }
+                                )
+                            )
+                        ),
                     )
                 ),
                 Lesson(

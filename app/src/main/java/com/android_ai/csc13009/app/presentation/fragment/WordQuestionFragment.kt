@@ -63,12 +63,23 @@ class WordQuestionFragment(val questionTitle : String, val answerWords : ArrayLi
     }
 
     private fun completeTask() {
-        // Gửi kết quả với requestKey và dữ liệu (có thể là Bundle hoặc null)
-        val result = Bundle().apply {
-            putString("result", "success")
-            putString("type", "new_word")
+        for (i in answerWords.indices) {
+            val result = Bundle()
+            if (answerWords[i].isSelected == true) {
+                if (answerWords[i].isCorrect) {
+                    result.apply {
+                        putString("result", "correct")
+                    }
+                } else {
+                    result.apply {
+                        putString("result", "in_correct")
+                    }
+                }
+
+                parentFragmentManager.setFragmentResult("taskCompleted", result)
+                return
+            }
         }
-        parentFragmentManager.setFragmentResult("taskCompleted", result)
     }
 
 

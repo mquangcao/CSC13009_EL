@@ -10,5 +10,14 @@
     <string name="app_name">a</string>
     <string name="hello_blank_fragment">a</string>
     <string name="game_exit_button">a</string>
+    <string name="skip">a</string>
     <string name="_12_b_i_h_c">12 lesson</string>
+    <string name="fill_in_the_blank">Điền từ còn thiếu vào chỗ trống</string>
+    <string name="game_menu_title">a</string>
+    <string name="game_menu_prompt">a</string>
+    <string name="back_description">a</string>
+    <string name="game_word_question_prompt">a</string>
+    <string name="game_spelling_bee_question_prompt">a</string>
+    <string name="choose_the_correct_word">Chọn từ đúng</string>
+    <string name="translate_the_word">Dịch câu này</string>
 </resources>

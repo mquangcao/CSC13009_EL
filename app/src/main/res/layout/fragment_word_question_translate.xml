@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".app.presentation.fragment.FragmentWordQuestionTranslate">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="12dp"
+
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/iv_learn_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_vertical"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_learn_8"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+
+
+            <com.android_ai.csc13009.app.utils.ChatBubbleView
+                android:id="@+id/chat_bubble"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chatTextSize="6sp" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="56dp"
+
+            android:layout_below="@+id/tv_question"
+            android:layout_above="@+id/btn_check_answer">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_answer"
+                app:boxBackgroundMode="outline"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:boxStrokeColor="@color/black"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
+                android:backgroundTint="@color/white"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_answer_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Gõ phần phiên dịch cho tiếng Anh"
+                    android:fontFamily="@font/baloo"
+                    android:padding="16dp"
+                    android:textSize="14sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/btn_mic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mic_24px"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="button mic"
+                android:layout_gravity="end"
+                android:padding="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                app:tint="@color/black" />
+        </RelativeLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_check_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#EDC806"
+            android:fontFamily="@font/bungee"
+            android:padding="16dp"
+            android:text="Check Answer"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/search_check_2_24px"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:iconTint="@color/white" />
+
+    </RelativeLayout>
+
+</FrameLayout>

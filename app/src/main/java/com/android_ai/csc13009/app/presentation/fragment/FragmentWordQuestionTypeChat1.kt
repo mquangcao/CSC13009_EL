@@ -79,7 +79,5 @@ class FragmentWordQuestionTypeChat1 : Fragment() {
                 return
             }
         }
-
-
     }
 }
