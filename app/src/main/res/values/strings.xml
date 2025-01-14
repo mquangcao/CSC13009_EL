@@ -17,4 +17,13 @@
     <string name="game_spelling_bee_question_prompt">Spell this word:</string>
     <string name="skip">Skip</string>
     <string name="_12_b_i_h_c">12 bài học</string>
+    <string name="game_name_lexicon">Lexicon</string>
+    <string name="game_rule_lexicon">"* This game is input-based, it will end after a number correct answer is entered\n* You will need to input x unique word in order to complete the game\n* The point you gain will based on the length of the word you entered\n* An extra random condition appear for each new input, fulfil them to double the point of the word\n* When the word is incorrect / not found in our codex, you get deduced 100 points and have to try again "</string>
+    <string name="game_name_spelling_bee">Spelling bee</string>
+    <string name="game_rule_spelling_bee">"* This game is round-based, which mean that the game will end after a number of rounds has ended \n* In each round, there will be a word which you need to spell out \n* You will be only provided with an audio and IPA of the word\n* You need to drag and drop each letter into the correct position to form the correct word \n* A round will end when all positions have been filled, after that point will be added and a new word will be generated to start a new round \n* For each word you get correct, you will get 1000 points, and a bonus for each subsequent correct word \n* When the word is incorrect, the bonus is lost and you will not gain any point for that round "</string>
+    <string name="game_rule_unscramble">* This game is round-based, it will end after a number of round has passed \n* In each round, there will be an scrambled word\n* You need to drag and drop each letter into the correct position to form the correct word \n* A round will end when all positions have been filled, after that point will be added and a new word will be generated to start a new round\n* For each word you get correct, you will get 1000 points, and a bonus for each subsequent correct word\n* When the word is incorrect, the bonus is lost and you will not gain any point for that round</string>
+    <string name="game_name_unscramble">Unscramble</string>
+    <string name="back_title">Return?</string>
+    <string name="back_prompt_title">Return?</string>
+    <string name="back_prompt_description">Do you really want to go back? Some data will not be saved.</string>
 </resources>

@@ -35,17 +35,20 @@ class GameFragment : Fragment() {
             LexiconGameEngine(
                 maxRound = configMaxRound,
                 gameDataDao = database.gameDataDao(),
-                wordRepository = wordRepository
+                wordRepository = wordRepository,
+                context = requireContext()
             )
             , SpellingBeeGameEngine(
                 maxRound = configMaxRound,
                 gameDataDao = database.gameDataDao(),
                 wordRepository = wordRepository,
+                context = requireContext()
             )
             ,  WordGameEngine(
                 maxRound = configMaxRound,
                 gameDataDao = database.gameDataDao(),
-                wordRepository = wordRepository
+                wordRepository = wordRepository,
+                context = requireContext()
             )
         )
     }

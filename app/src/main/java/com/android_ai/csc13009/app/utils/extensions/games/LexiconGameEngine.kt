@@ -1,7 +1,8 @@
 package com.android_ai.csc13009.app.utils.extensions.games
+import android.content.Context
+import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.repository.WordRepository
-import com.android_ai.csc13009.app.domain.models.Word
 import com.android_ai.csc13009.app.domain.models.WordModel
 
 import kotlinx.coroutines.CoroutineScope
@@ -16,6 +17,7 @@ class LexiconGameEngine(
     val maxRound: Int,
     override val gameDataDao: GameDataDao,
     override val wordRepository: WordRepository,
+    override val context: Context
 ) :
 
     IGameEngine, Serializable {
@@ -79,18 +81,13 @@ class LexiconGameEngine(
     }
 
     override fun getRule(): String {
-        val rule: String =
-                "* This game is input-based, it will end after a number correct answer is entered \n" +
-                "* You will need to input x unique word in order to complete the game \n" +
-                "* The point you gain will based on the length of the word you entered \n" +
-                "* An extra random condition appear for each new input, fulfil them to double the point of the word \n" +
-                "* When the word is incorrect / not found in our codex, you get deduced 100 points and have to try again \n"
-
+        val rule = context.getString(R.string.game_rule_lexicon)
         return rule
     }
 
     override fun getGameName(): String {
-        return "Lexicon"
+        val name = context.getString(R.string.game_name_lexicon)
+        return name
     }
 
     override fun getProgress(): Int {
