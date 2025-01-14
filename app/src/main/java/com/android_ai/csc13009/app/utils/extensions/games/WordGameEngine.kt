@@ -1,8 +1,10 @@
 package com.android_ai.csc13009.app.utils.extensions.games
 
 import com.android_ai.csc13009.app.data.local.dao.GameDataDao
-import com.android_ai.csc13009.app.data.local.repository.WordRepository
-import com.android_ai.csc13009.app.domain.repository.model.Word
+import com.android_ai.csc13009.app.data.repository.WordRepository
+import com.android_ai.csc13009.app.domain.models.Word
+import com.android_ai.csc13009.app.domain.models.WordModel
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,10 +20,10 @@ class WordGameEngine(
     override var score: Int = 0
     override var highScore: Int = 0
 
-    override var currentWord: Word? = null
+    override var currentWord: WordModel? = null
     override var streak: Int = 0
     override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING
-    override val words: ArrayList<Word> = ArrayList()
+    override val words: ArrayList<WordModel> = ArrayList()
 
     init {
         CoroutineScope(Dispatchers.IO).launch {

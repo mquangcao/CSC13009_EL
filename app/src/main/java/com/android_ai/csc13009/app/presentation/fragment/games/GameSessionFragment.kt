@@ -28,6 +28,7 @@ import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 import com.android_ai.csc13009.app.utils.extensions.TTSHelper
+import com.android_ai.csc13009.app.utils.extensions.TTSSetter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.SpellingBeeGameEngine
@@ -79,7 +80,7 @@ class GameSessionFragment : Fragment(), GameInterface {
 
 
     private fun setBackButton() {
-        val toolbar: Toolbar = requireView().findViewById(R.id.game_result_header_tb)
+        val toolbar: Toolbar = requireView().findViewById(R.id.learn_header_tb)
         val activity = requireActivity() as AppCompatActivity
 
         NavigationSetter.setBackButton(toolbar, activity)
@@ -109,7 +110,7 @@ class GameSessionFragment : Fragment(), GameInterface {
                 setAnswerListWriter(R.layout.custom_view_game_answer_list_writer)
             }
             SpellingBeeGameEngine::class.java -> {
-                setQuestion(R.layout.custom_view_game_question_audio)
+                setQuestion(R.layout.custom_view_audio_player)
                 setAnswerLetterPicker(R.layout.custom_view_game_answer_letter_picker)
             }
             WordGameEngine::class.java -> {
@@ -147,7 +148,7 @@ class GameSessionFragment : Fragment(), GameInterface {
         val word = gameEngine?.currentWord?.word
         val pronunciation = gameEngine?.currentWord?.pronunciation
 
-        val audioButton = view.findViewById<ImageButton>(R.id.game_session_question_content)
+        val audioButton = view.findViewById<ImageButton>(R.id.learn_question_content)
         val audioProgress = view.findViewById<ProgressBar>(R.id.game_session_question_content_extra)
         val wordTextView = view.findViewById<TextView>(R.id.game_session_question_prompt)
 
@@ -155,42 +156,43 @@ class GameSessionFragment : Fragment(), GameInterface {
         stringBuilder.appendLine("Spell this word:")
         stringBuilder.appendLine(pronunciation)
         wordTextView.text = stringBuilder.toString()
-        val handler = Handler(Looper.getMainLooper())
-        var updateProgress: Runnable? = null
+//        val handler = Handler(Looper.getMainLooper())
+//        var updateProgress: Runnable? = null
 
-        val tts = TTSHelper(requireContext())
-        audioButton.setOnClickListener {
-            if (word != null) {
-                tts.stop()
-                updateProgress?.let { handler.removeCallbacks(it) }
-
-                audioProgress.progress = 0
-                val estimatedDuration = tts.estimateSpeechDuration(word)
-                val updateInterval = 100 // Update every 100ms
-
-
-                tts.speak(word)
-
-
-                val startTime = System.currentTimeMillis()
-
-                updateProgress = object : Runnable {
-                    override fun run() {
-                        val elapsedTime = System.currentTimeMillis() - startTime
-                        val progress = ((elapsedTime.toFloat() / estimatedDuration) * 100).toInt()
-                        audioProgress.progress = progress
-
-                        if (elapsedTime < estimatedDuration) {
-                            handler.postDelayed(this, updateInterval.toLong())
-                        } else {
-                            audioProgress.progress = 100
-                        }
-                    }
-                }
-
-                handler.post(updateProgress as Runnable)
-            }
-        }
+//        val tts = TTSHelper(requireContext())
+        TTSSetter().setTTS(audioButton, audioProgress, word?: "", requireContext())
+//        audioButton.setOnClickListener {
+//            if (word != null) {
+//                tts.stop()
+//                updateProgress?.let { handler.removeCallbacks(it) }
+//
+//                audioProgress.progress = 0
+//                val estimatedDuration = tts.estimateSpeechDuration(word)
+//                val updateInterval = 100 // Update every 100ms
+//
+//
+//                tts.speak(word)
+//
+//
+//                val startTime = System.currentTimeMillis()
+//
+//                updateProgress = object : Runnable {
+//                    override fun run() {
+//                        val elapsedTime = System.currentTimeMillis() - startTime
+//                        val progress = ((elapsedTime.toFloat() / estimatedDuration) * 100).toInt()
+//                        audioProgress.progress = progress
+//
+//                        if (elapsedTime < estimatedDuration) {
+//                            handler.postDelayed(this, updateInterval.toLong())
+//                        } else {
+//                            audioProgress.progress = 100
+//                        }
+//                    }
+//                }
+//
+//                handler.post(updateProgress as Runnable)
+//            }
+//        }
     }
 
     private fun setQuestionWordGame(view: View) {
@@ -235,7 +237,7 @@ class GameSessionFragment : Fragment(), GameInterface {
 
         val roundCount = lexiconGameEngine.maxRound
         val currentRound = lexiconGameEngine.words.size
-        val textView = view.findViewById<TextView>(R.id.game_session_question_content)
+        val textView = view.findViewById<TextView>(R.id.learn_question_content)
 
         val text = "$currentRound / $roundCount"
         textView.text = text
@@ -282,7 +284,7 @@ class GameSessionFragment : Fragment(), GameInterface {
         setAnswer(layout)
         val answerList = requireView().findViewById<RecyclerView>(R.id.game_answer_writer_list)
         answerList.adapter = DictionaryAdapter(
-            words = gameEngine!!.words
+            gameEngine!!.words,
         )
         answerList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 

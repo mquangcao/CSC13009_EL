@@ -2,8 +2,11 @@ package com.android_ai.csc13009.app.utils.extensions.games
 
 import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.local.entity.GameDataEntity
-import com.android_ai.csc13009.app.data.local.repository.WordRepository
-import com.android_ai.csc13009.app.domain.repository.model.Word
+import com.android_ai.csc13009.app.data.repository.WordRepository
+import com.android_ai.csc13009.app.domain.models.Word
+import com.android_ai.csc13009.app.domain.models.WordModel
+
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,8 +15,8 @@ import java.io.Serializable
 interface IGameEngine : Serializable {
     var score: Int
     var highScore: Int
-    val words: ArrayList<Word>
-    var currentWord: Word?
+    val words: ArrayList<WordModel>
+    var currentWord: WordModel?
 //    val wordDao: WordDao;
     val wordRepository: WordRepository
     val gameDataDao: GameDataDao
@@ -42,7 +45,7 @@ interface IGameEngine : Serializable {
         if (word != null) {
             words.add(word)
         } else {
-            val defaultWord = Word(
+            val defaultWord = WordModel(
                 -1,
                 "default word",
                 "",

@@ -6,5 +6,5 @@ class Question(
     var id : Int,
     var question : String,
     var type : String,
-    var answer : ArrayList<AnswerWord>
+    var answer : ArrayList<AnswerWord>,
 ): Serializable

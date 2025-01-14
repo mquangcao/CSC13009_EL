@@ -33,6 +33,9 @@ interface QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAnswers(answers: List<AnswersEntity>)
 
+    @Query("SELECT * FROM Questions WHERE lessonId = :lessonId")
+    suspend fun getQuestionsByLessonId(lessonId: Int): List<QuestionsEntity>
+
     @Query("SELECT * FROM Answers WHERE id = :questionId")
     suspend fun getAnswersByQuestionId(questionId: Int): List<AnswersEntity>
 }
