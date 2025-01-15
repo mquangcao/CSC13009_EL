@@ -45,7 +45,7 @@ class ChapterAdapter(
             .into(holder.imgThumb)
 
         holder.tvChapter.text = lesson.chapterName
-        holder.tvVocabulary.text = "${lesson.totalWord} vocabulary words"
+        holder.tvVocabulary.text = "${lesson.totalLesson} lessons"
         holder.circularProgressBar.progress = lesson.lessonFinished.toFloat() / lesson.totalLesson.toFloat() * 100
         holder.txtProgress.text = "${ (lesson.lessonFinished.toFloat() / lesson.totalLesson.toFloat() * 100).toInt()}%"
 

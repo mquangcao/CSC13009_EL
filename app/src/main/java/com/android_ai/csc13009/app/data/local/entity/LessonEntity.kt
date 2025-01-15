@@ -7,10 +7,8 @@ import java.io.Serializable
 @Entity(tableName = "Lesson")
 data class LessonEntity(
     @PrimaryKey
-    val id: Int,
+    val id: String,
     val lessonName: String,
-    val description: String,
-    val orderNumber: Int,
-    val chapterId: Int,
-    val status: Boolean
+    val topicId: String,
+    val order : Int,
 ) : Serializable

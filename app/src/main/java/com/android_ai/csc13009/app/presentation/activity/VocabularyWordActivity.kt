@@ -11,15 +11,23 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.local.AppDatabase
+import com.android_ai.csc13009.app.data.local.entity.UserLessonLearnedEntity
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreProgressRepository
 import com.android_ai.csc13009.app.domain.models.Question
 import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTranslate
 import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTypeChat1
 import com.android_ai.csc13009.app.presentation.fragment.WordQuestionFragment
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 
 class VocabularyWordActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
@@ -35,6 +43,7 @@ class VocabularyWordActivity : AppCompatActivity() {
 
     private var startTime: Long = 0
     private var elapsedTime: Long = 0
+    private var lessonId : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +75,7 @@ class VocabularyWordActivity : AppCompatActivity() {
 
 
         val questions = intent.getSerializableExtra("question") as? ArrayList<Question>
+        lessonId = intent.getStringExtra("lessonId").toString()
 
         startTime = System.currentTimeMillis()
         if(questions != null) {
@@ -115,7 +125,7 @@ class VocabularyWordActivity : AppCompatActivity() {
             }
             "meaning" -> {
                 tvQuestion.text = getString(R.string.fill_in_the_blank)
-                loadFragment(FragmentWordQuestionTypeChat1())
+                loadFragment(FragmentWordQuestionTypeChat1(question.question, question.answer))
             }
         }
 
@@ -146,6 +156,11 @@ class VocabularyWordActivity : AppCompatActivity() {
             } else {
                 val timeText = calTime()
 
+                lifecycleScope.launch {
+                    saveProgress()
+                    // Làm gì đó với dữ liệu
+                }
+
                 val intent = Intent(this, SummaryLearnVocabActivity::class.java)
                 intent.putExtra("time", timeText)
                 intent.putExtra("correctAnswer", (correctAnswer.toDouble() / totalQuestion.toDouble() * 100).toInt())
@@ -154,6 +169,41 @@ class VocabularyWordActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun getUserId() : String {
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            // Handle user not logged in case
+            Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show()
+            return ""
+        }
+        return currentUser.uid
+    }
+
+    private suspend fun saveProgress() {
+        val database = AppDatabase.getInstance(this@VocabularyWordActivity).userProgressDao()
+        val firestore = FirebaseFirestore.getInstance()
+        val repository = FirestoreProgressRepository(firestore)
+
+        val userId = getUserId()
+
+        //save to firestore
+        val progressId = repository.createLessonFinished(userId, lessonId, totalQuestion, correctAnswer)
+        val userProgress = UserLessonLearnedEntity(
+            id = progressId ?: "",
+            lessonId = lessonId,
+            userId = userId,
+            totalQuestion = totalQuestion,
+            questionSuccess = correctAnswer
+        )
+
+        //save to local database
+        database.insertUserLessonLearned(userProgress)
+
+        val data = database.getLessonsLearnedByUser(userId)
+        Log.d("data", data.toString())
     }
 
     @SuppressLint("DefaultLocale")

@@ -15,13 +15,13 @@ interface ChapterDao {
     suspend fun insertChapters(chapters: List<ChapterEntity>)
 
     @Query("SELECT * FROM Chapter WHERE id = :chapterId")
-    suspend fun getChapterById(chapterId: Int): ChapterEntity?
+    suspend fun getChapterById(chapterId: String): ChapterEntity?
 
     @Query("SELECT * FROM Chapter")
     suspend fun getAllChapters(): List<ChapterEntity>
 
     @Query("DELETE FROM Chapter WHERE id = :chapterId")
-    suspend fun deleteChapter(chapterId: Int)
+    suspend fun deleteChapter(chapterId: String)
 
     @Query("DELETE FROM Chapter")
     suspend fun deleteAllChapters()
