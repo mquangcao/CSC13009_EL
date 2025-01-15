@@ -3,17 +3,25 @@ package com.android_ai.csc13009.app.presentation.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreTopicRepository
 import com.android_ai.csc13009.app.presentation.fragment.AccountFragment
 import com.android_ai.csc13009.app.presentation.fragment.DictionaryFragment
 import com.android_ai.csc13009.app.presentation.fragment.games.GameFragment
 import com.android_ai.csc13009.app.presentation.fragment.HomeFragment
 import com.android_ai.csc13009.app.presentation.fragment.LearnFragment
+import com.android_ai.csc13009.app.presentation.service.SyncDataFromFirestore
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 import java.io.Serializable
 
 class DashboardActivity : AppCompatActivity() {
@@ -25,12 +33,17 @@ class DashboardActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
 
+
         bottomNavView = findViewById(R.id.bottom_nav)
         frame = findViewById(R.id.nav_host_fragment)
 
         // Mặc định load HomeFragment khi vào DashboardActivity
         if (savedInstanceState == null) {
             loadFragment(HomeFragment())
+        }
+        lifecycleScope.launch {
+            Log.e("FirestoreTopicRepository", "Checkkkkk: ")
+            test()
         }
 
         bottomNavView.setOnItemSelectedListener  {
@@ -58,6 +71,12 @@ class DashboardActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    private suspend fun test() {
+        val firestore = FirebaseFirestore.getInstance()
+        val sync = SyncDataFromFirestore("begin", firestore, this)
+        sync.run()
     }
 
     private fun loadFragment(fragment: Fragment) {

@@ -38,6 +38,9 @@ class FragmentWordQuestionTranslate(val questionTitle : String, val answerWords 
         etAnswerInput = view.findViewById(R.id.et_answer_input)
         chatBubble = view.findViewById(R.id.chat_bubble)
 
+        Log.d("FragmentWordQuestionTranslate", "onCreateView: $questionTitle")
+        Log.d("FragmentWordQuestionTranslate", "onCreateView: $answerWords")
+
         chatBubble.setText(questionTitle)
 
         btnMic.setOnClickListener {
