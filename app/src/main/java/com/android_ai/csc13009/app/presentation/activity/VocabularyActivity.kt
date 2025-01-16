@@ -1,17 +1,21 @@
 package com.android_ai.csc13009.app.presentation.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.repository.ChapterRepository
+import com.android_ai.csc13009.app.domain.models.Chapters
 import com.android_ai.csc13009.app.domain.repository.IChapterRepository
-//import com.android_ai.csc13009.app.utils.adapter.ChapterAdapter
+import com.android_ai.csc13009.app.utils.adapter.ChapterAdapter
+import kotlinx.coroutines.launch
 
 class VocabularyActivity : AppCompatActivity() {
     private lateinit var btnBack : ImageButton
@@ -29,18 +33,34 @@ class VocabularyActivity : AppCompatActivity() {
         }
 
         //init
-        chapterRepository = ChapterRepository()
+        chapterRepository = ChapterRepository(this)
 
         //Hooks
         btnBack = findViewById(R.id.btnBack)
         recyclerView = findViewById(R.id.recyclerView)
 
 
-        val list = chapterRepository.getChapterList()
+        updateUI()
 
-        //Set adapter
+        btnBack.setOnClickListener { finish() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateUI()
+    }
+
+    private fun updateUI() {
+        lifecycleScope.launch {
+            val list = chapterRepository.getChapterList()
+            // Cập nhật UI sau khi lấy danh sách
+            updateUI(list)
+        }
+    }
+
+    private fun updateUI(list: List<Chapters>) {
         recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.adapter = ChapterAdapter(list)
+        recyclerView.adapter = ChapterAdapter(list)
 
         recyclerView.post {
             val totalHeight = recyclerView.adapter?.itemCount?.let { count ->
@@ -50,7 +70,5 @@ class VocabularyActivity : AppCompatActivity() {
             recyclerView.layoutParams.height = totalHeight ?: RecyclerView.LayoutParams.WRAP_CONTENT
             recyclerView.requestLayout()
         }
-
-        btnBack.setOnClickListener { finish() }
     }
 }

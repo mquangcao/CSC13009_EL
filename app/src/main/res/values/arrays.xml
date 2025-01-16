@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="practice_slogans">
+        <item>You need to practice more</item>
+        <item>Keep going, you\'re doing great!</item>
+        <item>Practice makes perfect</item>
+    </string-array>
+
     <string-array name="intro_titles">
         <item>Welcome to English learning app.</item>
         <item>Explore our library of interactive lessons and quizzes.</item>

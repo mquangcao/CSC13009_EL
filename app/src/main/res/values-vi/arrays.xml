@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="practice_slogans">
+        <item>Cố gắng luyện tập nhé!</item>
+        <item>Đã luyện tập xong!</item>
+        <item>Luyện tập tạo nên sự hoàn hảo!</item>
     <string-array name="intro_titles">
         <item>Chào mừng bạn đến với ứng dung học tiếng anh.</item>
         <item>Khám phá muôn vàn bài học và câu hỏi thú vị.</item>

@@ -8,7 +8,7 @@
     <string name="game_result_word_list_title">Words Featured:</string>
     <string name="game_result_exit_game_button">Return to menu</string>
     <string name="app_name">English Learning</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="game_exit_button">Return to menu</string>
     <string name="game_menu_title">Game</string>
     <string name="game_menu_prompt">Choose a Game</string>
@@ -26,4 +26,7 @@
     <string name="back_title">Return?</string>
     <string name="back_prompt_title">Return?</string>
     <string name="back_prompt_description">Do you really want to go back? Some data will not be saved.</string>
+    <string name="fill_in_the_blank">Fill in the blanks</string>
+    <string name="choose_the_correct_word">Choose the correct word</string>
+    <string name="translate_the_word">Translate this sentence</string>
 </resources>

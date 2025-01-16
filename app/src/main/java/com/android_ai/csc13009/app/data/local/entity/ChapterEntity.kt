@@ -6,9 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Chapter")
 data class ChapterEntity(
     @PrimaryKey
-    val id: Int,
-    val chapterName: String,
-    val description: String,
-    val level: String,
-    val status: Boolean
+    val id : String,
+    val title : String,
+    val thumbnailUrl : String
+
 )
