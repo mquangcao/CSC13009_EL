@@ -18,7 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
+import com.android_ai.csc13009.app.data.local.entity.LearningDetailEntity
 import com.android_ai.csc13009.app.data.local.entity.UserLessonLearnedEntity
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreLearningDetailRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreProgressRepository
 import com.android_ai.csc13009.app.domain.models.Question
 import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTranslate
@@ -28,6 +30,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class VocabularyWordActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
@@ -93,12 +96,57 @@ class VocabularyWordActivity : AppCompatActivity() {
             if (requestKey == "taskCompleted") {
                 // Xử lý kết quả (ở đây có thể là dữ liệu từ Bundle)
                 val result = bundle.getString("result")
+                val questionId = bundle.getString("questionId")
+
                 handleTaskResult(result, questions)
+                handleSaveLearningDetail(result == "correct", questionId)
             }
         }
 
         btnClose.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun handleSaveLearningDetail(isCorrect: Boolean, questionId: String?) {
+        lifecycleScope.launch {
+            // Làm gì đó với dữ liệu
+
+            val repository = FirestoreLearningDetailRepository(FirebaseFirestore.getInstance())
+            val database = AppDatabase.getInstance(this@VocabularyWordActivity).learningDetailDao()
+
+            val userId = getUserId()
+            if (repository.isExist(questionId ?: "", userId)) {
+                val learningDetailId = repository.updateLearningDetail(questionId ?: "", isCorrect)
+
+                val learningDetail = LearningDetailEntity(
+                    id = learningDetailId ?: "",
+                    date = System.currentTimeMillis().toString(),
+                    questionId = questionId ?: "",
+                    isCorrect = isCorrect,
+                    userId = userId,
+                    type = "vocabulary",
+                    isReviewed = false
+                )
+
+                database.insertLearningDetail(learningDetail)
+
+            } else {
+                val learningDetailId = repository.createLearningDetail(userId, questionId ?: "", isCorrect, "vocabulary")
+
+
+                val learningDetail = LearningDetailEntity(
+                    id = learningDetailId ?: "",
+                    date = System.currentTimeMillis().toString(),
+                    questionId = questionId ?: "",
+                    isCorrect = isCorrect,
+                    userId = userId,
+                    type = "vocabulary",
+                    isReviewed = false
+                )
+
+                database.insertLearningDetail(learningDetail)
+            }
         }
     }
 
@@ -117,15 +165,15 @@ class VocabularyWordActivity : AppCompatActivity() {
         when (question.type) {
             "translate" -> {
                 tvQuestion.text = getString(R.string.translate_the_word)
-                loadFragment(FragmentWordQuestionTranslate(question.question, question.answer))
+                loadFragment(FragmentWordQuestionTranslate(question.id ,question.question, question.answer))
             }
             "new_word" -> {
                 tvQuestion.text = getString(R.string.choose_the_correct_word)
-                loadFragment(WordQuestionFragment(question.question, question.answer))
+                loadFragment(WordQuestionFragment(question.id , question.question, question.answer))
             }
             "meaning" -> {
                 tvQuestion.text = getString(R.string.fill_in_the_blank)
-                loadFragment(FragmentWordQuestionTypeChat1(question.question, question.answer))
+                loadFragment(FragmentWordQuestionTypeChat1(question.id , question.question, question.answer))
             }
         }
 
@@ -201,9 +249,6 @@ class VocabularyWordActivity : AppCompatActivity() {
 
         //save to local database
         database.insertUserLessonLearned(userProgress)
-
-        val data = database.getLessonsLearnedByUser(userId)
-        Log.d("data", data.toString())
     }
 
     @SuppressLint("DefaultLocale")

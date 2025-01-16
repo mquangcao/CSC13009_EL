@@ -16,7 +16,7 @@ import com.google.android.material.button.MaterialButton
 import java.util.ArrayList
 
 
-class FragmentWordQuestionTypeChat1(val questionTitle : String, val answerWords : ArrayList<AnswerWord>) : Fragment() {
+class FragmentWordQuestionTypeChat1(val questionId : String, val questionTitle : String, val answerWords : ArrayList<AnswerWord>) : Fragment() {
 
 
 
@@ -55,6 +55,9 @@ class FragmentWordQuestionTypeChat1(val questionTitle : String, val answerWords 
                     result.apply {
                         putString("result", "in_correct")
                     }
+                }
+                result.apply {
+                    putString("questionId", questionId)
                 }
 
                 parentFragmentManager.setFragmentResult("taskCompleted", result)

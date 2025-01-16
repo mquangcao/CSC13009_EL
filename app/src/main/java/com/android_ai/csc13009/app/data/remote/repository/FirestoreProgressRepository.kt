@@ -29,10 +29,10 @@ class FirestoreProgressRepository(private val firestore: FirebaseFirestore) {
                 .documents.mapNotNull {
                     FirestoreLessonProgress(
                         it.id,
-                        it["lessonId"] as? String ?: "",
-                        it["userId"] as? String ?: "",
-                        it["totalQuestion"] as? Int ?: 0,
-                        it["questionSuccess"] as? Int ?: 0
+                        lessonId = it["lessonId"] as? String ?: "",
+                        userId = it["userId"] as? String ?: "",
+                        totalQuestion = (it["totalQuestion"] as? Number)?.toInt() ?: 0,
+                        questionSuccess = (it["questionSuccess"] as? Number)?.toInt() ?: 0
                     )
                 }
         } catch (e: Exception) {

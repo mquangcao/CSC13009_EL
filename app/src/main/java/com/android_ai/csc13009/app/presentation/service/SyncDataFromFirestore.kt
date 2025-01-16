@@ -2,6 +2,7 @@ package com.android_ai.csc13009.app.presentation.service
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.dao.AnswerDao
 import com.android_ai.csc13009.app.data.local.entity.UserLessonLearnedEntity
@@ -14,6 +15,7 @@ import com.android_ai.csc13009.app.utils.mapper.AnswerMapper
 import com.android_ai.csc13009.app.utils.mapper.LessonMapper
 import com.android_ai.csc13009.app.utils.mapper.QuestionMapper
 import com.android_ai.csc13009.app.utils.mapper.TopicMapper
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class SyncDataFromFirestore(private val level : String, private val firestore: FirebaseFirestore, context : Context) {
@@ -27,8 +29,15 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
     suspend fun run() {
         clearData()
         fetchDataLevel()
-        fetchLessonProgress("INQagyhZDxUnZVhYegOVJV7YT2E2")
+        fetchLessonProgress(getUserId())
         //test()
+    }
+
+    private fun getUserId() : String {
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
+
+        return currentUser?.uid ?: ""
     }
 
     private suspend fun fetchDataLevel() {

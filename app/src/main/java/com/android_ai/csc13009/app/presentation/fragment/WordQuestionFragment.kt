@@ -12,7 +12,7 @@ import com.android_ai.csc13009.app.domain.models.Word
 import com.android_ai.csc13009.app.utils.adapter.WordAdapter
 import java.util.ArrayList
 
-class WordQuestionFragment(val questionTitle : String, val answerWords : ArrayList<AnswerWord>) : Fragment() {
+class WordQuestionFragment(val questionId : String,val questionTitle : String, val answerWords : ArrayList<AnswerWord>) : Fragment() {
 
 
     override fun onCreateView(
@@ -74,6 +74,9 @@ class WordQuestionFragment(val questionTitle : String, val answerWords : ArrayLi
                     result.apply {
                         putString("result", "in_correct")
                     }
+                }
+                result.apply {
+                    putString("questionId", questionId)
                 }
 
                 parentFragmentManager.setFragmentResult("taskCompleted", result)
