@@ -1,21 +1,26 @@
 package com.android_ai.csc13009.app.data.repository
 
-import com.android_ai.csc13009.app.data.local.dao.GrammarTopicDao
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreGrammarTopicRepository
 import com.android_ai.csc13009.app.domain.models.GrammarTopic
 import com.android_ai.csc13009.app.domain.repository.IGrammarTopicRepository
 import com.android_ai.csc13009.app.utils.mapper.toDomain
 
-class GrammarTopicRepository(private val grammarTopicDao: GrammarTopicDao,):
+class GrammarTopicRepository(private val firestoreGrammarTopicRepository: FirestoreGrammarTopicRepository) :
     IGrammarTopicRepository {
-    override suspend fun getTopicsByLevel(levelId: Int): List<GrammarTopic> {
-        return grammarTopicDao.getTopicsByLevel(levelId).map { it.toDomain() }
+
+    override suspend fun getTopicsByLevel(levelId: String): List<GrammarTopic> {
+        val firestoreTopics = firestoreGrammarTopicRepository.getTopicsByLevel(levelId)
+        return firestoreTopics.map { it.toDomain() }
     }
 
     override suspend fun getTopicByName(topicName: String): GrammarTopic? {
-        return grammarTopicDao.getTopicByName(topicName)?.toDomain()
+        val firestoreTopic = firestoreGrammarTopicRepository.getTopicByName(topicName)
+        return firestoreTopic?.toDomain()
     }
 
     override suspend fun getAllTopics(): List<GrammarTopic> {
-        return grammarTopicDao.getAllTopics().map { it.toDomain() }
+        val firestoreTopics = firestoreGrammarTopicRepository.getAllTopics()
+        return firestoreTopics.map { it.toDomain() }
     }
 }
+

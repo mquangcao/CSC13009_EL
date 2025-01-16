@@ -1,9 +1,8 @@
 package com.android_ai.csc13009.app.domain.models
 
 data class GrammarAnswer(
-    val grammarAnswerId: Int,
-    val grammarQuestionId: Int,
+    val id: String,
+    val grammarQuestionId: String,
     val answer: String,
     val isCorrect: Boolean
-
 )

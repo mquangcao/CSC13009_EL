@@ -37,6 +37,22 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:srcCompat="@drawable/close_24px" />
 
+            <!-- ProgressBar aligned horizontally with btnClose -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintStart_toEndOf="@id/btnClose"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/textTopicName"
+                android:progressDrawable="@drawable/custom_progress"
+                android:indeterminate="false" />
+
             <!-- Topic Name -->
             <TextView
                 android:id="@+id/textTopicName"
