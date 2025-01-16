@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.domain.models.WordModel
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
@@ -278,10 +279,14 @@ class GameSessionFragment : Fragment(), GameInterface {
     }
 
     private fun setAnswerListWriter(layout: Int) {
+        val funt : (WordModel) -> Unit = {
+            val activity = requireActivity() as GameActivity
+            activity.submitAnswer(it.word)
+        }
         setAnswer(layout)
         val answerList = requireView().findViewById<RecyclerView>(R.id.game_answer_writer_list)
         answerList.adapter = DictionaryAdapter(
-            gameEngine!!.words,
+            gameEngine!!.words,funt
         )
         answerList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 

@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.domain.models.WordModel
 import com.android_ai.csc13009.app.presentation.activity.GameActivity
 import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
@@ -53,8 +54,12 @@ class GameResultFragment : Fragment() {
             gameEngine.updateHighScore()
         }
 
+        val funt : (WordModel) -> Unit = {
+
+        }
+
         val featuredWordView = view.findViewById<RecyclerView>(R.id.game_result_word_list_rv)
-        val dictionaryAdapter = DictionaryAdapter(gameEngine.words)
+        val dictionaryAdapter = DictionaryAdapter(gameEngine.words, funt)
         featuredWordView.adapter = dictionaryAdapter
         featuredWordView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 
