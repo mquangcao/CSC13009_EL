@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.Lesson
@@ -38,10 +39,22 @@ class LessonAdapter (
         val lesson = lessons[position]
 
         holder.titleView.text = lesson.lessonName
-        holder.cardView.setOnClickListener {
-            val intent = Intent(holder.cardView.context, VocabularyWordActivity::class.java)
-            intent.putExtra("question", ArrayList(lesson.questions))
-            holder.cardView.context.startActivity(intent)
+
+        if(lesson.isOpen) {
+            holder.cardView.setOnClickListener {
+                val intent = Intent(holder.cardView.context, VocabularyWordActivity::class.java)
+                intent.putExtra("question", ArrayList(lesson.questions))
+                intent.putExtra("lessonId", lesson.id)
+                holder.cardView.context.startActivity(intent)
+            }
+        } else {
+            holder.rlLesson.alpha = 0.5f
+            holder.ivStart.visibility = View.GONE
         }
+
+        holder.progressBar.max = lesson.totalQuestion
+        holder.progressBar.progress = lesson.questionSuccess
+
+        holder.txtProgress.text = "${lesson.questionSuccess}/${lesson.totalQuestion}"
     }
 }

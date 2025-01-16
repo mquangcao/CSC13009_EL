@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.utils.extensions.games
 
+import android.content.Context
 import com.android_ai.csc13009.app.data.local.dao.GameDataDao
 import com.android_ai.csc13009.app.data.local.entity.GameDataEntity
 import com.android_ai.csc13009.app.data.repository.WordRepository
@@ -17,10 +18,10 @@ interface IGameEngine : Serializable {
     var highScore: Int
     val words: ArrayList<WordModel>
     var currentWord: WordModel?
-//    val wordDao: WordDao;
     val wordRepository: WordRepository
     val gameDataDao: GameDataDao
     var streak: Int
+    val context: Context
 
     enum class GameState {
         WAITING,

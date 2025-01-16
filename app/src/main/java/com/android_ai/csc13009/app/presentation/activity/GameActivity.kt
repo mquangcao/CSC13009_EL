@@ -44,7 +44,7 @@ class GameActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        NavigationSetter.setActivityBackConfirmation(this, "Are you sure?", "Do you really want to exit the game?")
+        NavigationSetter.setActivityBackConfirmation(this)
     }
 
     fun showLoading() {
@@ -79,17 +79,20 @@ class GameActivity : AppCompatActivity() {
             0 -> LexiconGameEngine(
                 maxRound = 5,
                 gameDataDao = dataDao,
-                wordRepository = wordRepository
+                wordRepository = wordRepository,
+                this
             )
             1 -> SpellingBeeGameEngine(
                 maxRound = 5,
                 gameDataDao = dataDao,
                 wordRepository = wordRepository,
+                context = this
             )
             2 -> WordGameEngine(
                 maxRound = 5,
                 gameDataDao = dataDao,
-                wordRepository = wordRepository
+                wordRepository = wordRepository,
+                context = this
             )
             else -> null // Handle invalid cases gracefully
         }

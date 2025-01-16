@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "UserLessonLearned")
 data class UserLessonLearnedEntity(
     @PrimaryKey
-    val id: Int,
-    val lessonId: Int, // lesson_id liên kết với LessonEntity
-    val userId: String  // user_id liên kết với UserEntity
+    val id: String,
+    val lessonId: String, // lesson_id liên kết với LessonEntity
+    val userId: String,  // user_id liên kết với UserEntity
+    val totalQuestion : Int, // tổng số câu hỏi
+    val questionSuccess : Int // số câu hỏi trả lời đúng
 )

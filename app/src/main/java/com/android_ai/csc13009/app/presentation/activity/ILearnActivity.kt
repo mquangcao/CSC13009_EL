@@ -16,17 +16,12 @@
 //    var learningDetailDao: LearningDetailDao
 //    var userId: String
 //
-//    public fun fetchLesson(lesson: Lesson) {
-//        this.lesson = lesson
-//    }
-//
-//    public abstract fun nextLesson()
-//
 //    fun submitAnswer(answer: Answer) {
 //        if (answer.isCorrect) {
-//            lesson.questionSuccess++
+////            lesson.questionSuccess++
+//            // update
 //        }
-//        lesson.questions[currentQuestionIndex].isCorrect = answer.isCorrect
+////        lesson.questions[currentQuestionIndex].isCorrect = answer.isCorrect
 //
 //        CoroutineScope(Dispatchers.IO).launch {
 //            val learningDetail = learningDetailDao.getLearningDetailByQuestionAndUser(lesson.questions[currentQuestionIndex].id, userId)
@@ -49,14 +44,15 @@
 //
 //    }
 //
-//    fun resumeLesson() {
-//        for (question in lesson.questions) {
-//            if (question.isCorrect != null) {
-//                nextQuestion()
-//            }
-//        }
 //
-//    }
+////    fun resumeLesson() {
+////        for (question in lesson.questions) {
+////            if (question.isCorrect != null) {
+////                nextQuestion()
+////            }
+////        }
+////
+////    }
 //
 ////    fun saveProgress() {
 ////

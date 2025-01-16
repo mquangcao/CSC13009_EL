@@ -9,6 +9,7 @@
     tools:context=".app.presentation.activity.SummaryLearnVocabActivity">
 
     <ImageView
+        android:id="@+id/ivThumb"
         android:layout_width="320dp"
         android:layout_height="320dp"
         android:src="@drawable/img_thumb_accout"
@@ -27,6 +28,7 @@
         android:textColor="#FFCB01"
         android:layout_above="@+id/llContainer"
         android:layout_marginBottom="36dp"
+        android:textAlignment="center"
         />
 
     <LinearLayout
@@ -83,6 +85,7 @@
                             android:layout_height="32dp"
                             android:src="@drawable/ic_time"/>
                         <TextView
+                            android:id="@+id/tvTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3:48"
@@ -142,6 +145,7 @@
                             android:layout_height="32dp"
                             android:src="@drawable/ic_success"/>
                         <TextView
+                            android:id="@+id/tvCorrect"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3:48"
