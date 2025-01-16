@@ -1,89 +1,90 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
+import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.AnswerWord
-import com.android_ai.csc13009.app.domain.models.Word
-import com.android_ai.csc13009.app.utils.adapter.WordAdapter
-import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
-import com.android_ai.csc13009.app.utils.extensions.TTSSetter
+import com.android_ai.csc13009.app.domain.models.Question
+import com.android_ai.csc13009.app.utils.ChatBubbleView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import java.util.ArrayList
+import java.util.Locale
 
-class ListeningQuestionFragment : Fragment() {
-
-    private var questionWord: Word? = null
+class ListeningQuestionFragment(val questionTitle : String, val answerWords : ArrayList<AnswerWord>) : Fragment() {
+    private lateinit var etAnswerInput : TextInputEditText
+    private lateinit var chatBubble : ChatBubbleView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_word_question_translate, container, false)
+        val btnMic: ImageButton = view.findViewById(R.id.btn_mic)
+        etAnswerInput = view.findViewById(R.id.et_answer_input)
+        chatBubble = view.findViewById(R.id.chat_bubble)
 
-        val view =  inflater.inflate(R.layout.fragment_learn_listening, container, false)
+        Log.d("FragmentWordQuestionTranslate", "onCreateView: $questionTitle")
+        Log.d("FragmentWordQuestionTranslate", "onCreateView: $answerWords")
 
-        setToolbar()
-        setQuestion()
-        setAnswers()
+        chatBubble.setText(questionTitle)
 
+        btnMic.setOnClickListener {
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH)
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now")
+            startActivityForResult(intent, 100)
+        }
+
+        val btn_check_answer = view.findViewById<MaterialButton>(R.id.btn_check_answer)
+        btn_check_answer.setOnClickListener {
+            completeTask(answerWords)
+        }
 
         return view
     }
 
-    private fun setToolbar() {
-        val backButton = view?.findViewById<Toolbar>(R.id.learn_header_tb) ?: throw NullPointerException("Toolbar is not found")
-        val skipButton = view?.findViewById<Button>(R.id.learn_header_tb_skip) ?: throw NullPointerException("Skip is not found")
-
-        NavigationSetter.setBackButton(
-            backButton,
-            requireActivity()
-        )
-
-        skipButton.setOnClickListener() {
-            nextQuestion()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == 100 || data != null) {
+            val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            etAnswerInput.setText(result?.get(0))
         }
-
     }
 
-    private fun setQuestion() {
-        if (questionWord == null) {
-            throw NullPointerException("Question word is null")
+    private fun completeTask(data: List<AnswerWord>) {
+        for (i in data.indices) {
+            val result = Bundle()
+            if (etAnswerInput.text.toString().toLowerCase() == data[i].text.toLowerCase()) {
+                result.apply {
+                    putString("result", "correct")
+                }
+
+            } else {
+                result.apply {
+                    putString("result", "in_correct")
+                }
+            }
+
+            parentFragmentManager.setFragmentResult("taskCompleted", result)
+            return
+
         }
-
-        val questionPromptView = view?.findViewById<TextView>(R.id.learn_question_prompt) ?: throw NullPointerException("Question prompt is not found")
-        val questionProgressBar = view?.findViewById<ProgressBar>(R.id.game_session_question_content_extra) ?: throw NullPointerException("Question progress bar is not found")
-        val questionSoundButton = view?.findViewById<ImageButton>(R.id.learn_question_content) ?: throw NullPointerException("Question sound button is not found")
-
-        questionPromptView.text = questionWord?.word ?: throw NullPointerException("Question word is null")
-        TTSSetter().setTTS(questionSoundButton, questionProgressBar, questionWord?.word?: throw NullPointerException("Question word is null"), requireContext())
     }
 
-    private fun setAnswers() {
-        val answerView = view?.findViewById<RecyclerView>(R.id.rv_word)
-            ?: throw NullPointerException("AnswerView is null")
-
-        // mock data
-        val words = listOf(
-           AnswerWord(
-
-           ),
-        )
-        val adapter = WordAdapter(words)
-        val gridLayoutManager = GridLayoutManager(context, 2)
-        answerView.layoutManager = gridLayoutManager
-
-        answerView.adapter = adapter
-    }
-
-    private fun nextQuestion() {
-
-    }
 }
