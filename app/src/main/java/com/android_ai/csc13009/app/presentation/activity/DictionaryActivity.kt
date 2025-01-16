@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.AutoCompleteTextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,7 +52,15 @@ class DictionaryActivity : AppCompatActivity() {
 
         // Thiết lập RecyclerView
         rvSearchResults.layoutManager = LinearLayoutManager(this)
-        wordAdapter = DictionaryAdapter(wordModelList)
+        wordAdapter = DictionaryAdapter(emptyList()) { wordModel ->
+            val context = this
+            val intent = Intent(context, WordDetailActivity::class.java)
+            intent.putExtra("word_id", wordModel.id)
+            intent.putExtra("word_text", wordModel.word) // Truyền từ cần hiển thị
+            intent.putExtra("word_pronunciation", wordModel.pronunciation)
+            intent.putExtra("word_details", wordModel.details)
+            context.startActivity(intent)
+        }// Initial empty list
         rvSearchResults.adapter = wordAdapter
 
         // Lắng nghe sự thay đổi trong ô tìm kiếm

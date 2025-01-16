@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".app.presentation.activity.WordListActivity"
+    tools:context=".app.presentation.activity.WordScheduleActivity"
     android:fitsSystemWindows="true"
     android:paddingTop="0dp">
 
@@ -34,31 +33,31 @@
             app:tint="@color/greenPrimary"
             android:fitsSystemWindows="true"/>
 
-        <!-- Word Header -->
+        <!-- Word Schedule Header -->
         <TextView
-            android:id="@+id/tvTagHeader"
+            android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Tag name"
+            android:text="Word Schedule"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black" />
 
-        <!-- Three dots Icon -->
+        <!-- Icon -->
         <ImageView
-            android:id="@+id/ivSettingTag"
+            android:id="@+id/ivReview"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="16dp"
-            android:contentDescription="SettingTag"
-            android:src="@drawable/ic_three_dots"
+            android:contentDescription="Review"
+            android:src="@drawable/ic_school"
             app:tint="@color/greenPrimary" />
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTagWordList"
+        android:id="@+id/rvScheduledWords"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="0dp"
@@ -71,5 +70,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Add Word Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Add Word"
+        android:src="@drawable/ic_add"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
