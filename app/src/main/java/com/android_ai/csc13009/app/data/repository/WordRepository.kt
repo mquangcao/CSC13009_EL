@@ -23,4 +23,9 @@ class WordRepository(private val wordDao: WordDao) : IWordRepository {
         val allWords = wordDao.getAllWords()
         return allWords.randomOrNull()?.toDomain()
     }
+
+    // giong getWordByName nhung lay 1 tu duy nhat
+    suspend fun getExactWordByName(query: String): WordModel? {
+        return wordDao.getExactWord(query)?.toDomain()
+    }
 }

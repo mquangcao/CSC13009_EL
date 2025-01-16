@@ -1,11 +1,12 @@
 package com.android_ai.csc13009.app.domain.models
 
-class Lesson(
-    var id: Int,
+data class Lesson(
+    var id: String,
     var lessonName: String,
     var totalQuestion : Int,
     var questionSuccess : Int,
-    var totalWord : Int,
-    var questions : List<Question>
-) {
-}
+    var order : Int,
+    var questions : List<Question>,
+    var isOpen : Boolean,
+    var isOpenByProgress : Boolean
+)

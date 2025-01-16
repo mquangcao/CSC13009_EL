@@ -32,6 +32,15 @@ class GameAnswerSlotsAdapter (
         return inputArray.size
     }
 
+    private fun checkAnswer(): Boolean {
+        for (input in inputArray) {
+            if (input == null) {
+                return false
+            }
+        }
+        return true
+    }
+
     override fun onBindViewHolder(holder: GameAnswerSlotsViewHolder, position: Int) {
         val char = inputArray[position]
         if (char == null) {
@@ -71,6 +80,12 @@ class GameAnswerSlotsAdapter (
                                 notifyItemChanged(position)
                                 sourceAdapter.deleteItem(sourcePosition)
 
+                            }
+
+                            if (checkAnswer()) {
+                                activityContext.runOnUiThread {
+                                    activityContext.submitAnswer(inputArray.joinToString(""))
+                                }
                             }
                         }
                     }

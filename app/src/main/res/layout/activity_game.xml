@@ -7,24 +7,35 @@
     android:layout_height="match_parent"
     tools:context=".app.presentation.activity.GameActivity">
 
+
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/gamescreen_fcv"
-            android:name="com.android_ai.csc13009.app.presentation.fragment.GameRuleFragment"
+            android:name="com.android_ai.csc13009.app.presentation.fragment.games.GameRuleFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginBottom="1dp"
-            />
-
-
+            android:layout_weight="1" />
     </LinearLayout>
 
-
-
+    <ProgressBar
+        android:id="@+id/game_loading_pb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="false"
+        android:scaleX="0.125"
+        android:scaleY="0.125"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

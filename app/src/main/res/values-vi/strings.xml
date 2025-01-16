@@ -1,0 +1,31 @@
+<resources>
+    <string name="games_current_game_name">a</string>
+    <string name="game_high_score">Điểm số cao nhất</string>
+    <string name="game_start_button">Bắt đầu trò chơi</string>
+    <string name="game_rule_title">Luật chơi</string>
+    <string name="sample_very_long_text">antesque, orci ex interdum nisl, non laoreet libero felis id mauris. In neque urna, scelerisque sit amet faucibus in, rhoncus sit amet dui. Donec sed maximus nibh. Donec ac eros et nisl efficitur commodo. Suspendisse aliquet nunc porttitor sem aliquam, in posuere mauris fringilla. Duis ligula orci, iaculis ut erat et, volutpat tempor dolor. Curabitur leo risus, hendrerit ut neque et, aliquet placerat augue. Morbi dictum risus et libero placerat tempus. Aenean lacus urna, molestie et vulputate id, ornare nec nibh. Sed iaculis diam nec felis eleifend lobortis sit amet sed lacus.  Morbi viverra nisi quis lorem porttitor dapibus. Nunc luctus lobortis dolor ac malesuada. Phasellus sit amet ante lobortis, convallis ligula vitae, faucibus nibh. Donec eget mollis sem. Vivamus sit amet ex aliquam, pretium eros in, gravida dolor. Suspendisse suscipit, eros ut egestas faucibus, elit justo tincidunt nisl, eget vehicula diam sapien vitae metus. Nam lobortis sapien a leo ultricies, vitae viverra tortor scelerisque. Ut elementum lorem id elit ultricies sollicitudin. Nulla sit amet ligula erat. Nunc tincidunt turpis et hendrerit condimentum. Mauris leo quam, laoreet nec nisi eget, auctor placerat nunc. Cras elementum nec purus ut consectetur. Donec eu feugiat est. Nullam gravida auctor est, posuere sollicitudin nulla tristique a.  Praesent cursus sed lorem vitae pulvinar. Aenean at dui sit amet ante scelerisque accumsan. Donec et ultrices dui, tincidunt posuere lacus. Maecenas feugiat vitae nisi et pharetra. Nullam faucibus libero at vulputate consequat. Vestibulum id arcu id metus varius lobortis. Maecenas a viverra lectus.  Quisque iaculis auctor diam, sed porta nisi luctus in. Mauris in vestibulum eros, non pellentesque libero. Sed sit amet mollis ligula. Nunc feugiat purus ut pharetra feugiat. Fusce cursus dolor non ante efficitur, at eleifend metus ullamcorper. Nulla id dictum sem. Proin augue libero, facilisis in sollicitudin a, eleifend nec sem. Duis tincidunt efficitur risus, ac consequat velit dignissim at. Nunc rutrum, nisi id malesuada tempor, orci nunc accumsan diam, et tempus urna odio id nisi. Vivamus massa neque, hendrerit ut felis non, facilisis porta urna. Mauris pulvinar velit ex, sed vulputate quam viverra eget. Suspendisse eleifend egestas faucibus. Fusce porta laoreet pretium.  Nam dapibus condimentum quam quis porta. Proin in lorem turpis. Nam molestie pulvinar mauris, eu consequat sapien feugiat in. Morbi convallis neque quis quam egestas mollis. Nam tempus sem ac vehicula condimentum. Ut tristique, metus a feugiat ultricies, lectus ex dapibus dolor, quis volutpat tortor quam vitae risus. Vivamus congue laoreet laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam vitae odio fringilla, dictum eros sed, mattis lacus. Integer et tortor purus. Duis rhoncus vulputate fermentum. Vestibulum placerat ultrices cursus. Curabitur rutrum lacus ac ante posuere, eu lacinia erat porttitor. Nunc nec tristique enim.</string>
+    <string name="game_result_score">Điểm số của bạn</string>
+    <string name="game_result_word_list_title">Những từ vựng có mặt</string>
+    <string name="game_result_exit_game_button">Trở về menu</string>
+    <string name="app_name">Học Tiếng Anh</string>
+    <string name="game_exit_button">Trở về menu</string>
+    <string name="skip">Bỏ qua</string>
+    <string name="_12_b_i_h_c">12 lesson</string>
+    <string name="fill_in_the_blank">Điền từ còn thiếu vào chỗ trống</string>
+    <string name="choose_the_correct_word">Chọn từ đúng</string>
+    <string name="translate_the_word">Dịch câu này</string>
+    <string name="game_menu_title">Trò chơi</string>
+    <string name="game_menu_prompt">Chọn một trò chơi</string>
+    <string name="back_description">Quay lại</string>
+    <string name="game_word_question_prompt">Sắp xếp lại từ này</string>
+    <string name="game_spelling_bee_question_prompt">Đánh vần từ này</string>
+    <string name="game_name_lexicon">Từ điển</string>
+    <string name="game_rule_lexicon">* Trò chơi này được chia thành các lượt tương ứng với số từ vựng bạn cần nhập\n* Trò chơi sẽ kết thúc khi đủ số lượng từ vựng đúng được nhập\n* Bạn sẽ nhận được điểm dựa trên độ dài của từ vựng mà bạn nhập\n* Mỗi vòng, 1 điều kiện ngẫu nhiên sẽ được chọn; khi thực hiện đúng điều kiện đó, bạn sẽ nhận được điểm thưởng \n* Khi từ vựng nhập vào không hợp lệ hoặc không tồn tại trong từ điển của ứng dụng, bạn sẽ bị phạt 100 điểm và phải điền lại</string>
+    <string name="game_name_spelling_bee">Ong đánh vần</string>
+    <string name="game_rule_spelling_bee">* Trò chơi được chia ra thành nhiều vòng tương ứng với 1 từ \n* Trong mỗi vòng bạn cần phải đánh vần đúng từ đó\n* Bạn chỉ được cung cấp 1 mẫu âm thanh đánh vần từ và ký hiệu phiên âm quốc tế (IPA) của từ đó\n* Một vòng kết thúc khi tất cả ô được lấp đầy, và điểm sẽ được đánh giá dựa trên độ chính xác\n* Với mỗi từ trả lời đúng, bạn sẽ nhận được 1000 điểm và kèm theo điểm thưởng cho số lần đúng liên tục\n* Khi bạn trả lời sai, chuỗi thưởng sẽ quay về không</string>
+    <string name="game_rule_unscramble">* Trò chơi được chia ra thành nhiều vòng tương ứng với 1 từ\n* Trong mỗi vòng bạn cần phải sắp xếp lại các cụm / chữ cái lại thành từ ban đầu\n* Một vòng kết thúc khi tất cả ô được lấp đầy, và điểm sẽ được đánh giá dựa trên độ chính xác\n* Với mỗi từ trả lời đúng, bạn sẽ nhận được 1000 điểm và kèm theo điểm thưởng cho số lần đúng liên tục\n* Khi bạn trả lời sai, chuỗi thưởng sẽ quay về không</string>
+    <string name="game_name_unscramble">Xắp sếp từ</string>
+    <string name="back_title">Return?</string>
+    <string name="back_prompt_title">Quay về?</string>
+    <string name="back_prompt_description">Bạn có chắc chắn muốn quay về không? Các dữ liệu chưa được lưu sẽ bị mất.</string>
+</resources>

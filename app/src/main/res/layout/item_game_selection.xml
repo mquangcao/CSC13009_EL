@@ -11,6 +11,14 @@
     app:cardElevation="4dp"
     >
 
+    <ImageView
+        android:id="@+id/item_game_selection_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:maxHeight="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/game_logo_unscramble" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,24 +31,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/game_item_title_tv"
-            android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/baloo"
-            android:text="Game A" />
+            android:layout_marginTop="12dp"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_semi_transparent_background"
+            android:backgroundTint="@color/white"
+            >
+            <TextView
+                android:id="@+id/game_item_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:fontFamily="@font/baloo"
+                android:text="Game A"
+                />
 
-        <TextView
-            android:id="@+id/game_item_score_tv"
-            android:fontFamily="@font/baloo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="High score: 9999" />
+            <TextView
+                android:id="@+id/game_item_score_tv"
+                android:fontFamily="@font/baloo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="High score: 9999" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

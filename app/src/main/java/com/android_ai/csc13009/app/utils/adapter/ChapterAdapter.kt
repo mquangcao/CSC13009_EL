@@ -44,13 +44,17 @@ class ChapterAdapter(
             .load(lesson.thumbnailUrl)
             .into(holder.imgThumb)
 
+        holder.circularProgressBar.progressMax = lesson.totalLesson.toFloat()
+        holder.circularProgressBar.setProgressWithAnimation(lesson.lessonFinished.toFloat())
+
         holder.tvChapter.text = lesson.chapterName
-        holder.tvVocabulary.text = "${lesson.totalWord} vocabulary words"
-        holder.circularProgressBar.progress = lesson.lessonFinished.toFloat() / lesson.totalLesson.toFloat() * 100
+        holder.tvVocabulary.text = "${lesson.totalLesson} lessons"
+
         holder.txtProgress.text = "${ (lesson.lessonFinished.toFloat() / lesson.totalLesson.toFloat() * 100).toInt()}%"
 
         holder.itemCard.setOnClickListener {
             val intent = Intent(holder.itemCard.context, LearVocabActivity::class.java)
+            intent.putExtra("chapterId", lesson.id)
             holder.itemCard.context.startActivity(intent)
         }
     }

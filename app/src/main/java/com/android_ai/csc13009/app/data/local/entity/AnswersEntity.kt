@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Answers")
 data class AnswersEntity(
     @PrimaryKey
-    val id: Int,
-    val questionId: Int,
-    val answerWordId: Int?,
-    val isCorrect: Boolean
+    val id: String,
+    val questionId: String,
+    val text : String,
+    val isCorrect: Boolean,
+    val imgUrl: String
 )

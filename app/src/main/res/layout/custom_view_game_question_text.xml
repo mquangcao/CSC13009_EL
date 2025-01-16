@@ -19,16 +19,14 @@
             android:id="@+id/game_session_question_prompt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="sample text"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/game_session_question_content"
+            android:id="@+id/learn_question_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ADFASDSF"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold" />

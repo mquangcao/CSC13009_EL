@@ -43,6 +43,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userProgressDao(): UserProgressDao
     abstract fun learningDetailDao(): LearningDetailDao
     abstract fun gameDataDao(): GameDataDao
+    abstract fun answerDao(): AnswerDao
+
+//    abstract fun answerDao(): AnswerDao
 
     // grammar
     abstract fun grammarLevelDao(): GrammarLevelDao

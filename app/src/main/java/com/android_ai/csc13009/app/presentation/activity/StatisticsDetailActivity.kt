@@ -25,11 +25,11 @@ class StatisticsDetailActivity : AppCompatActivity() {
 
         // Sample data for lists
         vocabularyList = listOf("Vocabulary 1", "Vocabulary 2", "Vocabulary 3", "Vocabulary 4")
-        lessonList = listOf(
-            LessonEntity(1, "Lesson 1", "Description for Lesson 1", 1, 1, true),
-            LessonEntity(2, "Lesson 2", "Description for Lesson 2", 2, 1, false),
-            LessonEntity(3, "Lesson 3", "Description for Lesson 3", 3, 2, true)
-        )
+//        lessonList = listOf(
+//            LessonEntity(1, "Lesson 1", "Description for Lesson 1", 1, 1, true),
+//            LessonEntity(2, "Lesson 2", "Description for Lesson 2", 2, 1, false),
+//            LessonEntity(3, "Lesson 3", "Description for Lesson 3", 3, 2, true)
+//        )
 
         // Get the "type" value from Intent
         val type = intent.getStringExtra("type")
@@ -49,16 +49,16 @@ class StatisticsDetailActivity : AppCompatActivity() {
             }
             "completedLessons" -> {
                 // Display completed lessons list
-                val completedLessons = lessonList.filter { it.status }
-                val adapter = StatisticsLessonDetailAdapter(completedLessons)
-                recyclerView.adapter = adapter
+//                val completedLessons = lessonList.filter { it.status }
+//                val adapter = StatisticsLessonDetailAdapter(completedLessons)
+                //recyclerView.adapter = adapter
                 supportActionBar?.title = "Completed Lessons"
             }
             "pendingLessons" -> {
                 // Display pending lessons list
-                val pendingLessons = lessonList.filter { !it.status }
-                val adapter = StatisticsLessonDetailAdapter(pendingLessons)
-                recyclerView.adapter = adapter
+                //val pendingLessons = lessonList.filter { !it.status }
+                //val adapter = StatisticsLessonDetailAdapter(pendingLessons)
+                //recyclerView.adapter = adapter
                 supportActionBar?.title = "Pending Lessons"
             }
             else -> {

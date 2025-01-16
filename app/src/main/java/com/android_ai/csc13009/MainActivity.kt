@@ -27,7 +27,9 @@ import java.util.Calendar
 import android.Manifest
 import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
+import com.android_ai.csc13009.app.presentation.activity.IntroActivity
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
+import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         setDailyNotification()
 
 
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -107,7 +110,8 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, DashboardActivity::class.java)
                 startActivity(intent, options.toBundle())
             } else {
-                val intent = Intent(this, LoginActivity::class.java)
+//                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, IntroActivity::class.java)
                 startActivity(intent, options.toBundle())
             }
 
@@ -194,6 +198,16 @@ class MainActivity : AppCompatActivity() {
             "Ứng dụng cần quyền thông báo để gửi nhắc nhở hàng ngày.",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val context = newBase
+
+        val savedLocale = LocaleUtils.getLocale(newBase as Context)
+
+        context!!.resources.configuration.setLocale(savedLocale)
+
+        super.attachBaseContext(newBase)
     }
 
 //    private fun changeFragment() {

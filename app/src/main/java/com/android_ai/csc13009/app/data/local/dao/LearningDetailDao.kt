@@ -25,4 +25,8 @@ interface LearningDetailDao {
 
     @Query("DELETE FROM LearningDetail")
     suspend fun deleteAllLearningDetails()
+
+    @Query("SELECT * FROM LearningDetail WHERE questionId = :id AND userId = :userId")
+    suspend fun getLearningDetailByQuestionAndUser(id: Int, userId: String): LearningDetailEntity
+
 }

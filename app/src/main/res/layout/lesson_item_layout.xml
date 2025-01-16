@@ -55,7 +55,7 @@
             android:layout_centerVertical="true"/>
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/game_session_question_content_extra"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
