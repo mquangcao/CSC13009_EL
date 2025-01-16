@@ -25,30 +25,32 @@
 //    fun submitAnswer(answer: Answer) {
 //        if (answer.isCorrect) {
 //            lesson.questionSuccess++
-//        }
+            // update
+        }
 //        lesson.questions[currentQuestionIndex].isCorrect = answer.isCorrect
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val learningDetail = learningDetailDao.getLearningDetailByQuestionAndUser(lesson.questions[currentQuestionIndex].id, userId)
-//            learningDetail.isCorrect = answer.isCorrect
-//            learningDetailDao.insertLearningDetail(learningDetail)
-//        }
-//        nextQuestion()
-//    }
-//
-//    fun nextQuestion() {
-//        currentQuestionIndex++
-//        if (currentQuestionIndex >= lesson.questions.size) {
-////            nextLesson()
-////            saveProgress()
-//        }
-//    }
-//
-//    fun startLesson() {
-//        currentQuestionIndex = 0
-//
-//    }
-//
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val learningDetail = learningDetailDao.getLearningDetailByQuestionAndUser(lesson.questions[currentQuestionIndex].id, userId)
+            learningDetail.isCorrect = answer.isCorrect
+            learningDetailDao.insertLearningDetail(learningDetail)
+        }
+        nextQuestion()
+    }
+
+    fun nextQuestion() {
+        currentQuestionIndex++
+        if (currentQuestionIndex >= lesson.questions.size) {
+//            nextLesson()
+//            saveProgress()
+        }
+    }
+
+    fun startLesson() {
+        currentQuestionIndex = 0
+
+    }
+
+
 //    fun resumeLesson() {
 //        for (question in lesson.questions) {
 //            if (question.isCorrect != null) {
@@ -57,10 +59,10 @@
 //        }
 //
 //    }
+
+//    fun saveProgress() {
 //
-////    fun saveProgress() {
-////
-////    }
-//
-////    fun
-//}
+//    }
+
+//    fun
+}
