@@ -13,9 +13,10 @@ import com.android_ai.csc13009.app.domain.models.AnswerWord
 import com.android_ai.csc13009.app.utils.ChatBubbleView
 import com.android_ai.csc13009.app.utils.adapter.WordMeaningAdapter
 import com.google.android.material.button.MaterialButton
+import java.util.ArrayList
 
 
-class FragmentWordQuestionTypeChat1 : Fragment() {
+class FragmentWordQuestionTypeChat1(val questionTitle : String, val answerWords : ArrayList<AnswerWord>) : Fragment() {
 
 
 
@@ -27,34 +28,15 @@ class FragmentWordQuestionTypeChat1 : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_word_question_type_chat1, container, false)
 
         val chat_bubble = view.findViewById<ChatBubbleView>(R.id.chat_bubble)
-        chat_bubble.setText("Hello, how ... you")
-
-        val data = listOf(
-            AnswerWord().apply {
-                text = "Hello"
-                isCorrect = false
-            },
-            AnswerWord().apply {
-                text = "How"
-                isCorrect = false
-            },
-            AnswerWord().apply {
-                text = "Are"
-                isCorrect = true
-            },
-            AnswerWord().apply {
-                text = "You"
-                isCorrect = false
-            }
-        )
+        chat_bubble.setText(questionTitle)
 
         val btn_check_answer = view.findViewById<MaterialButton>(R.id.btn_check_answer)
         btn_check_answer.setOnClickListener {
-            completeTask(data)
+            completeTask(answerWords)
         }
 
         val rv_word = view.findViewById<RecyclerView>(R.id.rv_word)
-        rv_word.adapter = WordMeaningAdapter(data)
+        rv_word.adapter = WordMeaningAdapter(answerWords)
 
         rv_word.layoutManager = LinearLayoutManager(context)
 
@@ -79,7 +61,5 @@ class FragmentWordQuestionTypeChat1 : Fragment() {
                 return
             }
         }
-
-
     }
 }

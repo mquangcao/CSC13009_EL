@@ -26,4 +26,7 @@
     <string name="back_title">Return?</string>
     <string name="back_prompt_title">Return?</string>
     <string name="back_prompt_description">Do you really want to go back? Some data will not be saved.</string>
+    <string name="fill_in_the_blank">Fill in the blanks</string>
+    <string name="choose_the_correct_word">Choose the correct word</string>
+    <string name="translate_the_word">Translate this sentence</string>
 </resources>

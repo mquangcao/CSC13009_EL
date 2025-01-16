@@ -26,4 +26,12 @@
     <string name="back_title">Return?</string>
     <string name="back_prompt_title">Quay về?</string>
     <string name="back_prompt_description">Bạn có chắc chắn muốn quay về không? Các dữ liệu chưa được lưu sẽ bị mất.</string>
+    <string name="fill_in_the_blank">Điền từ còn thiếu vào chỗ trống</string>
+    <string name="game_menu_title">a</string>
+    <string name="game_menu_prompt">a</string>
+    <string name="back_description">a</string>
+    <string name="game_word_question_prompt">a</string>
+    <string name="game_spelling_bee_question_prompt">a</string>
+    <string name="choose_the_correct_word">Chọn từ đúng</string>
+    <string name="translate_the_word">Dịch câu này</string>
 </resources>
