@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import com.android_ai.csc13009.R
 
 public class NavigationSetter {
     companion object {
@@ -23,8 +24,8 @@ public class NavigationSetter {
 
         fun setActivityBackConfirmation(
             activity: AppCompatActivity,
-            title: String = "Are you sure?",
-            message: String = "Do you really want to go back?"
+            title: String = activity.getString(R.string.back_prompt_title),
+            message: String = activity.getString(R.string.back_prompt_description)
         ) {
             activity.onBackPressedDispatcher.addCallback(activity, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {

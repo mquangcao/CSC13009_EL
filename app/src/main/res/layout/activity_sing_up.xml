@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.presentation.activity.SingUpActivity">
+    tools:context=".app.presentation.activity.SingUpActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,9 +56,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/email"
                 android:hint="Email"
-                android:transitionName="username"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                android:transitionName="username">
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                >-->
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -70,9 +71,9 @@
                 android:id="@+id/singup_password"
                 android:hint="Password"
                 app:passwordToggleEnabled="true"
-                android:transitionName="password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                android:transitionName="password">
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                >-->
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -87,9 +88,9 @@
                 android:id="@+id/singup_password_confirm"
                 android:hint="Confirm Password"
                 app:passwordToggleEnabled="true"
-                android:transitionName="password_confirm"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                android:transitionName="password_confirm">
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                >-->
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -101,7 +102,8 @@
 
 
 
-            <com.google.android.material.button.MaterialButton
+<!--            <com.google.android.material.button.MaterialButton-->
+            <Button
                 android:id="@+id/btnCallSingUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

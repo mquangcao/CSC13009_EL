@@ -18,6 +18,9 @@
         android:theme="@style/Theme.CSC13009"
         tools:targetApi="31">
         <activity
+            android:name=".app.presentation.activity.IntroActivity"
+            android:exported="false" />
+        <activity
             android:name=".app.presentation.activity.GrammarTopicPracticeActivity"
             android:exported="false" />
         <activity
@@ -84,11 +87,7 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-
-            android:exported="true"></activity>
-//=======
-//            android:exported="true" />
-//>>>>>>> develop
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

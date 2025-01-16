@@ -3,8 +3,6 @@ package com.android_ai.csc13009.app.presentation.fragment.games
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +25,6 @@ import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerBlocksAdapter
 import com.android_ai.csc13009.app.utils.adapters.GameAnswerSlotsAdapter
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
-import com.android_ai.csc13009.app.utils.extensions.TTSHelper
 import com.android_ai.csc13009.app.utils.extensions.TTSSetter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
 import com.android_ai.csc13009.app.utils.extensions.games.LexiconGameEngine

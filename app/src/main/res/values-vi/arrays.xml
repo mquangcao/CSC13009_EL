@@ -5,4 +5,16 @@
         <item>Đã luyện tập xong!</item>
         <item>Luyện tập tạo nên sự hoàn hảo!</item>
     </string-array>
+
+    <string-array name="intro_titles">
+        <item>Chào mừng bạn đến với ứng dung học tiếng anh.</item>
+        <item>Khám phá muôn vàn bài học và câu hỏi thú vị.</item>
+        <item>Trong hành trình rèn luyện ngôn ngữ, hãy có một trải nghiệm tuyệt vời với chúng tôi.</item>
+    </string-array>
+
+    <string-array name="intro_descriptions">
+        <item>Đây là mở đầu cho hành trình rèn luyện của bạn</item>
+        <item>Ứng dụng sẽ hỗ trợ bạn với nhiều bài học được thiết kế dành riêng cho bạn</item>
+        <item>Vậy bạn còn chần chừ gì nữa? Hãy bắt đầu thôi!</item>
+    </string-array>
 </resources>
