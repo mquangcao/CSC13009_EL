@@ -11,11 +11,11 @@
 //import com.android_ai.csc13009.app.data.local.dao.LessonDao
 //import com.android_ai.csc13009.app.domain.models.Lesson
 //
-//class LearnListeningActivity : AppCompatActivity(), ILearnActivity {
+//class LearnListeningActivity : AppCompatActivity() {
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
-//        setContentView(R.layout.activity_lear_vocab)
+//        setContentView(R.layout.activity_learn_listening)
 //
 //
 //        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)

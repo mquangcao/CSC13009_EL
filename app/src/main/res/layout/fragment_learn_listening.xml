@@ -65,7 +65,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/chatBubbleView"
                 app:layout_constraintStart_toStartOf="@+id/chatBubbleView"
                 app:layout_constraintTop_toTopOf="@+id/chatBubbleView"
-                app:srcCompat="@drawable/ic_sound" />
+                app:srcCompat="@drawable/ic_sound"
+                app:tint="@color/greenPrimary" />
 
             <ProgressBar
                 android:id="@+id/game_session_question_content_extra"
@@ -74,6 +75,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="64dp"
                 android:layout_weight="1"
+                android:foregroundTint="@color/greenPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/learn_question_content"
                 app:layout_constraintEnd_toEndOf="@+id/chatBubbleView"
                 app:layout_constraintStart_toEndOf="@+id/learn_question_content"
