@@ -1,8 +1,8 @@
-package com.android_ai.csc13009.app.domain.models
+package com.android_ai.csc13009.app.data.remote.model
 
-import java.sql.Date
+import java.util.Date
 
-data class GrammarLearningStatistics (
+data class FirestoreGrammarLearningStatistics(
     val id: String,
     val grammarQuestionId: String,
     val userId: String,

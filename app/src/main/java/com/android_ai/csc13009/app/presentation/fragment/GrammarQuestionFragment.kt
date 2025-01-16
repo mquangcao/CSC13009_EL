@@ -2,7 +2,6 @@ package com.android_ai.csc13009.app.presentation.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -72,8 +71,13 @@ class GrammarQuestionFragment : Fragment() {
 
         if (!isCorrect) {
             // Hiển thị đáp án đúng khi chọn sai
-            val correctAnswer = answers.first { it.isCorrect }.answer
-            answerTextView.text = correctAnswer
+            val correctAnswer = answers.firstOrNull { it.isCorrect }
+            if (correctAnswer != null) {
+                answerTextView.text = correctAnswer.answer
+            } else {
+                // Xử lý trường hợp không có câu trả lời đúng
+                answerTextView.text = "No correct answer found."
+            }
         }
 
         val builder = AlertDialog.Builder(requireContext())
