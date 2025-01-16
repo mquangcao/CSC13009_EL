@@ -31,7 +31,7 @@ class StatisticsLessonDetailAdapter(private val lessonList: List<LessonEntity>) 
 
         fun bind(lesson: LessonEntity) {
             lessonNameTextView.text = lesson.lessonName
-            lessonDescriptionTextView.text = lesson.description
+            //lessonDescriptionTextView.text = lesson.description
         }
     }
 }

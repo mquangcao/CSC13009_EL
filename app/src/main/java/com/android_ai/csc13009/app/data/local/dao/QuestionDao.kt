@@ -34,8 +34,8 @@ interface QuestionDao {
     suspend fun insertAnswers(answers: List<AnswersEntity>)
 
     @Query("SELECT * FROM Questions WHERE lessonId = :lessonId")
-    suspend fun getQuestionsByLessonId(lessonId: Int): List<QuestionsEntity>
+    suspend fun getQuestionsByLessonId(lessonId: String): List<QuestionsEntity>
 
-    @Query("SELECT * FROM Answers WHERE id = :questionId")
-    suspend fun getAnswersByQuestionId(questionId: Int): List<AnswersEntity>
+    @Query("SELECT * FROM Answers WHERE questionId = :questionId")
+    suspend fun getAnswersByQuestionId(questionId: String): List<AnswersEntity>
 }

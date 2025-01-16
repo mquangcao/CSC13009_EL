@@ -7,7 +7,9 @@ import java.io.Serializable
 @Entity(tableName = "Questions")
 data class QuestionsEntity(
     @PrimaryKey
-    val id: Int,
-    val type: String,
-    val lessonId: Int // lesson_id liên kết với LessonEntity
+    val id: String = "",
+    val level: String = "",
+    val lessonId: String = "",
+    val question: String = "",
+    val type: String = "",
 ) : Serializable

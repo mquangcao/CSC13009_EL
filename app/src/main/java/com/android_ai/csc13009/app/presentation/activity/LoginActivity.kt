@@ -2,6 +2,7 @@ package com.android_ai.csc13009.app.presentation.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,15 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.remote.model.LoginState
 import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreTopicRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreUserRepository
 import com.android_ai.csc13009.app.data.repository.UserRepository
 import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var email : TextInputLayout

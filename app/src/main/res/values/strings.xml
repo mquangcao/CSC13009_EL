@@ -17,4 +17,7 @@
     <string name="game_spelling_bee_question_prompt">Spell this word:</string>
     <string name="skip">Skip</string>
     <string name="_12_b_i_h_c">12 bài học</string>
+    <string name="fill_in_the_blank">Fill in the blanks</string>
+    <string name="choose_the_correct_word">Choose the correct word</string>
+    <string name="translate_the_word">Translate this sentence</string>
 </resources>
