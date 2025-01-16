@@ -13,4 +13,5 @@ data class LearningDetailEntity(
     var isCorrect: Boolean,  // Kết quả đúng/sai
     val userId: String,       // ID của người dùng
     var type : String,        // Loại câu hỏi
+    var isReviewed : Boolean
 ) : Serializable

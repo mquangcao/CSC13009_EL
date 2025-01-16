@@ -74,6 +74,7 @@ class ChapterRepository(context: Context) : IChapterRepository {
                 val progressMaxQuestionSuccess = userProgress
                     .maxByOrNull { it.questionSuccess }
 
+                Log.d("QUANG CAO DI CHECK HEHEH", "getChapterDetail: ${userProgress}")
 
                 Lesson(
                     id = lesson.id,

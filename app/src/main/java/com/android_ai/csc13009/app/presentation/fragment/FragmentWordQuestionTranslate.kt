@@ -25,7 +25,7 @@ import com.google.android.material.textfield.TextInputEditText
 import java.util.ArrayList
 import java.util.Locale
 
-class FragmentWordQuestionTranslate(val questionTitle : String, val answerWords : ArrayList<AnswerWord>) : Fragment() {
+class FragmentWordQuestionTranslate(val questionId : String, val questionTitle : String, val answerWords : ArrayList<AnswerWord>) : Fragment() {
     private lateinit var etAnswerInput : TextInputEditText
     private lateinit var chatBubble : ChatBubbleView
 
@@ -73,12 +73,16 @@ class FragmentWordQuestionTranslate(val questionTitle : String, val answerWords 
             if (etAnswerInput.text.toString().toLowerCase() == data[i].text.toLowerCase()) {
                 result.apply {
                     putString("result", "correct")
+
                 }
 
             } else {
                 result.apply {
                     putString("result", "in_correct")
                 }
+            }
+            result.apply {
+                putString("questionId", questionId)
             }
 
             parentFragmentManager.setFragmentResult("taskCompleted", result)
