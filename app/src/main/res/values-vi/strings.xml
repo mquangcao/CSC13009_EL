@@ -29,4 +29,6 @@
     <string name="fill_in_the_blank">Điền từ còn thiếu vào chỗ trống</string>
     <string name="choose_the_correct_word">Chọn từ đúng</string>
     <string name="translate_the_word">Dịch câu này</string>
+    <string name="find_the_different_from_the_other">Which one of these word is different from the others?\n</string>
+    <string name="choose_the_correct_information">Choose the correct information from the conversation</string>
 </resources>

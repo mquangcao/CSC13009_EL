@@ -29,4 +29,6 @@
     <string name="fill_in_the_blank">Fill in the blanks</string>
     <string name="choose_the_correct_word">Choose the correct word</string>
     <string name="translate_the_word">Translate this sentence</string>
+    <string name="find_the_different_from_the_other">Which one of these word is different from the others?\n</string>
+    <string name="choose_the_correct_information">Choose the correct information from the conversation</string>
 </resources>
