@@ -68,4 +68,87 @@ class FirestoreLearningDetailRepository(private val firestore: FirebaseFirestore
             ""
         }
     }
+
+    suspend fun getSuccessRateByTypeForToday(userId: String, type: String): Float {
+        return try {
+            val currentDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+                .format(java.util.Date(System.currentTimeMillis()))
+
+
+            val querySnapshot = firestore.collection("learningDetail")
+                .whereEqualTo("userId", userId)
+                .whereEqualTo("type", type)
+                .get()
+                .await()
+
+            Log.d("FirestoreLearningDetailRepository", "Query result: $querySnapshot")
+
+            if (querySnapshot.isEmpty) return 0f
+
+            val todayQuestions = querySnapshot.documents.filter {
+                val dateMillis = it.getString("date")?.toLongOrNull() ?: 0L
+                val dateString = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+                    .format(java.util.Date(dateMillis))
+                dateString == currentDate
+            }
+
+            Log.d("FirestoreLearningDetailRepository", "Today's questions: $todayQuestions")
+
+            if (todayQuestions.isEmpty()) return 0f
+
+            val totalQuestions = todayQuestions.size
+            val correctAnswers = todayQuestions.count { it.getBoolean("correct") == true }
+
+            Log.d("FirestoreLearningDetailRepository", "Total questions: $totalQuestions, Correct answers: $correctAnswers")
+
+            (correctAnswers.toFloat() / totalQuestions) * 100
+        } catch (e: Exception) {
+            Log.e("FirestoreLearningDetailRepository", "Error getting today's success rate: ${e.message}")
+            0f
+        }
+    }
+
+    suspend fun getDailyStatistics(userId: String): Map<String, Int> {
+        return try {
+            val querySnapshot = firestore.collection("learningDetail")
+                .whereEqualTo("userId", userId)
+                .get()
+                .await()
+
+            // Nhóm số câu đã làm theo ngày
+            querySnapshot.documents.groupBy { document ->
+                val dateMillis = document.getString("date")?.toLongOrNull() ?: 0L
+                java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+                    .format(java.util.Date(dateMillis))
+            }.mapValues { entry ->
+                entry.value.size // Đếm số câu đã làm mỗi ngày
+            }
+        } catch (e: Exception) {
+            Log.e("FirestoreLearningDetailRepository", "Error getting daily stats: ${e.message}")
+            emptyMap()
+        }
+    }
+
+    suspend fun getMonthlyStatistics(userId: String): Map<String, Int> {
+        return try {
+            val querySnapshot = firestore.collection("learningDetail")
+                .whereEqualTo("userId", userId)
+                .get()
+                .await()
+
+            // Nhóm số câu đã làm theo tháng
+            querySnapshot.documents.groupBy { document ->
+                val dateMillis = document.getString("date")?.toLongOrNull() ?: 0L
+                java.text.SimpleDateFormat("yyyy-MM", java.util.Locale.getDefault())
+                    .format(java.util.Date(dateMillis))
+            }.mapValues { entry ->
+                entry.value.size // Đếm số câu đã làm mỗi tháng
+            }
+        } catch (e: Exception) {
+            Log.e("FirestoreLearningDetailRepository", "Error getting monthly stats: ${e.message}")
+            emptyMap()
+        }
+    }
+
+
 }
