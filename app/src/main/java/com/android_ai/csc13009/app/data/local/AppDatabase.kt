@@ -23,7 +23,12 @@ import com.android_ai.csc13009.app.data.local.entity.*
         LearningDetailEntity::class,
         GrammarLevelEntity::class,
         GrammarTopicEntity::class,
-        GrammarSubtopicEntity::class
+        GrammarSubtopicEntity::class,
+
+        ListeningTopicEntity::class,
+        ListeningLessonEntity::class,
+        ListeningQuestionEntity::class,
+        ListeningAnswerEntity::class
                        ],
     version = 2,
     exportSchema = true

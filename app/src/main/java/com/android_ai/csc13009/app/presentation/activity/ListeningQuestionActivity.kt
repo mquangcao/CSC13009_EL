@@ -13,8 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
@@ -23,11 +21,8 @@ import com.android_ai.csc13009.app.data.local.entity.LearningDetailEntity
 import com.android_ai.csc13009.app.data.local.entity.UserLessonLearnedEntity
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreLearningDetailRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreProgressRepository
-import com.android_ai.csc13009.app.domain.models.Question
-import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTranslate
-import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTypeChat1
+import com.android_ai.csc13009.app.domain.models.ListeningQuestion
 import com.android_ai.csc13009.app.presentation.fragment.ListeningQuestionFragment
-import com.android_ai.csc13009.app.presentation.fragment.WordQuestionFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
@@ -77,7 +72,7 @@ class ListeningQuestionActivity : AppCompatActivity() {
 
 
 
-        val questions = intent.getSerializableExtra("question") as? ArrayList<Question>
+        val questions = intent.getSerializableExtra("question") as? ArrayList<ListeningQuestion>
         lessonId = intent.getStringExtra("lessonId").toString()
 
         startTime = System.currentTimeMillis()
@@ -161,30 +156,29 @@ class ListeningQuestionActivity : AppCompatActivity() {
         progressBar.progress = currentQuestion
     }
 
-    private fun loadQuestion(question: Question) {
+    private fun loadQuestion(question: ListeningQuestion) {
         when (question.type) {
             "pronunciation" -> {
                 tvQuestion.text = getString(R.string.choose_the_correct_word)
-//                loadFragment(ListeningQuestionFragment())
-//                loadFragment(FragmentWordQuestionTranslate(question.id ,question.question, question.answer))
+                loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer))
             }
             "stressing" -> {
                 tvQuestion.text = getString(R.string.find_the_different_from_the_other)
-//                loadFragment()
+                loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer))
             }
             "sound" -> {
                 tvQuestion.text = getString(R.string.choose_the_correct_word)
-                loadFragment(FragmentWordQuestionTypeChat1(question.id ,question.question, question.answer))
+                loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer))
             }
             "conversation" -> {
                 tvQuestion.text = getString(R.string.choose_the_correct_information)
-//                loadFragment().
+                loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer))
             }
         }
 
     }
 
-    private fun handleTaskResult(result: String?, questions: ArrayList<Question>?) {
+    private fun handleTaskResult(result: String?, questions: ArrayList<ListeningQuestion>?) {
         if (result == "correct") {
             handleNextStep(dialog, questions, btnConfirmDialog)
             correctAnswer++
@@ -195,7 +189,7 @@ class ListeningQuestionActivity : AppCompatActivity() {
     }
 
     @SuppressLint("DefaultLocale")
-    private fun handleNextStep(dialog : Dialog, questions: ArrayList<Question>?, btnConfirm : Button) {
+    private fun handleNextStep(dialog : Dialog, questions: ArrayList<ListeningQuestion>?, btnConfirm : Button) {
         dialog.show()
         upProgressBar()
         btnConfirm.setOnClickListener {
