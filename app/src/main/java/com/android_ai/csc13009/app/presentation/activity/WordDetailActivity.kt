@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.activity
 
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,12 +15,20 @@ import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.remote.model.TagState
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreTagRepository
 import com.android_ai.csc13009.app.data.repository.TagRepository
+import com.android_ai.csc13009.app.data.repository.WordPhoneticRepository
 import com.android_ai.csc13009.app.domain.models.Tag
 import com.android_ai.csc13009.app.domain.models.WordDetailItem
+import com.android_ai.csc13009.app.domain.repository.IWordPhoneticRepository
+import com.android_ai.csc13009.app.presentation.service.DictionaryApiService
 import com.android_ai.csc13009.app.presentation.viewmodel.TagViewModel
 import com.android_ai.csc13009.app.utils.adapter.WordDetailAdapter
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import retrofit2.Retrofit
+
+import retrofit2.converter.gson.GsonConverterFactory
 
 class WordDetailActivity : AppCompatActivity() {
     private lateinit var tvWordHeader: TextView
@@ -27,12 +36,17 @@ class WordDetailActivity : AppCompatActivity() {
     private lateinit var tvPronunciation: TextView
     private lateinit var backButton: ImageView
     private lateinit var bookmarkButton: ImageView
+    private lateinit var soundButton: ImageView
     private lateinit var recyclerView: RecyclerView
     private lateinit var wordDetailAdapter: WordDetailAdapter
 
     private lateinit var tagViewModel: TagViewModel
     private var wordId: Int = -1 // Current word's ID
     private lateinit var userId: String
+
+    private var exoPlayer: ExoPlayer? = null
+
+    private lateinit var repository: IWordPhoneticRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +59,14 @@ class WordDetailActivity : AppCompatActivity() {
         tvPronunciation = findViewById(R.id.tvPronunciation)
         backButton = findViewById(R.id.ivBack)
         bookmarkButton = findViewById(R.id.ivBookmark)
+        soundButton = findViewById(R.id.ivSound)
         recyclerView = findViewById(R.id.rvWordDetails)
 
         // Thiết lập hành động nút quay lại
-        backButton.setOnClickListener { finish() }
+        backButton.setOnClickListener {
+            exoPlayer?.release()
+            finish()
+        }
 
         // Lấy dữ liệu từ Intent
         wordId = intent.getIntExtra("word_id", -1)
@@ -89,6 +107,19 @@ class WordDetailActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Invalid word ID", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // Initialize repository
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.dictionaryapi.dev/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val apiService = retrofit.create(DictionaryApiService::class.java)
+        repository = WordPhoneticRepository(apiService)
+
+        // Handle button click
+        soundButton.setOnClickListener {
+            fetchAndPlayPronunciation(wordText)
         }
     }
 
@@ -166,5 +197,41 @@ class WordDetailActivity : AppCompatActivity() {
 
     private fun addWordToTag(tagId: String, wordId: Int) {
         tagViewModel.addWordToTag(tagId, wordId)
+    }
+
+    private fun fetchAndPlayPronunciation(word: String) {
+        repository.getWordPhonetics(
+            word,
+            onSuccess = { phonetics ->
+                val audioUrl = phonetics.firstOrNull()?.audio
+                if (!audioUrl.isNullOrEmpty()) {
+                    playAudio(audioUrl)
+                } else {
+                    showToast("Pronunciation not available")
+                }
+            },
+            onError = { error ->
+                showToast(error)
+            }
+        )
+    }
+
+    private fun playAudio(audioUrl: String) {
+        exoPlayer?.release() // Release any previous ExoPlayer instance
+        exoPlayer = ExoPlayer.Builder(this).build().apply {
+            val mediaItem = MediaItem.fromUri(Uri.parse(audioUrl))
+            setMediaItem(mediaItem)
+            prepare()
+            play()
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer?.release()
     }
 }

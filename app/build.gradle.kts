@@ -84,6 +84,13 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     implementation("com.daimajia.swipelayout:library:1.2.0")
+
+    // Retrofit for network requests
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // ExoPlayer for audio playback
+    implementation("com.google.android.exoplayer:exoplayer:2.19.0")
 }
 
 
