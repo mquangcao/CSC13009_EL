@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.presentation.activity.GrammarActivity
+import com.android_ai.csc13009.app.presentation.activity.ListStoryActivity
 import com.android_ai.csc13009.app.presentation.activity.StoryActivity
 import com.android_ai.csc13009.app.presentation.activity.VocabularyActivity
 
@@ -42,7 +43,7 @@ class LearnFragment : Fragment() {
         }
 
         book.setOnClickListener {
-            val intent = Intent(view.context, StoryActivity::class.java)
+            val intent = Intent(view.context, ListStoryActivity::class.java)
             startActivity(intent)
         }
 
