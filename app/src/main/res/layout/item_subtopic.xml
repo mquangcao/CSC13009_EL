@@ -37,6 +37,15 @@
             android:visibility="gone"
             android:paddingTop="8dp">
 
+            <!-- Tiêu đề: Content -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Content"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
+
             <TextView
                 android:id="@+id/subtopicContentTextView"
                 android:layout_width="wrap_content"
@@ -44,12 +53,30 @@
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp" />
 
+            <!-- Tiêu đề: Structures -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Structures"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
+
             <TextView
                 android:id="@+id/subtopicStructuresTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp" />
+
+            <!-- Tiêu đề: Examples -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Examples"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
 
             <TextView
                 android:id="@+id/subtopicExamplesTextView"
