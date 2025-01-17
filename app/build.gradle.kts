@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.coordinatorlayout)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.preference.ktx)
     //implementation(libs.androidx.games.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

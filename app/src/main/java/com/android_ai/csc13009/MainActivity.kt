@@ -29,6 +29,7 @@ import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
 import com.android_ai.csc13009.app.presentation.activity.IntroActivity
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
+import com.android_ai.csc13009.app.presentation.receiver.WordNotificationReceiver.Companion.scheduleNotifications
 import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
 import com.google.firebase.auth.FirebaseAuth
 
@@ -42,9 +43,8 @@ class MainActivity : AppCompatActivity() {
     private val requestNotificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                setDailyNotification()
+                scheduleNotifications(this) // Lên lịch thông báo khi có quyền
             } else {
-                // Người dùng từ chối quyền
                 showPermissionDeniedMessage()
             }
         }
@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity() {
         // Kiểm tra và yêu cầu quyền (nếu cần)
         checkAndRequestNotificationPermission()
 
-        // Đặt lịch thông báo mỗi ngày
-        setDailyNotification()
+        // Lên lịch thông báo dựa trên cài đặt (nếu đã cấp quyền)
+        scheduleNotifications(this)
 
 
 
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkAndRequestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Chỉ cho API 33 trở lên
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
                     this,
                     Manifest.permission.POST_NOTIFICATIONS
@@ -152,16 +152,15 @@ class MainActivity : AppCompatActivity() {
             ) {
                 requestNotificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
             } else {
-                setDailyNotification()
+                scheduleNotifications(this) // Lên lịch thông báo ngay nếu đã có quyền
             }
         } else {
-            // Trường hợp API 30 trở xuống không cần quyền POST_NOTIFICATIONS
-            setDailyNotification()
+            // Android 12 trở xuống không cần quyền đặc biệt
+            scheduleNotifications(this)
         }
-
     }
 
-    private fun setDailyNotification() {
+    /*private fun setDailyNotification() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, WordNotificationReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
@@ -189,7 +188,7 @@ class MainActivity : AppCompatActivity() {
         )
         Log.d("AlarmManager", "Notification set for: ${calendar.time}")
 
-    }
+    }*/
 
     private fun showPermissionDeniedMessage() {
         // Hiển thị thông báo nếu người dùng từ chối cấp quyền
