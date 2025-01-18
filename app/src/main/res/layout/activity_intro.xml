@@ -57,8 +57,9 @@
         android:id="@+id/intro_button_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@drawable/card_background"
         android:backgroundTint="@color/greenPrimary"
-        android:text="Button" />
+        android:fadeScrollbars="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:text="Button"
+        android:textColor="@color/white" />
 </LinearLayout>
