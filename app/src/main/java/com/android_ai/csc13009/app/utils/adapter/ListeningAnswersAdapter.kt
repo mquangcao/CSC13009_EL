@@ -40,6 +40,8 @@ class ListeningAnswersAdapter(private val answers: List<ListeningAnswer>)
     ) {
         val answer = answers[position]
         holder.tvAnswerText.text = answer.text
+
+
         if (answer.imgUrl.isNotEmpty()) {
             holder.imgAnswerImage.visibility = View.VISIBLE
             Glide.with(holder.itemView.context)

@@ -30,6 +30,7 @@ import kotlinx.coroutines.launch
 class ListeningQuestionActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
     private lateinit var dialogInCorrect: Dialog
+    private lateinit var dialogIncorrectAnswerCorrection: TextView
     private lateinit var btnConfirmDialog: Button
     private lateinit var btnConfirmDialogIncorrect: Button
     private lateinit var btnClose: ImageButton
@@ -66,6 +67,7 @@ class ListeningQuestionActivity : AppCompatActivity() {
         dialogInCorrect.window?.setBackgroundDrawableResource(R.drawable.custom_dialog_bg)
         dialogInCorrect.window?.setGravity(Gravity.BOTTOM)
         dialogInCorrect.setCancelable(false)
+        dialogIncorrectAnswerCorrection = dialogInCorrect.findViewById(R.id.tv_content)
 
         btnConfirmDialog = dialog.findViewById(R.id.btn_continue)
         btnConfirmDialogIncorrect = dialogInCorrect.findViewById(R.id.btn_continue)
@@ -183,6 +185,12 @@ class ListeningQuestionActivity : AppCompatActivity() {
             correctAnswer++
         }
         else {
+            val question = questions?.get(currentQuestion - 1)
+            if (question != null) {
+                val rightAnswer = question.answer.find { it.isCorrect }
+                dialogIncorrectAnswerCorrection.text = rightAnswer?.text ?: ""
+            }
+
             handleNextStep(dialogInCorrect, questions, btnConfirmDialogIncorrect)
         }
     }
