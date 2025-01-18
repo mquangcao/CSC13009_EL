@@ -35,23 +35,23 @@ class ListeningTopicAdapter( private val listeningTopics: List<ListeningTopics>)
     override fun getItemCount(): Int = listeningTopics.size
 
     override fun onBindViewHolder(holder: ListeningTopicViewHolder, position: Int) {
-        val lesson = listeningTopics[position]
+        val topic = listeningTopics[position]
 
         Glide.with(holder.itemView.context)
-            .load(lesson.thumbnailUrl)
+            .load(topic.thumbnailUrl)
             .into(holder.imgThumb)
 
-        holder.circularProgressBar.progressMax = lesson.totalLesson.toFloat()
-        holder.circularProgressBar.setProgressWithAnimation(lesson.lessonFinished.toFloat())
+        holder.circularProgressBar.progressMax = topic.totalLesson.toFloat()
+        holder.circularProgressBar.setProgressWithAnimation(topic.lessonFinished.toFloat())
 
-        holder.tvChapter.text = lesson.chapterName
-        holder.tvVocabulary.text = "${lesson.totalLesson} lessons"
+        holder.tvChapter.text = topic.chapterName
+        holder.tvVocabulary.text = "${topic.totalLesson} lessons"
 
-        holder.txtProgress.text = "${ (lesson.lessonFinished.toFloat() / lesson.totalLesson.toFloat() * 100).toInt()}%"
+        holder.txtProgress.text = "${ (topic.lessonFinished.toFloat() / topic.totalLesson.toFloat() * 100).toInt()}%"
 
         holder.itemCard.setOnClickListener {
             val intent = Intent(holder.itemCard.context, LearnListeningActivity::class.java)
-            intent.putExtra("chapterId", lesson.id)
+            intent.putExtra("topicId", topic.id)
             holder.itemCard.context.startActivity(intent)
         }
     }

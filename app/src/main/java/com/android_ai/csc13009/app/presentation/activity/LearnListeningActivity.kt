@@ -12,6 +12,7 @@ import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.repository.ListeningTopicRepository
 import com.android_ai.csc13009.app.domain.models.ListeningTopic
 import com.android_ai.csc13009.app.domain.repository.IListeningTopicRepository
+import com.android_ai.csc13009.app.utils.adapter.ListeningLessonAdapter
 import com.bumptech.glide.Glide
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.coroutines.launch
@@ -73,7 +74,7 @@ class LearnListeningActivity : AppCompatActivity() {
 
     private fun updateUI(topic: ListeningTopic) {
         chapName.text = topic.title
-//        recyclerView.adapter = LessonAdapter(topic.lessons)
+        recyclerView.adapter = ListeningLessonAdapter(topic.lessons)
 
         circularProgressBar.progressMax = topic.totalLesson.toFloat()
         circularProgressBar.setProgressWithAnimation(topic.lessonFinished.toFloat())

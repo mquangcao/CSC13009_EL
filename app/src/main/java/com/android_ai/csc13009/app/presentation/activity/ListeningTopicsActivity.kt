@@ -10,10 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.data.repository.ChapterRepository
 import com.android_ai.csc13009.app.data.repository.ListeningTopicRepository
-import com.android_ai.csc13009.app.domain.models.Chapters
-import com.android_ai.csc13009.app.domain.models.ListeningTopic
 import com.android_ai.csc13009.app.domain.models.ListeningTopics
 import com.android_ai.csc13009.app.domain.repository.IListeningTopicRepository
 import com.android_ai.csc13009.app.utils.adapter.ListeningTopicAdapter
