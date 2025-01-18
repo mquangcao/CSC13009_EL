@@ -17,7 +17,7 @@ interface ListeningLessonDao {
     @Query("SELECT * FROM ListeningLesson WHERE id = :lessonId")
     suspend fun getLessonById(lessonId: Int): ListeningLessonEntity?
 
-    @Query("SELECT * FROM ListeningLesson WHERE topicId = :topicId")
+    @Query("SELECT * FROM ListeningLesson WHERE topicId = :topicId ORDER BY `order`")
     suspend fun getLessonsByTopicId(topicId: String): List<ListeningLessonEntity>
 
     @Query("SELECT * FROM ListeningLesson")

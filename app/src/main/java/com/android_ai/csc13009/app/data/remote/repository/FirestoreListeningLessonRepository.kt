@@ -27,9 +27,17 @@ class FirestoreListeningLessonRepository(private val firestore: FirebaseFirestor
 
     private fun convert(document: DocumentSnapshot, topicId: String): FirestoreListeningLesson {
         val data = document.data
-        val lessonName = data?.get("lessonName") as? String ?: ""
-        val order = data?.get("order") as? Int ?: 0
+        if (data == null) {
+            Log.e("FirestoreListeningLessonRepository", "Document data is null")
+            return FirestoreListeningLesson("", "", "", 0)
+        }
+        val lessonName = data["lessonName"] as? String ?: ""
+        val order: Any? = data["order"]
+        var intOrder = 0
+        if (order is Long) {
+            intOrder = order.toInt()
+        }
 
-        return createFirestoreListeningLessonFromFirestore(document.id, lessonName, topicId, order)
+        return createFirestoreListeningLessonFromFirestore(document.id, lessonName, topicId, intOrder)
     }
 }
