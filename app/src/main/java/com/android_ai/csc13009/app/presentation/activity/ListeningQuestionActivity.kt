@@ -74,6 +74,7 @@ class ListeningQuestionActivity : AppCompatActivity() {
 
         val questions = intent.getSerializableExtra("question") as? ArrayList<ListeningQuestion>
         lessonId = intent.getStringExtra("lessonId").toString()
+//        val questions = intent.getSerializableExtra<ListeningQuestion>("question")
 
         startTime = System.currentTimeMillis()
         if(questions != null) {
@@ -160,21 +161,19 @@ class ListeningQuestionActivity : AppCompatActivity() {
         when (question.type) {
             "pronunciation" -> {
                 tvQuestion.text = getString(R.string.choose_the_correct_word)
-                loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer))
             }
             "stressing" -> {
                 tvQuestion.text = getString(R.string.find_the_different_from_the_other)
-                loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer))
             }
             "sound" -> {
                 tvQuestion.text = getString(R.string.choose_the_correct_word)
-                loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer))
             }
             "conversation" -> {
                 tvQuestion.text = getString(R.string.choose_the_correct_information)
-                loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer))
             }
         }
+
+        loadFragment(ListeningQuestionFragment(question.id ,question.question, question.answer, question.audioTranscript))
 
     }
 

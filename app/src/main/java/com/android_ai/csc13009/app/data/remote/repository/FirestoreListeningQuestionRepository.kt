@@ -1,7 +1,9 @@
 package com.android_ai.csc13009.app.data.remote.repository
 
 import android.util.Log
+import com.android_ai.csc13009.app.data.remote.model.FirestoreListeningLesson
 import com.android_ai.csc13009.app.data.remote.model.FirestoreListeningQuestion
+import com.android_ai.csc13009.app.domain.models.ListeningQuestion
 import com.android_ai.csc13009.app.utils.mapper.createFirestoreListeningQuestionFromFirestore
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,9 +30,15 @@ class FirestoreListeningQuestionRepository(private val firestore: FirebaseFirest
 
     private fun convert(document: DocumentSnapshot, lessonId: String, level: String): FirestoreListeningQuestion {
         val data = document.data
-        val question = data?.get("question") as? String ?: ""
-        val type = data?.get("type") as? String ?: ""
+        if (data == null) {
+            Log.e("FirestoreListeningLessonRepository", "Document data is null")
+            throw IllegalArgumentException("Document data is null")
+        }
+
+        val question = data["question"] as? String ?: ""
+        val type = data["type"] as? String ?: ""
         val id = document.id
-        return createFirestoreListeningQuestionFromFirestore(id, question, lessonId, level, type)
+        val audioTranscript = data["audioTranscript"] as? String ?: ""
+        return createFirestoreListeningQuestionFromFirestore(id, question, lessonId, level, type, audioTranscript)
     }
 }

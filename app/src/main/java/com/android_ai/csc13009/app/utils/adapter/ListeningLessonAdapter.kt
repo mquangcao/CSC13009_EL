@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.ListeningLesson
-import com.android_ai.csc13009.app.presentation.activity.VocabularyWordActivity
+import com.android_ai.csc13009.app.presentation.activity.ListeningQuestionActivity
 
 class ListeningLessonAdapter(private val listeningLessons: List<ListeningLesson>)
     : RecyclerView.Adapter<ListeningLessonAdapter.ListeningLessonViewHolder>() {
@@ -40,7 +40,7 @@ class ListeningLessonAdapter(private val listeningLessons: List<ListeningLesson>
 
         if(lesson.isOpen) {
             holder.cardView.setOnClickListener {
-                val intent = Intent(holder.cardView.context, VocabularyWordActivity::class.java)
+                val intent = Intent(holder.cardView.context, ListeningQuestionActivity::class.java)
                 intent.putExtra("question", ArrayList(lesson.questions))
                 intent.putExtra("lessonId", lesson.id)
                 holder.cardView.context.startActivity(intent)

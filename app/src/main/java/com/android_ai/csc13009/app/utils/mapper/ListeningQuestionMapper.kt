@@ -15,13 +15,16 @@ fun ListeningQuestionEntity.toFirestore() : FirestoreListeningQuestion {
 }
 
 fun createFirestoreListeningQuestionFromFirestore(
-    id: String, question: String, lessonId: String, level: String, type: String)
+    id: String, question: String, lessonId: String, level: String, type: String, audioTranscript: String)
     : FirestoreListeningQuestion {
     return FirestoreListeningQuestion(
         id = id,
         question = question,
         lessonId = lessonId,
-        level = level,)
+        level = level,
+        audioTranscript = audioTranscript,
+        type = type
+    )
 }
 
 fun FirestoreListeningQuestion.toEntity() : ListeningQuestionEntity {
@@ -31,6 +34,6 @@ fun FirestoreListeningQuestion.toEntity() : ListeningQuestionEntity {
         lessonId = this.lessonId,
         level = this.level,
         type = this.type,
-//        audioTranscript = "",
+        audioTranscript = this.audioTranscript,
     )
 }

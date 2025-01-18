@@ -17,7 +17,8 @@ class ListeningQuestionRepository(context: Context) : IListeningQuestionReposito
                     id = it.id,
                     question = it.question,
                     type = it.type,
-                    answer = getAnswersByQuestionId(it.id) as ArrayList<ListeningAnswer>
+                    answer = getAnswersByQuestionId(it.id) as ArrayList<ListeningAnswer>,
+                    audioTranscript = it.audioTranscript
                 )
             }
 
@@ -35,7 +36,8 @@ class ListeningQuestionRepository(context: Context) : IListeningQuestionReposito
                 id = it.id,
                 text = it.text,
                 imgUrl = it.imgUrl,
-                questionId = questionId
+                questionId = questionId,
+                isCorrect = it.isCorrect,
             )
         }
     }

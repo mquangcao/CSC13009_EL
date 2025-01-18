@@ -11,4 +11,5 @@ class ListeningQuestionEntity (
     val lessonId: String = "",
     val question: String = "",
     val type: String = "",
+    val audioTranscript: String = "",
 )
