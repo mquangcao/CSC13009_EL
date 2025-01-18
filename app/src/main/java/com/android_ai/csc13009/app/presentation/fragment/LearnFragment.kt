@@ -54,7 +54,4 @@ class LearnFragment : Fragment() {
 
         return view
     }
-
-
-
 }

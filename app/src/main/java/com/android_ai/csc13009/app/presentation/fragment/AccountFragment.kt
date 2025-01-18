@@ -15,6 +15,7 @@ import com.android_ai.csc13009.app.presentation.activity.EditProfileActivity
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
 import com.android_ai.csc13009.app.presentation.activity.WordLevelSelection
 import com.android_ai.csc13009.app.domain.models.Language
+import com.android_ai.csc13009.app.presentation.activity.NotificationSettingsActivity
 import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,7 @@ class AccountFragment : Fragment() {
     private lateinit var cInfo : CardView
     private lateinit var cLogout : CardView
     private lateinit var cLanguage : CardView
+    private lateinit var cNotification : CardView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_account, container, false)
@@ -71,6 +73,12 @@ class AccountFragment : Fragment() {
 
             languageBottomFragment.show(requireActivity().supportFragmentManager, "LanguageBottomFragment")
 
+        }
+
+        cNotification = view.findViewById(R.id.cNotification)
+        cNotification.setOnClickListener{
+            val intent = Intent(activity, NotificationSettingsActivity::class.java)
+            startActivity(intent)
         }
 
         return view
