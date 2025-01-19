@@ -23,51 +23,6 @@ class FirestoreStoryRepository(private val firestore: FirebaseFirestore)
                         thumbnailUrl = document.getString("thumbnailUrl") ?: ""
                     )
 
-                    val conversations = firestore.collection("storyConversation")
-                        .get()
-                        .await()
-                        .documents
-                        .mapNotNull { conversations ->
-                            Conversation(
-                                id = conversations.id,
-                                gender = conversations.getString("gender") ?: "",
-                                message = conversations.getString("message") ?: "",
-                                type = conversations.getString("type") ?: ""
-                            )
-                        }
-
-
-                    val question = firestore.collection("storyQuestion")
-                        .get()
-                        .await()
-                        .documents
-                        .mapNotNull { q ->
-                            val storyQuestion = FirestoreStoryQuestion().apply {
-                                id = q.id
-                                question = q.getString("question") ?: ""
-                                type = q.getString("type") ?: ""
-                            }
-
-                            val answers = firestore.collection("answers")
-                                .whereEqualTo("questionId", q.id)
-                                .get()
-                                .await()
-                                .documents
-                                .mapNotNull { answers ->
-                                    FirestoreAnswers(
-                                        id = answers.id,
-                                        text = answers.getString("text") ?: "",
-                                        isCorrect = answers.getBoolean("isCorrect") ?: false,
-                                        imgUrl = answers.getString("imgUrl") ?: ""
-                                    )
-                                }
-
-                            storyQuestion.answers = answers
-                            storyQuestion
-                        }
-
-                    story.conversations = conversations
-                    story.questions = question
                     story
                 }
             return data
@@ -76,4 +31,70 @@ class FirestoreStoryRepository(private val firestore: FirebaseFirestore)
             emptyList()
         }
     }
+
+    suspend fun getConversations(storyId: String) : List<Conversation> {
+        return try {
+            firestore.collection("storyConversation")
+                .whereEqualTo("storyId", storyId)
+                .get()
+                .await()
+                .documents
+                .mapNotNull { document ->
+                    Conversation(
+                        id = document.id,
+                        storyId = storyId,
+                        gender = document.getString("gender") ?: "",
+                        message = document.getString("message") ?: "",
+                        type = document.getString("type") ?: "",
+                        order = document.getLong("order")?.toInt() ?: 0
+                    )
+                }
+        } catch (e: Exception) {
+            Log.e("FirestoreStoryRepository", "Error fetching conversations: ${e.message}")
+            emptyList()
+        }
+    }
+
+    suspend fun getQuestions(storyId: String) : List<FirestoreStoryQuestion> {
+        return try {
+            firestore.collection("storyQuestion")
+                .whereEqualTo("storyId", storyId)
+                .get()
+                .await()
+                .documents
+                .mapNotNull { document ->
+                    val question = FirestoreStoryQuestion().apply {
+                        id = document.id
+                        this.storyId = document.getString("storyId") ?: ""
+                        question = document.getString("question") ?: ""
+                        type = document.getString("type") ?: ""
+                    }
+
+
+
+                    val answers = firestore.collection("answers")
+                        .whereEqualTo("questionId", document.id)
+                        .get()
+                        .await()
+                        .documents
+                        .mapNotNull { answers ->
+                            FirestoreAnswers(
+                                id = answers.id,
+                                questionId = answers.getString("questionId") ?: "",
+                                text = answers.getString("text") ?: "",
+                                isCorrect = answers.getBoolean("isCorrect") ?: false,
+                                imgUrl = answers.getString("imgUrl") ?: ""
+                            )
+                        }
+
+                    question.answers = answers
+                    question
+                }
+        } catch (e: Exception) {
+            Log.e("FirestoreStoryRepository", "Error fetching questions: ${e.message}")
+            emptyList()
+        }
+    }
+
+
 }

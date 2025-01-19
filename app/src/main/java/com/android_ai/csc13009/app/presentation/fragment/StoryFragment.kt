@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.local.entity.Conversation
 import com.android_ai.csc13009.app.domain.models.StoryItem
 import com.android_ai.csc13009.app.utils.adapter.StoryAdapter
 import com.android_ai.csc13009.app.utils.extensions.SlideInLeftAnimator
 import com.google.android.material.button.MaterialButton
 
-class StoryFragment : Fragment() {
+class StoryFragment(private val conversations : List<Conversation>) : Fragment() {
     private lateinit var buttonAddMessage: MaterialButton
     private lateinit var recyclerView : RecyclerView
     private lateinit var storyAdapter: StoryAdapter
@@ -67,8 +68,12 @@ class StoryFragment : Fragment() {
     }
 
     private fun prepareStory() {
-        pendingItems.add(StoryItem.Narration("Chào mừng bạn đến với câu chuyện!"))
-        pendingItems.add(StoryItem.Message("Xin chào!"))
-        pendingItems.add(StoryItem.Message("Tôi là một người máy thông minh!"))
+        conversations.forEach { conversation ->
+            if(conversation.type == "narration") {
+                pendingItems.add(StoryItem.Narration(conversation.message))
+            } else {
+                pendingItems.add(StoryItem.Message(conversation.message,conversation.gender))
+            }
+        }
     }
 }

@@ -38,6 +38,7 @@ class ListStoriesAdapter(private val stories: List<Story>) : RecyclerView.Adapte
 
         holder.cardWord.setOnClickListener {
             val intent = Intent(holder.itemView.context, StoryActivity::class.java)
+            intent.putExtra("storyId", story.id)
             holder.itemView.context.startActivity(intent)
         }
     }

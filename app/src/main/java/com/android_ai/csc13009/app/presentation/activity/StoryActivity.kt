@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.repository.ChapterRepository
+import com.android_ai.csc13009.app.data.repository.StoryRepository
 import com.android_ai.csc13009.app.domain.models.Question
 import com.android_ai.csc13009.app.domain.repository.IChapterRepository
 import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTranslate
@@ -50,7 +51,7 @@ class StoryActivity : AppCompatActivity() {
 
     private lateinit var  chapterRepository : IChapterRepository
 
-
+    private lateinit var storyRepository: StoryRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,17 +62,24 @@ class StoryActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        storyRepository = StoryRepository(this)
+        val storyId = intent.getStringExtra("storyId")
+
         chapterRepository = ChapterRepository(this)
         lifecycleScope.launch {
-            val chapter = chapterRepository.getChapterDetail("1TNfrw5VT6uL71aZpdr2")
+            if (storyId != null) {
+                val conversations = storyRepository.getConversationsByStoryId(storyId)
+                questions = storyRepository.getStoryQuestion(storyId)
+                loadFragment(StoryFragment(conversations))
+            }
             // Cập nhật UI sau khi lấy danh sách
-            questions = chapter.lessons[0].questions
+
             totalQuestion = questions.size
         }
 
         initAndHooks()
 
-        loadFragment(StoryFragment())
+
 
         supportFragmentManager.setFragmentResultListener("taskCompleted", this) { requestKey, bundle ->
             if (requestKey == "taskCompleted") {
