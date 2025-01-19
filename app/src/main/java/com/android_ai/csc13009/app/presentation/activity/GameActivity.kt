@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.presentation.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.repository.WordRepository
+import com.android_ai.csc13009.app.domain.models.WordModel
 import com.android_ai.csc13009.app.presentation.fragment.games.GameInterface
 import com.android_ai.csc13009.app.utils.extensions.NavigationSetter
 import com.android_ai.csc13009.app.utils.extensions.games.IGameEngine
@@ -104,6 +106,14 @@ class GameActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun checkDictionaryWord(wordModel: WordModel) {
+        val intent = Intent(this, WordDetailActivity::class.java)
+        intent.putExtra("word_id", wordModel.id)
+        intent.putExtra("word_text", wordModel.word) // Truyền từ cần hiển thị
+        intent.putExtra("word_pronunciation", wordModel.pronunciation)
+        intent.putExtra("word_details", wordModel.details)
+        this.startActivity(intent)
+    }
 
 
 }

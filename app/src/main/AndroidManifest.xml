@@ -18,6 +18,9 @@
         android:theme="@style/Theme.CSC13009"
         tools:targetApi="31">
         <activity
+            android:name=".app.presentation.activity.ListeningQuestionActivity"
+            android:exported="false" />
+        <activity
             android:name=".app.presentation.activity.ExportActivity"
             android:exported="false" />
         <activity
@@ -94,6 +97,12 @@
         <activity
             android:name=".app.presentation.activity.NotificationSettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.ListeningTopicsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.LearnListeningActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

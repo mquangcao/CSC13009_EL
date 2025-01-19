@@ -25,6 +25,12 @@ import com.android_ai.csc13009.app.data.local.entity.*
         GrammarLevelEntity::class,
         GrammarTopicEntity::class,
         GrammarSubtopicEntity::class,
+
+        ListeningTopicEntity::class,
+        ListeningLessonEntity::class,
+        ListeningQuestionEntity::class,
+        ListeningAnswerEntity::class,
+
         StoryEntity::class,
         StoryQuestion::class,
         Conversation::class
@@ -51,7 +57,12 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun storyQuestionDao() : StoryQuestionDao
     abstract fun conversationDao(): ConversationDao
 
-//    abstract fun answerDao(): AnswerDao
+    // listening
+    abstract fun listeningTopicDao(): ListeningTopicDao
+    abstract fun listeningLessonDao(): ListeningLessonDao
+    abstract fun listeningQuestionDao(): ListeningQuestionDao
+    abstract fun listeningAnswerDao(): ListeningAnswerDao
+
 
     // grammar
     abstract fun grammarLevelDao(): GrammarLevelDao

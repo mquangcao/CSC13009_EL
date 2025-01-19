@@ -54,12 +54,13 @@ class GameResultFragment : Fragment() {
             gameEngine.updateHighScore()
         }
 
-        val funt : (WordModel) -> Unit = {
-
+        val lookUpWord : (WordModel) -> Unit = {
+            val activity = requireActivity() as GameActivity
+            activity.checkDictionaryWord(wordModel = it)
         }
 
         val featuredWordView = view.findViewById<RecyclerView>(R.id.game_result_word_list_rv)
-        val dictionaryAdapter = DictionaryAdapter(gameEngine.words, funt)
+        val dictionaryAdapter = DictionaryAdapter(gameEngine.words, lookUpWord)
         featuredWordView.adapter = dictionaryAdapter
         featuredWordView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 

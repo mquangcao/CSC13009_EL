@@ -11,13 +11,13 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
-import com.android_ai.csc13009.app.domain.models.Lesson
-import com.android_ai.csc13009.app.presentation.activity.VocabularyWordActivity
+import com.android_ai.csc13009.app.domain.models.ListeningLesson
+import com.android_ai.csc13009.app.presentation.activity.ListeningQuestionActivity
 
-class LessonAdapter (
-    private val lessons: List<Lesson>
-)  : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
-    class LessonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ListeningLessonAdapter(private val listeningLessons: List<ListeningLesson>)
+    : RecyclerView.Adapter<ListeningLessonAdapter.ListeningLessonViewHolder>() {
+
+    class ListeningLessonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView.findViewById(R.id.card_lesson)
         val titleView: TextView = itemView.findViewById(R.id.tv_title)
         val rlLesson = itemView.findViewById<RelativeLayout>(R.id.rl_lesson)
@@ -26,21 +26,21 @@ class LessonAdapter (
         val progressBar = itemView.findViewById<ProgressBar>(R.id.game_session_question_content_extra)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListeningLessonViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.lesson_item_layout, parent, false)
-        return LessonViewHolder(view)
+        return ListeningLessonViewHolder(view)
     }
 
-    override fun getItemCount(): Int = lessons.size
+    override fun getItemCount(): Int = listeningLessons.size
 
-    override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
-        val lesson = lessons[position]
+    override fun onBindViewHolder(holder: ListeningLessonViewHolder, position: Int) {
+        val lesson = listeningLessons[position]
 
         holder.titleView.text = lesson.lessonName
 
         if(lesson.isOpen) {
             holder.cardView.setOnClickListener {
-                val intent = Intent(holder.cardView.context, VocabularyWordActivity::class.java)
+                val intent = Intent(holder.cardView.context, ListeningQuestionActivity::class.java)
                 intent.putExtra("question", ArrayList(lesson.questions))
                 intent.putExtra("lessonId", lesson.id)
                 holder.cardView.context.startActivity(intent)
