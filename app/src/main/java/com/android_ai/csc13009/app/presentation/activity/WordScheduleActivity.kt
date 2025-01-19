@@ -26,6 +26,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import android.content.Context
 import android.content.Intent
+import android.widget.Button
+import android.widget.TextView
 
 class WordScheduleActivity : AppCompatActivity() {
 
@@ -141,15 +143,40 @@ class WordScheduleActivity : AppCompatActivity() {
     }
 
     private fun showDeleteConfirmationDialog(wordSchedule: WordSchedule) {
-        AlertDialog.Builder(this)
-            .setTitle("Delete Word")
-            .setMessage("Are you sure you want to delete '${wordSchedule.wordId}'?")
-            .setPositiveButton("Yes") { _, _ ->
-                deleteWord(wordSchedule)
-            }
-            .setNegativeButton("No", null)
-            .show()
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_confirmation, null)
+
+        // Access views in the custom layout
+        val ivWarning = dialogView.findViewById<ImageView>(R.id.ivWarning)
+        val tvDeleteTitle = dialogView.findViewById<TextView>(R.id.tvDeleteTitle)
+        val tvDeleteMessage = dialogView.findViewById<TextView>(R.id.tvDeleteMessage)
+        val btnConfirmDelete = dialogView.findViewById<Button>(R.id.btnConfirmDelete)
+        val btnCancelDelete = dialogView.findViewById<Button>(R.id.btnCancelDelete)
+
+        // Update the message dynamically with the word ID
+        tvDeleteMessage.text = "Are you sure you want to delete this schedule?"
+
+        // Create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        // Confirm Delete button action
+        btnConfirmDelete.setOnClickListener {
+            deleteWord(wordSchedule)
+            dialog.dismiss()
+        }
+
+        // Cancel button action
+        btnCancelDelete.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
     }
+
 
     private fun deleteWord(wordSchedule: WordSchedule) {
         lifecycleScope.launch {

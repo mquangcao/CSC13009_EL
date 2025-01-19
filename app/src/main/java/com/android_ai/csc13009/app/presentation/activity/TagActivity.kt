@@ -163,15 +163,38 @@ class TagActivity : AppCompatActivity() {
 
 
     private fun showDeleteConfirmationDialog(tag: Tag) {
-        AlertDialog.Builder(this)
-            .setTitle("Delete Tag")
-            .setMessage("Are you sure you want to delete the tag \"${tag.name}\"?")
-            .setPositiveButton("Yes") { _, _ ->
-                deleteTag(tag.id)
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_tag, null)
+
+        // Access views in the custom layout
+        val tvTagMessage = dialogView.findViewById<TextView>(R.id.tvTagMessage)
+        val btnConfirmDeleteTag = dialogView.findViewById<Button>(R.id.btnConfirmDeleteTag)
+        val btnCancelDeleteTag = dialogView.findViewById<Button>(R.id.btnCancelDeleteTag)
+
+        // Update the message dynamically with the tag name
+        tvTagMessage.text = "Are you sure you want to delete the tag \"${tag.name}\"?"
+
+        // Create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        // Confirm Delete button action
+        btnConfirmDeleteTag.setOnClickListener {
+            deleteTag(tag.id)
+            dialog.dismiss()
+        }
+
+        // Cancel button action
+        btnCancelDeleteTag.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
     }
+
 
 
     private fun deleteTag(tagId: String) {
