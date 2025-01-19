@@ -27,7 +27,7 @@ class UserViewModel(
             joinDate = System.currentTimeMillis().toString(),
             avatar = null,
             streakCount = 0,
-            level = "Beginner"
+            level = ""
         )
 
         viewModelScope.launch {

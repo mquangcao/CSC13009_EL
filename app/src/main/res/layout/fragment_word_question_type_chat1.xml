@@ -52,14 +52,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
 
+            android:id="@+id/rv_word"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:id="@+id/rv_word"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="48dp"
             android:layout_below="@+id/tv_question"
-            />
+            android:layout_marginTop="46dp"
+            android:layout_marginBottom="16dp"
+            android:nestedScrollingEnabled="false" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_check_answer"

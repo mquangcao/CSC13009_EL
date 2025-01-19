@@ -30,13 +30,12 @@ import com.android_ai.csc13009.app.utils.mapper.toEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class SyncDataFromFirestore(private val level : String, private val firestore: FirebaseFirestore, context : Context) {
+class SyncDataFromFirestore( private val firestore: FirebaseFirestore, context : Context) {
     private var firestoreAnswers : FirestoreAnswersRepository = FirestoreAnswersRepository(firestore)
     private var firestoreQuestions : FirestoreQuestionRepository = FirestoreQuestionRepository(firestore)
     private var firestoreLesson : FirestoreLessonRepository = FirestoreLessonRepository(firestore)
     private var firestoreTopic : FirestoreTopicRepository = FirestoreTopicRepository(firestore)
     private var firestoreProgress : FirestoreProgressRepository = FirestoreProgressRepository(firestore)
-    private var questionRepository = QuestionRepository(context)
 
 
 //  listening
@@ -51,35 +50,12 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
     private  val database = AppDatabase.getInstance(context)
 
     suspend fun run() {
-        clearData()
         syncStories()
-        fetchDataLevel()
         fetchLessonProgress(getUserId())
-
-        val dataa = questionRepository.getQuestion("7PCPTruPmOjOxoWBscDl")
-        Log.d("SyncDataFromFirestore", "Question 123131231")
-        Log.d("SyncDataFromFirestore", "Question 12313123123: ${dataa}")
     }
 
     private suspend fun test() {
-        val questions = database.storyDao().getAllStories()
 
-
-        val conversations = database.conversationDao().getAllConversations()
-        conversations.forEach { conversation ->
-            Log.d("SyncDataFromFirestore", "Conversation: ${conversation}")
-        }
-
-        val storyQuestions = database.storyQuestionDao().getAllStoryQuestions()
-        storyQuestions.forEach { question ->
-            Log.d("SyncDataFromFirestore", "Question: ${question}")
-
-            val answers = database.answerDao().getAnswersByQuestionId(question.id)
-            Log.d("SyncDataFromFirestore", "Answers: ${answers.size}")
-            answers.forEach { answer ->
-                Log.d("SyncDataFromFirestore", "Answer: ${answer}")
-            }
-        }
 
 
     }
@@ -91,7 +67,10 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
         return currentUser?.uid ?: ""
     }
 
-    private suspend fun fetchDataLevel() {
+    suspend fun fetchDataLevel(level : String) {
+        if (level.isEmpty()) {
+            return
+        }
         // word topics
         val topics = firestoreTopic.getTopicList()
         topics.forEach {  topic ->
@@ -120,7 +99,7 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
         }
 
         //listening topic
-        fetchListeningTopics()
+        fetchListeningTopics(level)
     }
 
     private suspend fun fetchLessonProgress(userId : String) {
@@ -139,7 +118,7 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
         }
     }
 
-    private suspend fun syncStories() {
+    public suspend fun syncStories() {
         val stories = firestoreStory.getStoryList()
 
         stories.forEach { story ->
@@ -193,21 +172,27 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
         test()
     }
 
-    private suspend fun clearData() {
+    suspend fun clearData() {
         database.answerDao().deleteAll()
         database.questionDao().deleteAllQuestions()
         database.lessonDao().deleteAllLessons()
         database.chapterDao().deleteAllChapters()
 
-
         database.listeningTopicDao().deleteAllTopic()
         database.listeningAnswerDao().deleteAll()
         database.listeningLessonDao().deleteAllLessons()
         database.listeningQuestionDao().deleteAllQuestions()
+
+        database.storyDao().deleteAllStories()
+        database.storyQuestionDao().deleteAllStoryQuestions()
+        database.conversationDao().deleteAllConversations()
+
+        database.userDao().deleteAllUsers()
+        fetchDataLevel("")
     }
 
 
-    private suspend fun fetchListeningTopics() {
+    private suspend fun fetchListeningTopics(level : String) {
         val topics = firestoreListeningTopic.getTopicList()
         topics.forEach() {
             topic ->
