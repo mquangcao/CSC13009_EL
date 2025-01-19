@@ -9,12 +9,10 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.Lesson
 import com.android_ai.csc13009.app.presentation.activity.VocabularyWordActivity
-import com.bumptech.glide.Glide
 
 class LessonAdapter (
     private val lessons: List<Lesson>

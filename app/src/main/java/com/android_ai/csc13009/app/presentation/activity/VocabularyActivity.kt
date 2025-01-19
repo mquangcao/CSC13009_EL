@@ -53,8 +53,9 @@ class VocabularyActivity : AppCompatActivity() {
     private fun updateUI() {
         lifecycleScope.launch {
             val list = chapterRepository.getChapterList()
+            val data = list.filter { it.totalLesson > 0 }
             // Cập nhật UI sau khi lấy danh sách
-            updateUI(list)
+            updateUI(data)
         }
     }
 
@@ -65,7 +66,7 @@ class VocabularyActivity : AppCompatActivity() {
         recyclerView.post {
             val totalHeight = recyclerView.adapter?.itemCount?.let { count ->
                 val itemHeight = recyclerView.getChildAt(0)?.height ?: 0
-                count * itemHeight + 24
+                count * itemHeight + 42 * (count - 1)
             }
             recyclerView.layoutParams.height = totalHeight ?: RecyclerView.LayoutParams.WRAP_CONTENT
             recyclerView.requestLayout()

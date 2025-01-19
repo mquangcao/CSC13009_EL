@@ -20,6 +20,8 @@ gamesActivity = "3.0.5"
 roomRuntime = "2.6.1"
 lifecycleKtx = "2.8.0"
 coordinatorlayout = "1.2.0"
+firebaseAuthKtx = "23.1.0"
+preferenceKtx = "1.2.1"
 
 
 
@@ -42,6 +44,8 @@ lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-view
 kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 fragment-ktx = "androidx.fragment:fragment-ktx:1.6.2"
 androidx-coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+androidx-preference-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preferenceKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -24,6 +24,18 @@
             android:name=".app.presentation.activity.ReviewWordsActivity"
             android:exported="false" />
         <activity
+            android:name=".app.presentation.activity.ListeningQuestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.ExportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.ListStoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.StoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".app.presentation.activity.WordScheduleActivity"
             android:exported="false" />
         <activity
@@ -89,6 +101,15 @@
             android:name=".app.presentation.activity.WordLevelSelection"
             android:exported="false" />
         <activity
+            android:name=".app.presentation.activity.NotificationSettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.ListeningTopicsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.LearnListeningActivity"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -109,6 +130,18 @@
             android:name=".app.presentation.receiver.WordNotificationReceiver"
             android:enabled="true"
             android:exported="true" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:roundIcon="@mipmap/ic_launcher"
+            android:icon="@mipmap/ic_launcher">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
