@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
 
-class WordAdapter (private val words: List<AnswerWord>) : RecyclerView.Adapter<WordAdapter.WordViewHolder>()
+class WordAdapter(private val words: List<AnswerWord>) : RecyclerView.Adapter<WordAdapter.WordViewHolder>()
 {
     class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgWord: ShapeableImageView = itemView.findViewById(R.id.img_word)
