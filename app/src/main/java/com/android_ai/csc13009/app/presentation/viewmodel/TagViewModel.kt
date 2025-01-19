@@ -21,7 +21,7 @@ class TagViewModel(
             try {
                 val tagId = tagRepository.createTag(userId, tagName)
                 if (tagId != null) {
-                    _tagState.postValue(TagState.Success("Tag created successfully with ID: $tagId"))
+                    _tagState.postValue(TagState.Success("Tag created successfully!"))
                 } else {
                     _tagState.postValue(TagState.Error("Failed to create tag."))
                 }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.WordDetailItem
 
-class WordDetailAdapter(private val items: List<WordDetailItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WordDetailAdapter(private var items: List<WordDetailItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val TYPE_TYPE = 0 // Loại từ: *
@@ -60,6 +60,11 @@ class WordDetailAdapter(private val items: List<WordDetailItem>) : RecyclerView.
             "+" -> TYPE_EXAMPLE_MEANING
             else -> throw IllegalArgumentException("Unknown type")
         }
+    }
+
+    fun updateData(newItems: List<WordDetailItem>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 
     // ViewHolder for each type

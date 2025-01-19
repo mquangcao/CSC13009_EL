@@ -15,6 +15,7 @@ import com.android_ai.csc13009.app.presentation.activity.EditProfileActivity
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
 import com.android_ai.csc13009.app.presentation.activity.WordLevelSelection
 import com.android_ai.csc13009.app.domain.models.Language
+import com.android_ai.csc13009.app.presentation.activity.ExportActivity
 import com.android_ai.csc13009.app.presentation.activity.NotificationSettingsActivity
 import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
@@ -28,6 +29,7 @@ class AccountFragment : Fragment() {
     private lateinit var cLogout : CardView
     private lateinit var cLanguage : CardView
     private lateinit var cNotification : CardView
+    private lateinit var cExport: CardView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_account, container, false)
@@ -78,6 +80,12 @@ class AccountFragment : Fragment() {
         cNotification = view.findViewById(R.id.cNotification)
         cNotification.setOnClickListener{
             val intent = Intent(activity, NotificationSettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        cExport = view.findViewById(R.id.cExport)
+        cExport.setOnClickListener{
+            val intent = Intent(activity, ExportActivity::class.java)
             startActivity(intent)
         }
 

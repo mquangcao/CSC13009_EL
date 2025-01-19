@@ -26,4 +26,26 @@ class FirestoreQuestionRepository(private val firestore: FirebaseFirestore) {
             emptyList()
         }
     }
+
+    suspend fun getQuestionById(questionId: String): FirestoreQuestion? {
+        return try {
+            val documentSnapshot = firestore.collection("wordQuestion")
+                .document(questionId)
+                .get()
+                .await()
+
+            // Use a mapper to convert the document into your desired object
+            if (documentSnapshot.exists()) {
+                QuestionMapper.fromFirestore(
+                    documentSnapshot.id,
+                    documentSnapshot.data ?: emptyMap()
+                )
+            } else {
+                null // Return null if the document does not exist
+            }
+        } catch (e: Exception) {
+            Log.e("FirestoreLessonRepository", "Error fetching question: ${e.message}")
+            null // Return null in case of an error
+        }
+    }
 }

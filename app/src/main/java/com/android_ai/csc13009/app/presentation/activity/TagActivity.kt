@@ -3,6 +3,7 @@ package com.android_ai.csc13009.app.presentation.activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -127,43 +128,73 @@ class TagActivity : AppCompatActivity() {
     }
 
     private fun showCreateTagDialog(userId: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Create New Tag")
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_create_tag, null)
 
-        // Create an EditText for user input
-        val input = EditText(this)
-        input.hint = "Enter tag name"
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
+        // Access the input field and buttons
+        val etTagName = dialogView.findViewById<EditText>(R.id.etTagName)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnCreate = dialogView.findViewById<Button>(R.id.btnCreate)
 
-        // Set up the dialog buttons
-        builder.setPositiveButton("Create") { dialog, _ ->
-            val tagName = input.text.toString().trim()
+        // Create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        // Set up button actions
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnCreate.setOnClickListener {
+            val tagName = etTagName.text.toString().trim()
             if (tagName.isNotEmpty()) {
                 tagViewModel.createTag(userId, tagName)
                 tagViewModel.getUserTags(userId)
+                dialog.dismiss()
             } else {
                 Toast.makeText(this, "Tag name cannot be empty!", Toast.LENGTH_SHORT).show()
             }
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.cancel()
         }
 
-        builder.show()
+        // Show the dialog
+        dialog.show()
     }
+
 
     private fun showDeleteConfirmationDialog(tag: Tag) {
-        AlertDialog.Builder(this)
-            .setTitle("Delete Tag")
-            .setMessage("Are you sure you want to delete the tag \"${tag.name}\"?")
-            .setPositiveButton("Yes") { _, _ ->
-                deleteTag(tag.id)
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_tag, null)
+
+        // Access views in the custom layout
+        val tvTagMessage = dialogView.findViewById<TextView>(R.id.tvTagMessage)
+        val btnConfirmDeleteTag = dialogView.findViewById<Button>(R.id.btnConfirmDeleteTag)
+        val btnCancelDeleteTag = dialogView.findViewById<Button>(R.id.btnCancelDeleteTag)
+
+        // Update the message dynamically with the tag name
+        tvTagMessage.text = "Are you sure you want to delete the tag \"${tag.name}\"?"
+
+        // Create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        // Confirm Delete button action
+        btnConfirmDeleteTag.setOnClickListener {
+            deleteTag(tag.id)
+            dialog.dismiss()
+        }
+
+        // Cancel button action
+        btnCancelDeleteTag.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
     }
+
 
 
     private fun deleteTag(tagId: String) {

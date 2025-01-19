@@ -24,9 +24,18 @@ import com.android_ai.csc13009.app.data.local.entity.*
         LearningDetailEntity::class,
         GrammarLevelEntity::class,
         GrammarTopicEntity::class,
-        GrammarSubtopicEntity::class
+        GrammarSubtopicEntity::class,
+
+        ListeningTopicEntity::class,
+        ListeningLessonEntity::class,
+        ListeningQuestionEntity::class,
+        ListeningAnswerEntity::class,
+
+        StoryEntity::class,
+        StoryQuestion::class,
+        Conversation::class
                        ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -44,8 +53,16 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun learningDetailDao(): LearningDetailDao
     abstract fun gameDataDao(): GameDataDao
     abstract fun answerDao(): AnswerDao
+    abstract fun storyDao(): StoryDao
+    abstract fun storyQuestionDao() : StoryQuestionDao
+    abstract fun conversationDao(): ConversationDao
 
-//    abstract fun answerDao(): AnswerDao
+    // listening
+    abstract fun listeningTopicDao(): ListeningTopicDao
+    abstract fun listeningLessonDao(): ListeningLessonDao
+    abstract fun listeningQuestionDao(): ListeningQuestionDao
+    abstract fun listeningAnswerDao(): ListeningAnswerDao
+
 
     // grammar
     abstract fun grammarLevelDao(): GrammarLevelDao
@@ -66,7 +83,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     DATABASE_NAME
                 ).createFromAsset("dictionary.db")
-                    .fallbackToDestructiveMigration()
+                    //.fallbackToDestructiveMigration()
                     .addCallback(object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
