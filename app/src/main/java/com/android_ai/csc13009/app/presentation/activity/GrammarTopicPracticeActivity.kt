@@ -69,6 +69,7 @@ class GrammarTopicPracticeActivity : AppCompatActivity() {
 
         val closeButton: ImageButton = findViewById(R.id.btnClose)
         closeButton.setOnClickListener {
+
             finish()
         }
     }
@@ -97,7 +98,7 @@ class GrammarTopicPracticeActivity : AppCompatActivity() {
                                 val isExist = firestoreLearningDetailRepository.isExist(question.id, userId)
                                 if (isExist) {
                                     // Nếu đã tồn tại, cập nhật
-                                    firestoreLearningDetailRepository.updateLearningDetail(question.id, isCorrect)
+                                    firestoreLearningDetailRepository.updateLearningDetail(userId, question.id, isCorrect)
                                 } else {
                                     // Nếu chưa tồn tại, tạo mới
                                     firestoreLearningDetailRepository.createLearningDetail(

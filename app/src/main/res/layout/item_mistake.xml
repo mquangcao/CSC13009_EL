@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="#1E1E1E">
+    android:background="#ffffff">
 
     <!-- Icon -->
     <ImageView
@@ -26,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Dịch câu này"
-        android:textColor="#B0B0B0"
+        android:textColor="@color/gray"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/ivIcon"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Lisa là một học sinh giỏi."
-        android:textColor="#FFFFFF"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toEndOf="@id/ivIcon"

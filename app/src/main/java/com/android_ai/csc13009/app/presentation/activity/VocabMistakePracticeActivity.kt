@@ -75,6 +75,7 @@ class VocabMistakePracticeActivity : AppCompatActivity() {
         }
 
         btnClose.setOnClickListener {
+            setResult(RESULT_OK)
             finish()
         }
     }
@@ -125,6 +126,7 @@ class VocabMistakePracticeActivity : AppCompatActivity() {
 //            val intent = Intent(this, SummaryLearnVocabActivity::class.java)
 //            intent.putExtra("correctAnswer", if (isCorrect) 100 else 0)
 //            startActivity(intent)
+            setResult(RESULT_OK)
             finish()
         }
     }
@@ -135,7 +137,7 @@ class VocabMistakePracticeActivity : AppCompatActivity() {
 
         val userId = getUserId()
         val learningDetailId = if (repository.isExist(question.id, userId)) {
-            repository.updateLearningDetail(question.id, isCorrect)
+            repository.updateLearningDetail(userId, question.id, isCorrect)
         } else {
             repository.createLearningDetail(userId, question.id, isCorrect, "vocabulary")
         }

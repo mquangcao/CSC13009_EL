@@ -115,7 +115,7 @@ class ListeningQuestionActivity : AppCompatActivity() {
 
             val userId = getUserId()
             if (repository.isExist(questionId ?: "", userId)) {
-                val learningDetailId = repository.updateLearningDetail(questionId ?: "", isCorrect)
+                val learningDetailId = repository.updateLearningDetail(userId, questionId ?: "", isCorrect)
 
                 val learningDetail = LearningDetailEntity(
                     id = learningDetailId ?: "",
@@ -130,7 +130,7 @@ class ListeningQuestionActivity : AppCompatActivity() {
                 database.insertLearningDetail(learningDetail)
 
             } else {
-                val learningDetailId = repository.createLearningDetail(userId, questionId ?: "", isCorrect, "vocabulary")
+                val learningDetailId = repository.createLearningDetail(userId, questionId ?: "", isCorrect, "listening")
 
 
                 val learningDetail = LearningDetailEntity(

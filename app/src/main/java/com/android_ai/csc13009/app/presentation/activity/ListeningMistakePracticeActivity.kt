@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
@@ -19,41 +18,33 @@ import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.entity.LearningDetailEntity
-import com.android_ai.csc13009.app.data.local.entity.UserLessonLearnedEntity
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreLearningDetailRepository
-import com.android_ai.csc13009.app.data.remote.repository.FirestoreProgressRepository
-import com.android_ai.csc13009.app.domain.models.Question
-import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTranslate
-import com.android_ai.csc13009.app.presentation.fragment.FragmentWordQuestionTypeChat1
-import com.android_ai.csc13009.app.presentation.fragment.WordQuestionFragment
-import com.google.android.material.button.MaterialButton
+import com.android_ai.csc13009.app.domain.models.ListeningQuestion
+import com.android_ai.csc13009.app.presentation.fragment.ListeningQuestionFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
-class VocabularyWordActivity : AppCompatActivity() {
+class ListeningMistakePracticeActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
     private lateinit var dialogInCorrect: Dialog
+    private lateinit var dialogIncorrectAnswerCorrection: TextView
     private lateinit var btnConfirmDialog: Button
     private lateinit var btnConfirmDialogIncorrect: Button
     private lateinit var btnClose: ImageButton
-    private lateinit var tvQuestion : TextView
-    private lateinit var progressBar : ProgressBar
-    private var currentQuestion = 0
-    private var correctAnswer = 0
-    private var totalQuestion = 0
+    private lateinit var tvQuestion: TextView
+    private lateinit var progressBar: ProgressBar
 
     private var startTime: Long = 0
     private var elapsedTime: Long = 0
-    private var lessonId : String = ""
+    private var question: ListeningQuestion? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_vocabulary_word)
+        setContentView(R.layout.activity_listening_question)
 
-        //Hooks
+        // Hooks
         progressBar = findViewById(R.id.progressBar)
         btnClose = findViewById(R.id.btnClose)
         tvQuestion = findViewById(R.id.tv_question)
@@ -71,49 +62,39 @@ class VocabularyWordActivity : AppCompatActivity() {
         dialogInCorrect.window?.setBackgroundDrawableResource(R.drawable.custom_dialog_bg)
         dialogInCorrect.window?.setGravity(Gravity.BOTTOM)
         dialogInCorrect.setCancelable(false)
+        dialogIncorrectAnswerCorrection = dialogInCorrect.findViewById(R.id.tv_content)
 
         btnConfirmDialog = dialog.findViewById(R.id.btn_continue)
         btnConfirmDialogIncorrect = dialogInCorrect.findViewById(R.id.btn_continue)
 
-
-
-        val questions = intent.getSerializableExtra("question") as? ArrayList<Question>
-        lessonId = intent.getStringExtra("lessonId").toString()
+        question = intent.getSerializableExtra("question") as? ListeningQuestion
 
         startTime = System.currentTimeMillis()
-        if(questions != null) {
-            totalQuestion = questions.size
-            progressBar.max = totalQuestion
-            currentQuestion = 0
-            val question = questions[currentQuestion]
-            if (totalQuestion > 0) {
-                loadQuestion(question)
-                currentQuestion++
-            }
+
+        if (question != null) {
+            loadQuestion(question!!)
         }
 
         supportFragmentManager.setFragmentResultListener("taskCompleted", this) { requestKey, bundle ->
             if (requestKey == "taskCompleted") {
-                // Xử lý kết quả (ở đây có thể là dữ liệu từ Bundle)
                 val result = bundle.getString("result")
                 val questionId = bundle.getString("questionId")
 
-                handleTaskResult(result, questions)
+                handleTaskResult(result, question)
                 handleSaveLearningDetail(result == "correct", questionId)
             }
         }
 
         btnClose.setOnClickListener {
+            setResult(RESULT_OK)
             finish()
         }
     }
 
     private fun handleSaveLearningDetail(isCorrect: Boolean, questionId: String?) {
         lifecycleScope.launch {
-            // Làm gì đó với dữ liệu
-
             val repository = FirestoreLearningDetailRepository(FirebaseFirestore.getInstance())
-            val database = AppDatabase.getInstance(this@VocabularyWordActivity).learningDetailDao()
+            val database = AppDatabase.getInstance(this@ListeningMistakePracticeActivity).learningDetailDao()
 
             val userId = getUserId()
             if (repository.isExist(questionId ?: "", userId)) {
@@ -125,15 +106,14 @@ class VocabularyWordActivity : AppCompatActivity() {
                     questionId = questionId ?: "",
                     isCorrect = isCorrect,
                     userId = userId,
-                    type = "vocabulary",
-                    isReviewed = false
+                    type = "listening",
+                    isReviewed = true
                 )
 
                 database.insertLearningDetail(learningDetail)
 
             } else {
-                val learningDetailId = repository.createLearningDetail(userId, questionId ?: "", isCorrect, "vocabulary")
-
+                val learningDetailId = repository.createLearningDetail(userId, questionId ?: "", isCorrect, "listening")
 
                 val learningDetail = LearningDetailEntity(
                     id = learningDetailId ?: "",
@@ -141,8 +121,8 @@ class VocabularyWordActivity : AppCompatActivity() {
                     questionId = questionId ?: "",
                     isCorrect = isCorrect,
                     userId = userId,
-                    type = "vocabulary",
-                    isReviewed = false
+                    type = "listening",
+                    isReviewed = true
                 )
 
                 database.insertLearningDetail(learningDetail)
@@ -157,102 +137,63 @@ class VocabularyWordActivity : AppCompatActivity() {
         }
     }
 
-    private fun upProgressBar() {
-        progressBar.progress = currentQuestion
-    }
-
-    private fun loadQuestion(question: Question) {
+    private fun loadQuestion(question: ListeningQuestion) {
         when (question.type) {
-            "translate" -> {
-                tvQuestion.text = getString(R.string.translate_the_word)
-                loadFragment(FragmentWordQuestionTranslate(question.id ,question.question, question.answer))
-            }
-            "new_word" -> {
+            "pronunciation" -> {
                 tvQuestion.text = getString(R.string.choose_the_correct_word)
-                loadFragment(WordQuestionFragment(question.id , question.question, question.answer))
             }
-            "meaning" -> {
-                tvQuestion.text = getString(R.string.fill_in_the_blank)
-                loadFragment(FragmentWordQuestionTypeChat1(question.id , question.question, question.answer))
+            "stressing" -> {
+                tvQuestion.text = getString(R.string.find_the_different_from_the_other)
+            }
+            "sound" -> {
+                tvQuestion.text = getString(R.string.choose_the_correct_word)
+            }
+            "conversation" -> {
+                tvQuestion.text = getString(R.string.choose_the_correct_information)
             }
         }
 
+        loadFragment(ListeningQuestionFragment(question.id, question.question, question.answer, question.audioTranscript))
     }
 
-    private fun handleTaskResult(result: String?, questions: ArrayList<Question>?) {
+    private fun handleTaskResult(result: String?, question: ListeningQuestion?) {
         if (result == "correct") {
-            handleNextStep(dialog, questions, btnConfirmDialog)
-            correctAnswer++
-        }
-        else {
-            handleNextStep(dialogInCorrect, questions, btnConfirmDialogIncorrect)
+            handleCompletion(dialog, btnConfirmDialog)
+        } else {
+            val rightAnswer = question?.answer?.find { it.isCorrect }
+            dialogIncorrectAnswerCorrection.text = rightAnswer?.text ?: ""
+
+            handleCompletion(dialogInCorrect, btnConfirmDialogIncorrect)
         }
     }
 
-    @SuppressLint("DefaultLocale")
-    private fun handleNextStep(dialog : Dialog, questions: ArrayList<Question>?, btnConfirm : Button) {
+    private fun handleCompletion(dialog: Dialog, btnConfirm: Button) {
         dialog.show()
-        upProgressBar()
         btnConfirm.setOnClickListener {
             dialog.dismiss()
-            if (currentQuestion < totalQuestion) {
-                val question = questions?.get(currentQuestion)
-                if (question != null) {
-                    loadQuestion(question)
-                    currentQuestion++
-                }
-            } else {
-                val timeText = calTime()
+            val timeText = calTime()
 
-                lifecycleScope.launch {
-                    saveProgress()
-                    // Làm gì đó với dữ liệu
-                }
-
-                val intent = Intent(this, SummaryLearnVocabActivity::class.java)
-                intent.putExtra("time", timeText)
-                intent.putExtra("correctAnswer", (correctAnswer.toDouble() / totalQuestion.toDouble() * 100).toInt())
-                startActivity(intent)
-                finish()
-            }
-
+//            val intent = Intent(this, SummaryLearnVocabActivity::class.java)
+//            intent.putExtra("time", timeText)
+//            intent.putExtra("correctAnswer", if (dialog == this.dialog) 100 else 0)
+//            startActivity(intent)
+            setResult(RESULT_OK)
+            finish()
         }
     }
 
-    private fun getUserId() : String {
+    private fun getUserId(): String {
         val firebaseAuth = FirebaseAuth.getInstance()
         val currentUser = firebaseAuth.currentUser
         if (currentUser == null) {
-            // Handle user not logged in case
             Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show()
             return ""
         }
         return currentUser.uid
     }
 
-    private suspend fun saveProgress() {
-        val database = AppDatabase.getInstance(this@VocabularyWordActivity).userProgressDao()
-        val firestore = FirebaseFirestore.getInstance()
-        val repository = FirestoreProgressRepository(firestore)
-
-        val userId = getUserId()
-
-        //save to firestore
-        val progressId = repository.createLessonFinished(userId, lessonId, totalQuestion, correctAnswer)
-        val userProgress = UserLessonLearnedEntity(
-            id = progressId ?: "",
-            lessonId = lessonId,
-            userId = userId,
-            totalQuestion = totalQuestion,
-            questionSuccess = correctAnswer
-        )
-
-        //save to local database
-        database.insertUserLessonLearned(userProgress)
-    }
-
     @SuppressLint("DefaultLocale")
-    private fun calTime() : String {
+    private fun calTime(): String {
         elapsedTime = System.currentTimeMillis() - startTime
         val seconds = (elapsedTime / 1000) % 60
         val minutes = (elapsedTime / 1000) / 60
