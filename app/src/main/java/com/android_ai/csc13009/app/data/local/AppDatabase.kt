@@ -29,9 +29,13 @@ import com.android_ai.csc13009.app.data.local.entity.*
         ListeningTopicEntity::class,
         ListeningLessonEntity::class,
         ListeningQuestionEntity::class,
-        ListeningAnswerEntity::class
+        ListeningAnswerEntity::class,
+
+        StoryEntity::class,
+        StoryQuestion::class,
+        Conversation::class
                        ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -49,6 +53,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun learningDetailDao(): LearningDetailDao
     abstract fun gameDataDao(): GameDataDao
     abstract fun answerDao(): AnswerDao
+    abstract fun storyDao(): StoryDao
+    abstract fun storyQuestionDao() : StoryQuestionDao
+    abstract fun conversationDao(): ConversationDao
 
     // listening
     abstract fun listeningTopicDao(): ListeningTopicDao
