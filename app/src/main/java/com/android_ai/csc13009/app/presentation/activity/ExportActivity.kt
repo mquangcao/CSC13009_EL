@@ -1,8 +1,10 @@
 package com.android_ai.csc13009.app.presentation.activity
 
-import GrammarQuestionAdapter
+import ExportGrammarQuestionAdapter
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.os.Environment
@@ -22,9 +24,11 @@ import com.android_ai.csc13009.app.data.remote.repository.FirestoreLearningDetai
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.core.View
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
+import android.view.View.MeasureSpec
 
 class ExportActivity : AppCompatActivity() {
 
@@ -32,7 +36,7 @@ class ExportActivity : AppCompatActivity() {
     private lateinit var btnExport: Button
     private lateinit var userId: String
     private val repository = FirestoreLearningDetailRepository(FirebaseFirestore.getInstance())
-    private val adapter = GrammarQuestionAdapter()
+    private val adapter = ExportGrammarQuestionAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,7 +127,8 @@ class ExportActivity : AppCompatActivity() {
         var page = pdfDocument.startPage(PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create())
         var canvas = page.canvas
 
-        var index = 1;
+        var index = 1
+        val scaleFactor = 1.0f // Scale down the item view
         data.forEach { (question, answers) ->
             if (yPosition + 50 > pageHeight) {
                 pdfDocument.finishPage(page)
@@ -133,26 +138,51 @@ class ExportActivity : AppCompatActivity() {
                 yPosition = 50
             }
 
-            // Viết câu hỏi
-            paint.textSize = 16f
-            canvas.drawText("Question $index: ${question.name}", 20f, yPosition.toFloat(), paint)
-            yPosition += 30
+            // Lấy itemView từ adapter
+            val itemView = adapter.getItemViewAt(index - 1, recyclerView)
+            itemView.measure(
+                MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY),
+                MeasureSpec.UNSPECIFIED
+            )
+            itemView.layout(0, 0, itemView.measuredWidth, itemView.measuredHeight)
 
-            // Viết đáp án
-            answers.forEach { answer ->
-                paint.textSize = 14f
-                val prefix = if (answer.isCorrect) "✔" else "✘"
-                canvas.drawText("$prefix ${answer.answer}", 40f, yPosition.toFloat(), paint)
-                yPosition += 20
+            // Scale the Bitmap to make it smaller
+            val scaledWidth = (itemView.measuredWidth * scaleFactor).toInt()
+            val scaledHeight = (itemView.measuredHeight * scaleFactor).toInt()
+            val bitmap = Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.ARGB_8888)
+            val itemCanvas = Canvas(bitmap)
+            itemView.draw(itemCanvas)
+
+            // Nếu không đủ không gian cho item, chuyển sang trang mới
+            if (yPosition + bitmap.height > pageHeight) {
+                pdfDocument.finishPage(page)
+                pageNumber++
+                page = pdfDocument.startPage(PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create())
+                canvas = page.canvas
+                yPosition = 50
             }
-            yPosition += 30
+
+            // Vẽ bitmap lên canvas của trang PDF
+            canvas.drawBitmap(bitmap, 0f, yPosition.toFloat(), null)
+            yPosition += bitmap.height
+
             index++
         }
         pdfDocument.finishPage(page)
 
         // Lưu file PDF vào thư mục "Downloads"
         val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val pdfFile = File(downloadsDir, "IncorrectQuestions.pdf")
+
+        // Handle file name conflict
+        var pdfFile = File(downloadsDir, "IncorrectQuestions.pdf")
+        var i = 1
+        while (pdfFile.exists()) {
+            val newFileName = "IncorrectQuestions($i).pdf"
+            pdfFile = File(downloadsDir, newFileName)
+            i++
+        }
+
+        // Write PDF to file
         pdfDocument.writeTo(FileOutputStream(pdfFile))
         pdfDocument.close()
 
