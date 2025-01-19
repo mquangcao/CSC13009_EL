@@ -38,4 +38,14 @@
     <color name="answerBackground">#EFF1F5</color>
     <color name="correctAnswerBackground">#2BC716</color>
     <color name="incorrectAnswerBackground">#FF6060</color>
+    <color name="teal_200">#03DAC5</color>
+
+    <color name="dark_background">#1E1E1E</color>
+    <color name="orange">#FFA726</color>
+    <color name="blue_light">#4FC3F7</color>
+    <color name="blue_dark">#0288D1</color>
+    <color name="gray_dark">#37474F</color>
+    <color name="light_background">#1E1E1E</color>
+
+
 </resources>

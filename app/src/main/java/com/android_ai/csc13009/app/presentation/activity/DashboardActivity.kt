@@ -11,7 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreTopicRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreUserRepository
+import com.android_ai.csc13009.app.data.repository.UserRepository
+import com.android_ai.csc13009.app.domain.models.UserModel
 import com.android_ai.csc13009.app.presentation.fragment.AccountFragment
 import com.android_ai.csc13009.app.presentation.fragment.DictionaryFragment
 import com.android_ai.csc13009.app.presentation.fragment.games.GameFragment
@@ -21,17 +25,45 @@ import com.android_ai.csc13009.app.presentation.service.SyncDataFromFirestore
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var bottomNavView : BottomNavigationView
     private lateinit var frame : FrameLayout
+    private lateinit var userRepository: UserRepository
 
+    private lateinit var currentUser : UserModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
+        userRepository = UserRepository(FirebaseAuthRepository(FirebaseAuth.getInstance()),
+            FirestoreUserRepository(FirebaseFirestore.getInstance()))
+        GlobalScope.launch(Dispatchers.Main) {
+            currentUser = withContext(Dispatchers.IO) {
+                userRepository.getCurrentUser()!!
+            }
+
+            val currentTime = System.currentTimeMillis()
+            val joinDateString = currentUser.joinDate // Giả sử joinDate là Long (timestamp)
+            val joinDate: Long = joinDateString.toLong()
+
+            // Kiểm tra nếu joinDate là hôm qua
+            if (isYesterday(joinDate, currentTime)) {
+                // Chuyển đến StreakActivity
+                val intent = Intent(this@DashboardActivity, StreakActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
 
 
         bottomNavView = findViewById(R.id.bottom_nav)
@@ -108,5 +140,22 @@ class DashboardActivity : AppCompatActivity() {
         // Adding the list to intent as a single key
         intent.putExtra("passedDataList", passedDataList)
         context.startActivity(intent)
+    }
+
+    private fun isYesterday(date1: Long, date2: Long): Boolean {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        // Chuyển đổi timestamp thành ngày
+        val date1Str = sdf.format(Date(date1))
+        val date2Str = sdf.format(Date(date2))
+
+        // Chuyển đổi ngày hiện tại thành hôm qua
+        val calendar = Calendar.getInstance()
+        calendar.time = sdf.parse(date2Str)!!
+        calendar.add(Calendar.DAY_OF_YEAR, -1)
+       // val yesterdayStr = sdf.format(calendar.time)
+
+        // So sánh date1 với ngày hôm qua
+        return date1Str != date2Str
     }
 }

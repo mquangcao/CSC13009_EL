@@ -6,6 +6,8 @@ import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreUserRepository
 import com.android_ai.csc13009.app.domain.models.UserModel
 import com.android_ai.csc13009.app.domain.repository.IUserRepository
+import com.android_ai.csc13009.app.utils.getCurrentDate
+import com.android_ai.csc13009.app.utils.isSameDay
 import com.android_ai.csc13009.app.utils.mapper.UserMapper
 
 
@@ -62,4 +64,34 @@ class UserRepository(
     override fun logout() {
         authRepository.logout()
     }
+
+    suspend fun updateStreakIfNeeded(): UserModel? {
+        val currentUser = authRepository.getCurrentUser() ?: return null
+        val firestoreUser = firestoreRepository.getUserById(currentUser.uid) ?: return null
+
+        // Lấy ngày hiện tại
+        val today = getCurrentDate()
+        val lastCheckDate = firestoreUser.joinDate // Sử dụng joinDate hoặc trường thời gian sẵn có
+
+        // Nếu ngày hiện tại khác với ngày kiểm tra trước đó
+        if (!isSameDay(today, lastCheckDate)) {
+            // Tăng streak
+            val newStreakCount = firestoreUser.streakCount + 1
+
+            // Cập nhật streak vào Firestore
+            firestoreRepository.updateStreak(
+                userId = firestoreUser.id,
+                streakCount = newStreakCount,
+                lastLoginDate = today // Chỉ cập nhật Firestore
+            )
+
+            // Tạo bản cập nhật và trả về
+            val updatedUser = firestoreUser.copy(streakCount = newStreakCount)
+            return UserMapper.toDomain(updatedUser)
+        }
+
+        // Nếu ngày giống nhau, trả về người dùng hiện tại
+        return UserMapper.toDomain(firestoreUser)
+    }
+
 }

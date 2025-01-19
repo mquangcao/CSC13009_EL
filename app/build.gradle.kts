@@ -47,7 +47,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -58,6 +57,7 @@ dependencies {
     implementation(libs.androidx.coordinatorlayout)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.preference.ktx)
+    implementation(libs.firebase.firestore.ktx)
     //implementation(libs.androidx.games.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -88,6 +88,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     implementation("com.daimajia.swipelayout:library:1.2.0")
+    implementation (libs.lottie)
+
+
 
     // Retrofit for network requests
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -95,6 +98,7 @@ dependencies {
 
     // ExoPlayer for audio playback
     implementation("com.google.android.exoplayer:exoplayer:2.19.0")
+
 }
 
 

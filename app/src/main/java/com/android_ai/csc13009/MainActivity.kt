@@ -29,6 +29,7 @@ import android.util.Log
 import androidx.core.app.ActivityOptionsCompat
 import com.android_ai.csc13009.app.presentation.activity.IntroActivity
 import com.android_ai.csc13009.app.presentation.activity.LoginActivity
+import com.android_ai.csc13009.app.presentation.activity.StreakActivity
 import com.android_ai.csc13009.app.presentation.receiver.WordNotificationReceiver.Companion.scheduleNotifications
 import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -108,7 +109,9 @@ class MainActivity : AppCompatActivity() {
             val currentUser = FirebaseAuth.getInstance().currentUser
             if (currentUser != null) {
                 val intent = Intent(this, DashboardActivity::class.java)
-                startActivity(intent, options.toBundle())
+                startActivity(intent)
+                /*val intent = Intent(this, DashboardActivity::class.java)
+                startActivity(intent, options.toBundle())*/
             } else {
 //                val intent = Intent(this, LoginActivity::class.java)
                 val intent = Intent(this, IntroActivity::class.java)

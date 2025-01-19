@@ -28,4 +28,10 @@ class WordRepository(private val wordDao: WordDao) : IWordRepository {
     suspend fun getExactWordByName(query: String): WordModel? {
         return wordDao.getExactWord(query)?.toDomain()
     }
+    suspend fun getWordsByIds(wordIds: List<Int>): List<String> {
+        return wordIds.mapNotNull { id ->
+            getWordById(id)?.word // Lấy tên từ vựng theo ID
+        }
+    }
+
 }
