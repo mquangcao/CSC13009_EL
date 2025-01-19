@@ -31,4 +31,11 @@
     <string name="back_title">Return?</string>
     <string name="back_prompt_title">Quay về?</string>
     <string name="back_prompt_description">Bạn có chắc chắn muốn quay về không? Các dữ liệu chưa được lưu sẽ bị mất.</string>
+    <string name="th_ng_tin_c_nh_n">Thông tin cá nhân</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="th_ng_tin_ng_d_ng">Thông tin ứng dụng</string>
+    <string name="th_ng_b_o">Thông báo</string>
+    <string name="export_l_i_sai">Export lỗi sai</string>
+    <string name="ng_xu_t">Đăng xuất</string>
+    <string name="t_i_kho_n">Tài khoản</string>
 </resources>

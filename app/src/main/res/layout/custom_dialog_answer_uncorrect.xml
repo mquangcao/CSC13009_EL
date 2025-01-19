@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/baloo"
-                android:text="banana"
+                android:text=""
                 android:textColor="@color/red"
                 android:layout_marginBottom="8dp"
                 android:textSize="14sp" />
