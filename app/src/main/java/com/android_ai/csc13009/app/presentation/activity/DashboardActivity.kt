@@ -73,10 +73,6 @@ class DashboardActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             loadFragment(HomeFragment())
         }
-        lifecycleScope.launch {
-            Log.e("FirestoreTopicRepository", "Checkkkkk: ")
-            test()
-        }
 
         bottomNavView.setOnItemSelectedListener  {
             when (it.itemId) {
@@ -105,11 +101,7 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun test() {
-        val firestore = FirebaseFirestore.getInstance()
-        val sync = SyncDataFromFirestore("beginner", firestore, this)
-        sync.run()
-    }
+
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, fragment).commit()

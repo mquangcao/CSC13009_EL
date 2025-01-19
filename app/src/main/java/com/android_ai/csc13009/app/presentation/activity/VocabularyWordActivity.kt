@@ -40,6 +40,8 @@ class VocabularyWordActivity : AppCompatActivity() {
     private lateinit var btnClose: ImageButton
     private lateinit var tvQuestion : TextView
     private lateinit var progressBar : ProgressBar
+    private lateinit var dialogIncorrectAnswerCorrection: TextView
+
     private var currentQuestion = 0
     private var correctAnswer = 0
     private var totalQuestion = 0
@@ -71,6 +73,8 @@ class VocabularyWordActivity : AppCompatActivity() {
         dialogInCorrect.window?.setBackgroundDrawableResource(R.drawable.custom_dialog_bg)
         dialogInCorrect.window?.setGravity(Gravity.BOTTOM)
         dialogInCorrect.setCancelable(false)
+
+        dialogIncorrectAnswerCorrection = dialogInCorrect.findViewById(R.id.tv_content)
 
         btnConfirmDialog = dialog.findViewById(R.id.btn_continue)
         btnConfirmDialogIncorrect = dialogInCorrect.findViewById(R.id.btn_continue)
@@ -185,6 +189,11 @@ class VocabularyWordActivity : AppCompatActivity() {
             correctAnswer++
         }
         else {
+            val question = questions?.get(currentQuestion - 1)
+            if (question != null) {
+                val rightAnswer = question.answer.find { it.isCorrect }
+                dialogIncorrectAnswerCorrection.text = rightAnswer?.text ?: ""
+            }
             handleNextStep(dialogInCorrect, questions, btnConfirmDialogIncorrect)
         }
     }

@@ -26,6 +26,9 @@
         <activity
             android:name=".app.presentation.activity.VocabMistakePracticeActivity"
             android:exported="false" />
+      <activity
+            android:name=".app.presentation.activity.ChooseLevelActivity"
+            android:exported="false" />
         <activity
             android:name=".app.presentation.activity.MistakesActivity"
             android:exported="false" />
