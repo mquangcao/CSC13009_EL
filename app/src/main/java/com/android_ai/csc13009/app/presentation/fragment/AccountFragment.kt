@@ -18,6 +18,7 @@ import com.android_ai.csc13009.app.presentation.activity.WordLevelSelection
 import com.android_ai.csc13009.app.domain.models.Language
 import com.android_ai.csc13009.app.presentation.activity.ExportActivity
 import com.android_ai.csc13009.app.presentation.activity.NotificationSettingsActivity
+import com.android_ai.csc13009.app.presentation.activity.StreakActivity
 import com.android_ai.csc13009.app.presentation.service.SyncDataFromFirestore
 import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
@@ -33,6 +34,7 @@ class AccountFragment : Fragment() {
     private lateinit var cLanguage : CardView
     private lateinit var cNotification : CardView
     private lateinit var cExport: CardView
+    private lateinit var cStreak: CardView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_account, container, false)
@@ -93,6 +95,12 @@ class AccountFragment : Fragment() {
         cExport = view.findViewById(R.id.cExport)
         cExport.setOnClickListener{
             val intent = Intent(activity, ExportActivity::class.java)
+            startActivity(intent)
+        }
+
+        cStreak = view.findViewById(R.id.cStreak)
+        cStreak.setOnClickListener{
+            val intent = Intent(activity, StreakActivity::class.java)
             startActivity(intent)
         }
 
