@@ -1,5 +1,6 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,9 +24,11 @@ class HomeFragment : Fragment() {
 
     private val wordViewModel: WordForTodayViewModel by viewModels {
         WordViewModelFactory(
-            WordRepository(AppDatabase.getInstance(requireContext()).wordDao()) // Sử dụng requireContext()
+            WordRepository(AppDatabase.getInstance(requireContext()).wordDao()),
+            requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE) // Thêm SharedPreferences
         )
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

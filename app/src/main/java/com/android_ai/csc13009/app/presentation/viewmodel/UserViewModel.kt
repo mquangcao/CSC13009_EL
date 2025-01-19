@@ -1,5 +1,3 @@
-//ViewModel giúp quản lý dữ liệu giữa Repository và UI,
-// đồng thời hỗ trợ xử lý dữ liệu không bị mất khi xoay màn hình hoặc thay đổi cấu hình.
 package com.android_ai.csc13009.app.presentation.viewmodel
 
 import android.util.Log
@@ -10,11 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.android_ai.csc13009.app.data.remote.model.LoginState
 import com.android_ai.csc13009.app.domain.models.UserModel
 import com.android_ai.csc13009.app.data.repository.UserRepository
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class UserViewModel(
     private val userRepository: UserRepository,
@@ -22,6 +16,9 @@ class UserViewModel(
 
     private val _loginState = MutableLiveData<LoginState>()
     val loginState: LiveData<LoginState> get() = _loginState
+
+    private val _user = MutableLiveData<UserModel?>()
+    val user: MutableLiveData<UserModel?> get() = _user
 
     fun registerUser(email: String, password: String, firstName: String, lastName: String) {
         val userModel = UserModel(
@@ -37,14 +34,11 @@ class UserViewModel(
             try {
                 val user = userRepository.registerUser(email, password, userModel)
                 if (user != null) {
-                    // Post success state with the registered user
                     _loginState.postValue(LoginState.Success(user))
                 } else {
-                    // Post error state if registration failed
                     _loginState.postValue(LoginState.Error("Registration failed. Please try again."))
                 }
             } catch (e: Exception) {
-                // Handle unexpected exceptions gracefully
                 Log.e("RegisterViewModel", "Error during registration: ${e.message}")
                 _loginState.postValue(LoginState.Error("An unexpected error occurred: ${e.message}"))
             }
@@ -56,6 +50,7 @@ class UserViewModel(
             val user = userRepository.loginUser(email, password)
             if (user != null) {
                 _loginState.postValue(LoginState.Success(user))
+                _user.postValue(user) // Cập nhật thông tin người dùng khi đăng nhập thành công
             } else {
                 _loginState.postValue(LoginState.Error("Login failed. Please check your credentials."))
             }
@@ -67,6 +62,7 @@ class UserViewModel(
             val user = userRepository.getCurrentUser()
             if (user != null) {
                 _loginState.postValue(LoginState.Success(user))
+                _user.postValue(user) // Cập nhật thông tin người dùng hiện tại
             } else {
                 _loginState.postValue(LoginState.Error("Get failed. Please check your brain."))
             }
@@ -76,6 +72,20 @@ class UserViewModel(
     fun logout() {
         viewModelScope.launch {
             userRepository.logout()
+        }
+    }
+
+    // Thêm hàm kiểm tra và cập nhật streak
+    fun checkAndUpdateStreak() {
+        viewModelScope.launch {
+            try {
+                val updatedUser = userRepository.updateStreakIfNeeded() // Gọi hàm từ Repository
+                if (updatedUser != null) {
+                    _user.postValue(updatedUser) // Cập nhật thông tin người dùng
+                }
+            } catch (e: Exception) {
+                Log.e("UserViewModel", "Error updating streak: ${e.message}")
+            }
         }
     }
 }

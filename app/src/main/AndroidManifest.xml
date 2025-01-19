@@ -87,6 +87,9 @@
             android:name=".app.presentation.activity.NotificationSettingsActivity"
             android:exported="false" />
         <activity
+            android:name=".app.presentation.activity.StreakActivity"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
