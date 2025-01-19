@@ -25,6 +25,19 @@ class FirestoreUserRepository(private val firestore: FirebaseFirestore) {
         }
     }
 
+    suspend fun updateLevel(userId: String, level: String): Boolean {
+        return try {
+            val updates = mapOf(
+                "level" to level
+            )
+            firestore.collection("users").document(userId).update(updates).await()
+            true
+        } catch (e: Exception) {
+            Log.e("FirestoreUserRepository", "Error updating level: ${e.message}")
+            false
+        }
+    }
+
     suspend fun getUserById(userId: String): FirestoreUserModel? {
         return try {
             val document = firestore.collection("users").document(userId).get().await()
