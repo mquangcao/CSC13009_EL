@@ -43,16 +43,22 @@ interface IGameEngine : Serializable {
 
     suspend fun fetchWord() {
         val word = wordRepository.getRandomWord()
-        if (word != null) {
-            words.add(word)
-        } else {
-            val defaultWord = WordModel(
-                -1,
-                "default word",
-                "",
-                "")
-            words.add(defaultWord)
+        while (word == null || words.contains(word) || word.word.length > 12) {
+            wordRepository.getRandomWord()
         }
+
+        words.add(word)
+
+//        if (word != null) {
+//            words.add(word)
+//        } else {
+//            val defaultWord = WordModel(
+//                -1,
+//                "default word",
+//                "",
+//                "")
+//            words.add(defaultWord)
+//        }
     }
 
     suspend fun updateHighScore() {

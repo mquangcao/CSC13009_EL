@@ -38,6 +38,8 @@ import kotlinx.coroutines.withContext
 
 class GameSessionFragment : Fragment(), GameInterface {
     private var gameEngine: IGameEngine? = null
+    private var lastClickTime = 0L
+    private val clickDelay = 500L // Minimum delay between clicks in milliseconds
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -152,45 +154,12 @@ class GameSessionFragment : Fragment(), GameInterface {
 
         val stringBuilder = StringBuilder()
         stringBuilder.appendLine("Spell this word:")
-        stringBuilder.appendLine(pronunciation)
-        wordTextView.text = stringBuilder.toString()
-//        val handler = Handler(Looper.getMainLooper())
-//        var updateProgress: Runnable? = null
+        pronunciation?.let {
+            stringBuilder.appendLine(pronunciation)
+        }
 
-//        val tts = TTSHelper(requireContext())
+        wordTextView.text = stringBuilder.toString()
         TTSSetter().setTTS(audioButton, audioProgress, word?: "", requireContext())
-//        audioButton.setOnClickListener {
-//            if (word != null) {
-//                tts.stop()
-//                updateProgress?.let { handler.removeCallbacks(it) }
-//
-//                audioProgress.progress = 0
-//                val estimatedDuration = tts.estimateSpeechDuration(word)
-//                val updateInterval = 100 // Update every 100ms
-//
-//
-//                tts.speak(word)
-//
-//
-//                val startTime = System.currentTimeMillis()
-//
-//                updateProgress = object : Runnable {
-//                    override fun run() {
-//                        val elapsedTime = System.currentTimeMillis() - startTime
-//                        val progress = ((elapsedTime.toFloat() / estimatedDuration) * 100).toInt()
-//                        audioProgress.progress = progress
-//
-//                        if (elapsedTime < estimatedDuration) {
-//                            handler.postDelayed(this, updateInterval.toLong())
-//                        } else {
-//                            audioProgress.progress = 100
-//                        }
-//                    }
-//                }
-//
-//                handler.post(updateProgress as Runnable)
-//            }
-//        }
     }
 
     private fun setQuestionWordGame(view: View) {
@@ -262,20 +231,32 @@ class GameSessionFragment : Fragment(), GameInterface {
             .joinToString("")
 
         val answerWithExtraChars = "${correctAnswer}${randomExtraChars}"
+        val inputList = MutableList<Char?> (correctAnswer.length) { null }
+        var onItemClicked: (char: Char, position: Int) -> Unit = { char, position -> }
 
         val scrambledWord = answerWithExtraChars.toCharArray().toList().shuffled()
 
-        val answerBlocksAdapter = GameAnswerBlocksAdapter(requireActivity(), ArrayList(scrambledWord))
+        val answerBlocksAdapter = GameAnswerBlocksAdapter(requireActivity(), ArrayList(scrambledWord), onItemClicked)
         val answerBlocks = requireView().findViewById<RecyclerView>(R.id.game_answer_letter_picker_blocks)
         answerBlocks.adapter = answerBlocksAdapter
         answerBlocks.layoutManager = GridLayoutManager(requireContext(), 6)
 
         // set adapter for answer slots (n items for n-length word)
-        val inputList = MutableList<Char?> (correctAnswer.length) { null }
+
         val answerSlotsAdapter = GameAnswerSlotsAdapter(requireActivity(), inputList, answerBlocksAdapter)
         val answerSlots = requireView().findViewById<RecyclerView>(R.id.game_answer_letter_picker_slots)
         answerSlots.adapter = answerSlotsAdapter
         answerSlots.layoutManager = GridLayoutManager(requireContext(), 6)
+        // implement on click
+
+        onItemClicked = { char, position ->
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastClickTime >= clickDelay) {
+                lastClickTime = currentTime
+                answerSlotsAdapter.addItem(char, position)
+            }
+        }
+        answerBlocksAdapter.onItemClicked = onItemClicked
     }
 
     private fun setAnswerListWriter(layout: Int) {
