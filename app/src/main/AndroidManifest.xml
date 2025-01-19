@@ -107,6 +107,9 @@
             android:name=".app.presentation.activity.NotificationSettingsActivity"
             android:exported="false" />
         <activity
+            android:name=".app.presentation.activity.StreakActivity"
+            android:exported="false" />
+        <activity
             android:name=".app.presentation.activity.ListeningTopicsActivity"
             android:exported="false" />
         <activity

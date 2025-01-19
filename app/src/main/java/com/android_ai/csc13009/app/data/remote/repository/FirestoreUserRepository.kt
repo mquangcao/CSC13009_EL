@@ -38,4 +38,18 @@ class FirestoreUserRepository(private val firestore: FirebaseFirestore) {
             null
         }
     }
+
+    suspend fun updateStreak(userId: String, streakCount: Int, lastLoginDate: String): Boolean {
+        return try {
+            val updates = mapOf(
+                "streakCount" to streakCount
+            )
+            firestore.collection("users").document(userId).update(updates).await()
+            true
+        } catch (e: Exception) {
+            Log.e("FirestoreUserRepository", "Error updating streak: ${e.message}")
+            false
+        }
+    }
+
 }

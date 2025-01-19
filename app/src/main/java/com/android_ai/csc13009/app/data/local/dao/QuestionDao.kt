@@ -16,7 +16,7 @@ interface QuestionDao {
     suspend fun insertQuestions(questions: List<QuestionsEntity>)
 
     @Query("SELECT * FROM Questions WHERE id = :questionId")
-    suspend fun getQuestionById(questionId: Int): QuestionsEntity?
+    suspend fun getQuestionById(questionId: String): QuestionsEntity?
 
     @Query("SELECT * FROM Questions")
     suspend fun getAllQuestions(): List<QuestionsEntity>

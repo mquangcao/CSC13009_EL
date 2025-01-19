@@ -6,5 +6,5 @@ data class UserModel(
     val joinDate: String,
     val avatar: String?,
     val streakCount: Int,
-    val level: String
+    val level: String,
 )

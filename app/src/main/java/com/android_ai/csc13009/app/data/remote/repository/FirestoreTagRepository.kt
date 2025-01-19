@@ -103,4 +103,21 @@ class FirestoreTagRepository(private val firestore: FirebaseFirestore) {
             throw Exception("Failed to update tag name: ${e.message}")
         }
     }
+
+    suspend fun getWordsByIds(wordIds: List<Int>): List<String> {
+        return try {
+            // Truy vấn từ vựng từ Firestore
+            val words = mutableListOf<String>()
+            for (id in wordIds) {
+                val wordSnapshot = firestore.collection("words").document(id.toString()).get().await()
+                val word = wordSnapshot.getString("word") ?: "Không xác định"
+                words.add(word)
+            }
+            words
+        } catch (e: Exception) {
+            Log.e("FirestoreTagRepository", "Error fetching words: ${e.message}")
+            emptyList()
+        }
+    }
+
 }
