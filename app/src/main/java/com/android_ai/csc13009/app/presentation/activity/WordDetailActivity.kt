@@ -2,7 +2,10 @@ package com.android_ai.csc13009.app.presentation.activity
 
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -182,18 +185,40 @@ class WordDetailActivity : AppCompatActivity() {
     }
 
     private fun showTagSelectionDialog(tags: List<Tag>) {
-        val tagNames = tags.map { it.name }.toTypedArray()
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_tag_selection, null)
 
-        AlertDialog.Builder(this)
-            .setTitle("Select a Tag")
-            .setItems(tagNames) { dialog, which ->
-                val selectedTag = tags[which]
-                addWordToTag(selectedTag.id, wordId)
-                dialog.dismiss()
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+        // Access views in the custom layout
+        val lvTags = dialogView.findViewById<ListView>(R.id.lvTags)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+
+        // Set up the ListView with tag names
+        val tagNames = tags.map { it.name }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tagNames)
+        lvTags.adapter = adapter
+
+        // Create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        // Handle tag selection
+        lvTags.setOnItemClickListener { _, _, position, _ ->
+            val selectedTag = tags[position]
+            addWordToTag(selectedTag.id, wordId)
+            dialog.dismiss()
+        }
+
+        // Cancel button action
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
     }
+
 
     private fun addWordToTag(tagId: String, wordId: Int) {
         tagViewModel.addWordToTag(tagId, wordId)

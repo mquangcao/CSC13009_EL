@@ -63,9 +63,9 @@
     <RelativeLayout
         android:id="@+id/rlWordSchedule"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="160dp"
         android:layout_below="@id/searchBar"
-        android:layout_margin="16dp"
+        android:layout_margin="18dp"
         android:background="@drawable/bg_gradient_button"
         android:padding="16dp"
         android:elevation="8dp"
@@ -96,7 +96,7 @@
             android:fontFamily="@font/baloo"
             android:text="Custom Word Schedule"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <!-- Description -->
@@ -110,8 +110,8 @@
             android:layout_marginEnd="80dp"
             android:fontFamily="@font/baloo"
             android:text="Plan your vocabulary learning journey with ease."
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textColor="@color/navyBlue"
+            android:textSize="16sp" />
 
         <!-- Decorative Line -->
         <View
