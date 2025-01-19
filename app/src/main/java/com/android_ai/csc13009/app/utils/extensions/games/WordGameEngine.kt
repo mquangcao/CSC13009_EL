@@ -22,6 +22,10 @@ class WordGameEngine(
     override var currentRound: Int = -1
     override var score: Int = 0
     override var highScore: Int = 0
+    override var startTime: Long = 0
+    override var elapsedTime: Long = 0
+    override var bonusScore: Int = 5000
+    override var correctAnswerCount: Int = 0
 
     override var currentWord: WordModel? = null
     override var streak: Int = 0

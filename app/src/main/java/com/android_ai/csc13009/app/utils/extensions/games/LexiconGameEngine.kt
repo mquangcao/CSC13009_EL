@@ -25,6 +25,10 @@ class LexiconGameEngine(
     override var highScore: Int = 0
     override var currentWord: WordModel? = null
     override var streak: Int = 0
+    override var startTime: Long = 0
+    override var elapsedTime: Long = 0
+    override var bonusScore: Int = 5000
+    override var correctAnswerCount: Int = 0
     override val words: ArrayList<WordModel> = ArrayList()
     override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING
 
@@ -53,7 +57,9 @@ class LexiconGameEngine(
             }
             score += answerScore
             words.add(currentWord)
+            correctAnswerCount++
             nextRound()
+
             true
         } else {
             score -= 100

@@ -9,6 +9,7 @@ interface IProgressBasedGameEngine : IGameEngine {
             score += 1000
             score += streak * 100
             streak++
+            correctAnswerCount++
             nextRound()
             true
         } else {

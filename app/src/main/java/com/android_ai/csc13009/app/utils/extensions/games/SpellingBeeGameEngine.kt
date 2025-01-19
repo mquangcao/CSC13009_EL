@@ -23,6 +23,10 @@ class SpellingBeeGameEngine(
     override var highScore: Int = 0
 
     override var streak: Int = 0
+    override var startTime: Long = 0
+    override var elapsedTime: Long = 0
+    override var bonusScore: Int = 5000
+    override var correctAnswerCount: Int = 0
     override var gameState: IGameEngine.GameState = IGameEngine.GameState.WAITING
 
     override val words: ArrayList<WordModel> = ArrayList()
