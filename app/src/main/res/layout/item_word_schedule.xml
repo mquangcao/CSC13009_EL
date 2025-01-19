@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,7 +14,10 @@
         android:layout_width="80dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/red">
+        android:background="@color/red"
+        android:padding="8dp"
+        android:clipToOutline="true"
+        android:elevation="4dp">
 
         <TextView
             android:id="@+id/tvDelete"
@@ -25,23 +27,51 @@
             android:clickable="true"
             android:text="Delete"
             android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:drawableTop="@drawable/ic_delete"
+            android:drawablePadding="4dp" />
     </FrameLayout>
 
     <!-- Top layout (default visible content) -->
     <RelativeLayout
+        android:id="@+id/topLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:background="@android:color/white">
+        android:layout_margin="8dp"
+        android:clipToOutline="true"
+        android:elevation="6dp"
+        android:background="@drawable/bg_tag_chip">
+
+        <!-- Due Badge -->
+        <TextView
+            android:id="@+id/tvDueBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_due_badge"
+            android:padding="4dp"
+            android:paddingHorizontal="8dp"
+            android:text="DUE"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <!-- Word Text -->
         <TextView
             android:id="@+id/tvWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:layout_below="@id/tvDueBadge"
+            android:drawableStart="@drawable/ic_abc"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/baloo"
+            android:textSize="20sp"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             android:text="Sample Word" />
 
         <!-- Review Count -->
@@ -50,10 +80,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvWord"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/baloo_2"
             android:text="Review Count: 5"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textSize="16sp"
+            android:textColor="@color/blue"
+            android:drawableStart="@drawable/ic_star"
+            android:drawablePadding="8dp" />
 
         <!-- Next Review Date -->
         <TextView
@@ -61,10 +94,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="Next Review: Jan 15, 2025"
+            android:text="Next Review: Today"
+            android:fontFamily="@font/baloo_2"
+
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@color/purple"
+            android:drawableStart="@drawable/ic_calendar"
+            android:drawablePadding="8dp" />
     </RelativeLayout>
 </com.daimajia.swipe.SwipeLayout>

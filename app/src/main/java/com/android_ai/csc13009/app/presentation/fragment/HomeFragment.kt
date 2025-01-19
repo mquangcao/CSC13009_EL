@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
 
         // Set default fragment (Daily)
         if (savedInstanceState == null) {
-            val fragment = DailyStatisticsVocabularyFragment()
+            val fragment = DailyStatisticsFragment()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
                 .commit()
@@ -88,14 +88,14 @@ class HomeFragment : Fragment() {
 
         // Set Daily button click listener
         btnDaily.setOnClickListener {
-            val fragment = DailyStatisticsVocabularyFragment()
+            val fragment = DailyStatisticsFragment()
             switchFragment(fragment)
             setButtonSelectedStyle(btnDaily, btnMonthly)
         }
 
         // Set Monthly button click listener
         btnMonthly.setOnClickListener {
-            val fragment = MonthlyStatisticsVocabularyFragment()
+            val fragment = MonthlyStatisticsFragment()
             switchFragment(fragment)
             setButtonSelectedStyle(btnMonthly, btnDaily)
         }
@@ -123,6 +123,4 @@ class HomeFragment : Fragment() {
         unselectedButton.setBackgroundColor(Color.parseColor("#FFFFFF"))
         unselectedButton.setTextColor(Color.parseColor("#000000"))
     }
-
-
 }

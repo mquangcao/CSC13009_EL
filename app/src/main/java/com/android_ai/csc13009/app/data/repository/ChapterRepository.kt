@@ -95,6 +95,7 @@ class ChapterRepository(context: Context) : IChapterRepository {
                     )
             }
             val filterLesson = filterLesson(lessonDomain)
+            Log.d("quag cao di check", "${chapter?.title} ${chapter?.thumbnailUrl}")
            Chapter(
                 id = chapterId,
                 title = chapter?.title ?: "",

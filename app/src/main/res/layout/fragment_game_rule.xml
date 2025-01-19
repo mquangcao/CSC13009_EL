@@ -91,13 +91,12 @@
         android:id="@+id/game_start_bt"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="6sp"
         android:layout_marginRight="6sp"
         android:layout_marginBottom="16sp"
-        android:layout_gravity="center"
-        android:paddingHorizontal="50dp"
-        android:textColor="@color/white"
-        android:background="@drawable/card_background"
         android:backgroundTint="@color/greenPrimary"
-        android:text="@string/game_start_button" />
+        android:paddingHorizontal="50dp"
+        android:text="@string/game_start_button"
+        android:textColor="@color/white" />
 </LinearLayout>

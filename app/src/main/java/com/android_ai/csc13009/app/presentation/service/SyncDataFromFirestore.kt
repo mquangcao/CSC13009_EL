@@ -5,16 +5,27 @@ import android.util.Log
 import android.widget.Toast
 import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.local.dao.AnswerDao
+import com.android_ai.csc13009.app.data.local.entity.AnswersEntity
+import com.android_ai.csc13009.app.data.local.entity.Conversation
+import com.android_ai.csc13009.app.data.local.entity.QuestionsEntity
+import com.android_ai.csc13009.app.data.local.entity.StoryEntity
+import com.android_ai.csc13009.app.data.local.entity.StoryQuestion
 import com.android_ai.csc13009.app.data.local.entity.UserLessonLearnedEntity
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreAnswersRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreLessonRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreListeningAnswerRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreListeningLessonRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreListeningQuestionRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreListeningTopicRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreProgressRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreQuestionRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreStoryRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreTopicRepository
 import com.android_ai.csc13009.app.utils.mapper.AnswerMapper
 import com.android_ai.csc13009.app.utils.mapper.LessonMapper
 import com.android_ai.csc13009.app.utils.mapper.QuestionMapper
 import com.android_ai.csc13009.app.utils.mapper.TopicMapper
+import com.android_ai.csc13009.app.utils.mapper.toEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,13 +35,50 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
     private var firestoreLesson : FirestoreLessonRepository = FirestoreLessonRepository(firestore)
     private var firestoreTopic : FirestoreTopicRepository = FirestoreTopicRepository(firestore)
     private var firestoreProgress : FirestoreProgressRepository = FirestoreProgressRepository(firestore)
+
+
+//  listening
+    private var firestoreListeningTopic : FirestoreListeningTopicRepository = FirestoreListeningTopicRepository(firestore)
+    private var firestoreListeningLesson : FirestoreListeningLessonRepository = FirestoreListeningLessonRepository(firestore)
+    private var firestoreListeningQuestion : FirestoreListeningQuestionRepository = FirestoreListeningQuestionRepository(firestore)
+    private var firestoreListeningAnswer : FirestoreListeningAnswerRepository = FirestoreListeningAnswerRepository(firestore)
+
+
+    private var firestoreStory : FirestoreStoryRepository = FirestoreStoryRepository(firestore)
+
     private  val database = AppDatabase.getInstance(context)
 
     suspend fun run() {
         clearData()
+        syncStories()
         fetchDataLevel()
         fetchLessonProgress(getUserId())
-        //test()
+
+    }
+
+    private suspend fun test() {
+        val questions = database.storyDao().getAllStories()
+        questions.forEach { question ->
+            Log.d("SyncDataFromFirestore", "Story: ${question}")
+        }
+
+        val conversations = database.conversationDao().getAllConversations()
+        conversations.forEach { conversation ->
+            Log.d("SyncDataFromFirestore", "Conversation: ${conversation}")
+        }
+
+        val storyQuestions = database.storyQuestionDao().getAllStoryQuestions()
+        storyQuestions.forEach { question ->
+            Log.d("SyncDataFromFirestore", "Question: ${question}")
+
+            val answers = database.answerDao().getAnswersByQuestionId(question.id)
+            Log.d("SyncDataFromFirestore", "Answers: ${answers.size}")
+            answers.forEach { answer ->
+                Log.d("SyncDataFromFirestore", "Answer: ${answer}")
+            }
+        }
+
+
     }
 
     private fun getUserId() : String {
@@ -41,6 +89,7 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
     }
 
     private suspend fun fetchDataLevel() {
+        // word topics
         val topics = firestoreTopic.getTopicList()
         topics.forEach {  topic ->
             val lessons = firestoreLesson.getLessonList(topic.id)
@@ -66,6 +115,9 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
             val topicEntity = TopicMapper.firestoreToEntity(topic)
             database.chapterDao().insertChapter(topicEntity)
         }
+
+        //listening topic
+        fetchListeningTopics()
     }
 
     private suspend fun fetchLessonProgress(userId : String) {
@@ -84,10 +136,102 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
         }
     }
 
+    private suspend fun syncStories() {
+        val stories = firestoreStory.getStoryList()
+
+        stories.forEach { story ->
+            val storyEntity = StoryEntity(
+                id = story.id,
+                storyName = story.storyName,
+                thumbnailUrl = story.thumbnailUrl
+            )
+
+            database.storyDao().insertStory(storyEntity)
+
+            val conversations = firestoreStory.getConversations(story.id)
+            conversations.forEach { conversation ->
+                val conversationEntity = Conversation(
+                    id = conversation.id,
+                    storyId = conversation.storyId,
+                    gender = conversation.gender,
+                    message = conversation.message,
+                    type = conversation.type,
+                    order = conversation.order,
+                )
+
+                database.conversationDao().insertConversation(conversationEntity)
+            }
+
+            val question = firestoreStory.getQuestions(story.id)
+            question.forEach { q ->
+                //val answers = firestoreStory.(q.id)
+
+                val questionEntity = StoryQuestion(
+                    id = q.id,
+                    storyId = q.storyId,
+                    question = q.question,
+                    type = q.type
+                )
+                database.storyQuestionDao().insertStoryQuestion(questionEntity)
+
+                q.answers.forEach{ answer ->
+
+                    val data = AnswersEntity(
+                        id = answer.id,
+                        questionId = answer.questionId,
+                        text = answer.text,
+                        isCorrect = answer.isCorrect,
+                        imgUrl = answer.imgUrl
+                    )
+                    database.answerDao().insertAnswer(data)
+                }
+            }
+        }
+        test()
+    }
+
     private suspend fun clearData() {
         database.answerDao().deleteAll()
         database.questionDao().deleteAllQuestions()
         database.lessonDao().deleteAllLessons()
         database.chapterDao().deleteAllChapters()
+
+
+        database.listeningTopicDao().deleteAllTopic()
+        database.listeningAnswerDao().deleteAll()
+        database.listeningLessonDao().deleteAllLessons()
+        database.listeningQuestionDao().deleteAllQuestions()
+    }
+
+
+    private suspend fun fetchListeningTopics() {
+        val topics = firestoreListeningTopic.getTopicList()
+        topics.forEach() {
+            topic ->
+            val lessons = firestoreListeningLesson.getLessonList(topic.id)
+
+            lessons.forEach {
+                lesson ->
+                val questions = firestoreListeningQuestion.getQuestionList(lesson.id, level)
+                questions.forEach {
+                    question ->
+                    val answers = firestoreListeningAnswer.getAnswerList(question.id)
+                    answers.forEach {
+                        answer ->
+                        val entity = answer.toEntity()
+                        database.listeningAnswerDao().insertAnswer(entity)
+                    }
+                    val entity = question.toEntity()
+                    database.listeningQuestionDao().insertQuestion(entity)
+                }
+                val lessonEntity = lesson.toEntity()
+                database.listeningLessonDao().insertLesson(lessonEntity)
+            }
+            val topicEntity = topic.toEntity()
+            database.listeningTopicDao().insert(topicEntity)
+        }
+
+        database.userProgressDao().deleteLessonsLearned()
+
     }
 }

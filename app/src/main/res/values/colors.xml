@@ -7,6 +7,14 @@
     <color name="coral">#FF7F50</color>
     <color name="navyBlue">#000080</color>
     <color name="my_surface">#FFF</color>
+    <color name="lightBlue">#ADD8E6</color>
+    <color name="light_blue">#ADD8E6</color>
+    <color name="purple_700">#512DA8</color>
+    <color name="purple_500">#673AB7</color>
+    <color name="purple_300">#813AB7</color>
+    <color name="purple_150">#A03AB7</color>
+    <color name="purple">#A020F0</color>
+
 
     <color name="grayHint">#BDBDBD</color> <!-- Màu gợi ý trong EditText -->
     <color name="grayLight">#F5F5F5</color> <!-- Màu nền nhạt -->

@@ -4,6 +4,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
     </style>
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@drawable/rounded_dialog</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+    </style>
 
 
 

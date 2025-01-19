@@ -17,6 +17,7 @@
         <item>Explore our library of interactive, tailored lessons and quizzes for effective learning</item>
         <item>What are you waiting for, let\'s go!</item>
     </string-array>
+
     <!-- Mảng các tùy chọn số lần thông báo trong ngày -->
     <string-array name="times_per_day_options">
         <item>1</item>

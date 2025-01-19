@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/grayLight"
     tools:context=".app.presentation.activity.GrammarActivity">
 
     <!-- Toolbar -->
@@ -34,7 +34,7 @@
 
             <!-- Title -->
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/learn_description_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
@@ -47,7 +47,7 @@
                 app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/learn_title_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
