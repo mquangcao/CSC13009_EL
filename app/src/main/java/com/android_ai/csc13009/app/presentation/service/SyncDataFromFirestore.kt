@@ -10,6 +10,7 @@ import com.android_ai.csc13009.app.data.remote.repository.FirestoreAnswersReposi
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreLessonRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreProgressRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreQuestionRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreStoryRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreTopicRepository
 import com.android_ai.csc13009.app.utils.mapper.AnswerMapper
 import com.android_ai.csc13009.app.utils.mapper.LessonMapper
@@ -24,10 +25,12 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
     private var firestoreLesson : FirestoreLessonRepository = FirestoreLessonRepository(firestore)
     private var firestoreTopic : FirestoreTopicRepository = FirestoreTopicRepository(firestore)
     private var firestoreProgress : FirestoreProgressRepository = FirestoreProgressRepository(firestore)
+    private var firestoreStory : FirestoreStoryRepository = FirestoreStoryRepository(firestore)
     private  val database = AppDatabase.getInstance(context)
 
     suspend fun run() {
         clearData()
+        syncStories()
         fetchDataLevel()
         fetchLessonProgress(getUserId())
         //test()
@@ -84,10 +87,16 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
         }
     }
 
+    private suspend fun syncStories() {
+        val stories = firestoreStory.getStoryList()
+        Log.d("SyncDataFromFirestore kkk", "Stories: $stories")
+    }
+
     private suspend fun clearData() {
         database.answerDao().deleteAll()
         database.questionDao().deleteAllQuestions()
         database.lessonDao().deleteAllLessons()
         database.chapterDao().deleteAllChapters()
+        database.userProgressDao().deleteLessonsLearned()
     }
 }

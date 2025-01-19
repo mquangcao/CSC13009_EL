@@ -49,6 +49,8 @@ class ChapterAdapter(
 
         Glide.with(holder.itemView.context)
             .load(lesson.thumbnailUrl)
+            .placeholder(R.drawable.bell) // Ảnh hiển thị trong lúc chờ
+            .error(R.drawable.auto_stories_24px) // Ảnh hiển thị khi lỗi
             .into(holder.imgThumb)
 
         holder.circularProgressBar.progressMax = lesson.totalLesson.toFloat()

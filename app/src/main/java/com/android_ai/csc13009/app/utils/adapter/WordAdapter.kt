@@ -35,6 +35,8 @@ class WordAdapter(private val words: List<AnswerWord>) : RecyclerView.Adapter<Wo
         holder.tvWord.text = word.text
         Glide.with(holder.itemView.context.applicationContext)
             .load(word.imgUrl) // URL ảnh
+            .placeholder(R.drawable.bell) // Ảnh hiển thị trong lúc chờ
+            .error(R.drawable.auto_stories_24px) // Ảnh hiển thị khi lỗi
             .into(holder.imgWord)
 
         if (word.isSelected) {
