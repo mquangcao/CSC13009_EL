@@ -39,14 +39,15 @@ class ListeningTopicRepository(val context: Context) : IListeningTopicRepository
             val topic = database.listeningTopicDao().getTopicById(topicId) ?: throw Exception("topic not found")
 
             val lessonRepository = ListeningLessonRepository(context)
-
+            val lessons = lessonRepository.getLessonsByTopicId(topic.id)
+            println("debug")
             ListeningTopic(
                 id = topic.id,
                 title = topic.title,
-                totalLesson = lessonRepository.getLessonsByTopicId(topic.id).size,
-                lessonFinished = lessonRepository.getLessonsByTopicId(topic.id).filter { it.isOpenByProgress }.size,
+                totalLesson = lessons.size,
+                lessonFinished = lessons.filter { it.isOpenByProgress }.size,
                 thumbnailUrl = topic.thumbnailUrl,
-                lessons = lessonRepository.getLessonsByTopicId(topic.id)
+                lessons = lessons
             )
         } catch (e: Exception) {
             Log.d("ChapterRepository", "getChapterDetail: ${e.message}")
