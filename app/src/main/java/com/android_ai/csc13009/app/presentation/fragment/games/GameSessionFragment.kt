@@ -202,12 +202,12 @@ class GameSessionFragment : Fragment(), GameInterface {
 
         wordTextView.text = stringBuilder.toString()
 
-        val roundCount = lexiconGameEngine.maxRound
-        val currentRound = lexiconGameEngine.words.size
-        val textView = view.findViewById<TextView>(R.id.learn_question_content)
+//        val roundCount = lexiconGameEngine.maxRound
+//        val currentRound = lexiconGameEngine.words.size
+//        val textView = view.findViewById<TextView>(R.id.learn_question_content)
 
-        val text = "$currentRound / $roundCount"
-        textView.text = text
+//        val text = "$currentRound / $roundCount"
+//        textView.text = text
 
     }
 
@@ -291,6 +291,14 @@ class GameSessionFragment : Fragment(), GameInterface {
             }
 
         }
+
+        val lexiconGameEngine = gameEngine as LexiconGameEngine
+        val answerListCount = requireView().findViewById<TextView>(R.id.game_answer_writer_list_count)
+        val roundCount = lexiconGameEngine.maxRound
+        val currentRound = lexiconGameEngine.words.size
+        val text = "$currentRound / $roundCount"
+
+        answerListCount.text = text
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
