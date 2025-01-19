@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.remote.model.FirestoreQuestion
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreGrammarQuestionRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreLearningDetailRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreQuestionRepository
@@ -40,6 +41,7 @@ class MistakesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_mistakes)
 
         rvMistakes = findViewById(R.id.rvMistakes)
+        btnBack = findViewById(R.id.backIcon)
         rvMistakes.layoutManager = LinearLayoutManager(this)
 
         val firebaseAuth = FirebaseAuth.getInstance()
@@ -56,7 +58,7 @@ class MistakesActivity : AppCompatActivity() {
             Log.d("DatabaseCheck", "Fetched details: $mistakes")
 
             val grammarQuestionList = mutableListOf<GrammarQuestion>()
-            val vocabQuestionList = mutableListOf<Question>()
+            val vocabQuestionList = mutableListOf<FirestoreQuestion>()
 
             for (mistake in mistakes) {
                 when (mistake.type.lowercase()) {
@@ -66,23 +68,27 @@ class MistakesActivity : AppCompatActivity() {
                             grammarQuestionList.add(grammarQuestion)
                         }
                     }
-//                    "vocabulary" -> {
-//                        val doc = firestoreQuestionRepository.getQuestionById(mistake.questionId)
-//                        val vocabQuestion = doc.toObject(Question::class.java)
-//                        if (vocabQuestion != null) {
-//                            vocabQuestionList.add(vocabQuestion)
-//                        }
-//                    }
+                    "vocabulary" -> {
+                        val vocabQuestion = firestoreQuestionRepository.getQuestionById(mistake.questionId)
+                        //val vocabQuestion = doc.toObject(Question::class.java)
+                        if (vocabQuestion != null) {
+                            vocabQuestionList.add(vocabQuestion)
+                        }
+                    }
                 }
             }
 
             mistakeAdapter = MistakeAdapter(
                 grammarQuestions = grammarQuestionList,
-                //vocabQuestions = vocabQuestionList,
+                vocabQuestions = vocabQuestionList,
                 //listeningQuestions = listeningQuestionList
             )
 
             rvMistakes.adapter = mistakeAdapter
+        }
+
+        btnBack.setOnClickListener{
+            finish()
         }
     }
 }

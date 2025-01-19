@@ -7,19 +7,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.remote.model.FirestoreQuestion
 import com.android_ai.csc13009.app.domain.models.GrammarQuestion
 import com.android_ai.csc13009.app.domain.models.Question
 
 
 class MistakeAdapter(
     private val grammarQuestions: List<GrammarQuestion>,
-    //private val vocabQuestions: List<Question>,
+    private val vocabQuestions: List<FirestoreQuestion>,
     //private val listeningQuestions: List<ListeningQuestion>
 ) : RecyclerView.Adapter<MistakeAdapter.MistakeViewHolder>() {
 
     private val allQuestions: List<Any> = buildList {
         addAll(grammarQuestions)
-        //addAll(vocabQuestions)
+        addAll(vocabQuestions)
         //addAll(listeningQuestions)
     }
 
@@ -43,10 +44,10 @@ class MistakeAdapter(
                 holder.tvInstruction.text = "Grammar Question"
                 holder.tvMistake.text = question.name
             }
-//            is Question -> {
-//                holder.tvInstruction.text = "Vocabulary Question"
-//                holder.tvMistake.text = question.question
-//            }
+            is FirestoreQuestion -> {
+                holder.tvInstruction.text = "Vocabulary Question"
+                holder.tvMistake.text = question.question
+            }
 //            is ListeningQuestion -> {
 //                holder.tvInstruction.text = "Listening Question"
 //                holder.tvMistake.text = question.question
