@@ -42,10 +42,11 @@ class FirestoreLearningDetailRepository(private val firestore: FirebaseFirestore
         }
     }
 
-    suspend fun updateLearningDetail(questionId: String, isCorrect: Boolean) : String? {
+    suspend fun updateLearningDetail(userId: String, questionId: String, isCorrect: Boolean) : String? {
         return try {
             // Tìm document có trường questionId khớp
             val querySnapshot = firestore.collection("learningDetail")
+                .whereEqualTo("userId", userId)
                 .whereEqualTo("questionId", questionId)
                 .get()
                 .await()
@@ -56,7 +57,7 @@ class FirestoreLearningDetailRepository(private val firestore: FirebaseFirestore
 
                 // Cập nhật document
                 firestore.collection("learningDetail").document(document.id)
-                    .update("isCorrect", isCorrect, "date", System.currentTimeMillis().toString())
+                    .update("correct", isCorrect, "date", System.currentTimeMillis().toString())
                     .await()
 
                 Log.d("FirestoreLearningDetailRepository", "Document updated successfully")
@@ -78,6 +79,7 @@ class FirestoreLearningDetailRepository(private val firestore: FirebaseFirestore
             val querySnapshot = firestore.collection("learningDetail")
                 .whereEqualTo("userId", userId)
                 .whereEqualTo("reviewed", false) // Fetch only unreviewed mistakes
+                .whereEqualTo("correct", false)
                 .get()
                 .await()
 

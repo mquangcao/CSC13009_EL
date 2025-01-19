@@ -9,6 +9,25 @@ import com.android_ai.csc13009.app.domain.repository.IListeningQuestionRepositor
 class ListeningQuestionRepository(context: Context) : IListeningQuestionRepository {
     val database = AppDatabase.getInstance(context)
 
+    override suspend fun getQuestionById(questionId: String): ListeningQuestion? {
+        return try {
+            val doc = database.listeningQuestionDao().getQuestionById(questionId)
+            doc?.let {
+                ListeningQuestion(
+                    id = it.id,
+                    question = it.question,
+                    type = it.type,
+                    answer = getAnswersByQuestionId(it.id) as ArrayList<ListeningAnswer>,
+                    audioTranscript = it.audioTranscript
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null // Return null in case of an exception
+        }
+    }
+
+
     override suspend fun getQuestionsByLessonId(lessonId: String): List<ListeningQuestion> {
         return try {
             val questionEntities = database.listeningQuestionDao().getQuestionsByLessonId(lessonId)

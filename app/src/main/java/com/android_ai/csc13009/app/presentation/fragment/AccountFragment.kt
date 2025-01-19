@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreUserRepository
@@ -17,10 +18,12 @@ import com.android_ai.csc13009.app.presentation.activity.WordLevelSelection
 import com.android_ai.csc13009.app.domain.models.Language
 import com.android_ai.csc13009.app.presentation.activity.ExportActivity
 import com.android_ai.csc13009.app.presentation.activity.NotificationSettingsActivity
+import com.android_ai.csc13009.app.presentation.service.SyncDataFromFirestore
 import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.android_ai.csc13009.app.utils.extensions.LocaleUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 
 
 class AccountFragment : Fragment() {
@@ -51,6 +54,10 @@ class AccountFragment : Fragment() {
             // Initialize repositories with Firebase instances
             val firebaseAuth = FirebaseAuth.getInstance()
             val firestore = FirebaseFirestore.getInstance()
+
+            lifecycleScope.launch {
+                SyncDataFromFirestore( firestore, requireContext()).clearData()
+            }
 
             val userRepository = UserRepository(FirebaseAuthRepository(firebaseAuth), FirestoreUserRepository(firestore))
             val viewModel = UserViewModel(userRepository)

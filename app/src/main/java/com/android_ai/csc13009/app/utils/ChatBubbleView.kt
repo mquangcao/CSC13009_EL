@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.utils
 
 import android.content.Context
+import android.content.Intent
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -10,7 +11,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.text.set
+import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.local.AppDatabase
+import com.android_ai.csc13009.app.data.repository.WordRepository
+import com.android_ai.csc13009.app.presentation.activity.WordDetailActivity
+import com.android_ai.csc13009.app.presentation.service.SyncDataFromFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ChatBubbleView @JvmOverloads constructor(
     context: Context,
@@ -67,7 +76,18 @@ class ChatBubbleView @JvmOverloads constructor(
             val endIndex = startIndex + word.length
             spannableString[startIndex..endIndex] = object : ClickableSpan() {
                 override fun onClick(widget: View) {
-                    Toast.makeText(context, word, Toast.LENGTH_SHORT).show()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val wordData = WordRepository(AppDatabase.getInstance(context).wordDao())
+                            .getExactWordByName(word)
+                        if (wordData != null) {
+                            val intent = Intent(context, WordDetailActivity::class.java)
+                            intent.putExtra("word_id", wordData.id)
+                            intent.putExtra("word_text", wordData.word)
+                            intent.putExtra("word_pronunciation", wordData.pronunciation)
+                            intent.putExtra("word_details", wordData.details)
+                            context.startActivity(intent)
+                        }
+                    }
                 }
 
                 override fun updateDrawState(ds: android.text.TextPaint) {
