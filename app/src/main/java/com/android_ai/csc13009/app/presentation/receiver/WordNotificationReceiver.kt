@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class WordNotificationReceiver : BroadcastReceiver() {
@@ -112,8 +113,10 @@ class WordNotificationReceiver : BroadcastReceiver() {
 
             // Hiển thị Notification
 
+            withContext(Dispatchers.Main) {
                 Log.d("WordNotificationReceiver", "Displaying notification...")
                 NotificationManagerCompat.from(context).notify(1, notification.build())
+            }
         }
     }
 
@@ -166,12 +169,17 @@ class WordNotificationReceiver : BroadcastReceiver() {
                         context, i, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                     )
 
-                    alarmManager.setRepeating(
+                    alarmManager.setExactAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
                         notificationTime,
-                        interval.toLong(),
                         pendingIntent
                     )
+
+                    // Log thời gian từng thông báo
+                    val formattedTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(
+                        Date(notificationTime)
+                    )
+                    Log.d("AlarmManager", "Đặt thông báo $i tại: $formattedTime")
 
                 }
             }
