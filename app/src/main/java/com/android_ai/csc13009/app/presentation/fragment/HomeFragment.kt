@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.android_ai.csc13009.app.presentation.viewmodel.WordForTodayViewModel
 import com.android_ai.csc13009.app.presentation.viewmodel.WordViewModelFactory
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.android_ai.csc13009.app.presentation.activity.WordDetailActivity
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -43,8 +45,18 @@ class HomeFragment : Fragment() {
             wordViewModel.wordModelForToday.collectLatest { word ->
                 word?.let {
                     tvWord.text = it.word
-                    tvPronunciation.text = it.pronunciation?.trim() ?: "N/A"// Xử lý khi pronunciation null
+                    tvPronunciation.text = it.pronunciation?.trim() ?: "N/A" // Xử lý khi pronunciation null
 
+                    // Thêm sự kiện click vào tvWord
+                    tvWord.setOnClickListener { _ ->
+                        val context = requireContext()
+                        val intent = Intent(context, WordDetailActivity::class.java)
+                        intent.putExtra("word_id", word.id)
+                        intent.putExtra("word_text", word.word) // Truyền từ cần hiển thị
+                        intent.putExtra("word_pronunciation", word.pronunciation)
+                        intent.putExtra("word_details", word.details)
+                        context.startActivity(intent)
+                    }
                 }
             }
         }
