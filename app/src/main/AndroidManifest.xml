@@ -21,6 +21,12 @@
             android:name=".app.presentation.activity.ExportActivity"
             android:exported="false" />
         <activity
+            android:name=".app.presentation.activity.ListStoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.activity.StoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".app.presentation.activity.WordScheduleActivity"
             android:exported="false" />
         <activity
