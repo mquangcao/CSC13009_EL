@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvWord"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/baloo"
+            android:fontFamily="@font/baloo_2"
             android:text="Review Count: 5"
             android:textSize="16sp"
             android:textColor="@color/blue"
@@ -96,7 +96,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="Next Review: Today"
-            android:fontFamily="@font/baloo"
+            android:fontFamily="@font/baloo_2"
+
             android:textSize="14sp"
             android:textColor="@color/purple"
             android:drawableStart="@drawable/ic_calendar"

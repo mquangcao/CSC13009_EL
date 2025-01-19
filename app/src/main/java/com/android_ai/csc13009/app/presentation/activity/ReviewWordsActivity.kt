@@ -147,7 +147,7 @@ class ReviewWordsActivity : AppCompatActivity() {
                 wordTextView.text = "All words reviewed!"
                 progressBar.progress = words.size
                 progressText.text = "${currentWordIndex}/${words.size}"
-                //Toast.makeText(this, "Review session complete!", Toast.LENGTH_SHORT).show()
+                revealButton.visibility = View.INVISIBLE
                 showCompletionPopup() // Show popup animation when all words are reviewed
             }
         }
