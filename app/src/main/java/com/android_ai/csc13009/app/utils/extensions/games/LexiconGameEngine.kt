@@ -41,9 +41,9 @@ class LexiconGameEngine(
         }
     }
 
-    override suspend fun submitAnswer(answer: String) {
+    override suspend fun submitAnswer(answer: String): Boolean {
         val currentWord = findWord(answer)
-        if (currentWord != null && !words.contains(currentWord)) {
+        return if (currentWord != null && !words.contains(currentWord)) {
 
 
             val answerLength = answer.length
@@ -54,8 +54,10 @@ class LexiconGameEngine(
             score += answerScore
             words.add(currentWord)
             nextRound()
+            true
         } else {
             score -= 100
+            false
         }
     }
 

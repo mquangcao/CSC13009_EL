@@ -84,7 +84,7 @@ interface IGameEngine : Serializable {
         gameState = GameState.PLAYING
     }
 
-    suspend fun submitAnswer   (answer: String)
+    suspend fun submitAnswer(answer: String) : Boolean
 
     fun nextRound()
     fun getRule(): String

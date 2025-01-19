@@ -1,11 +1,16 @@
 package com.android_ai.csc13009.app.presentation.activity
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -29,13 +34,15 @@ import kotlinx.coroutines.launch
 @SuppressLint("NewApi")
 class GameActivity : AppCompatActivity() {
     private val database : AppDatabase by lazy { AppDatabase.getInstance(this) }
-
+    private lateinit var dialog: Dialog
+    private lateinit var dialogInCorrect: Dialog
+    private lateinit var dialogIncorrectAnswerCorrection: TextView
+    private lateinit var btnConfirmDialog: Button
+    private lateinit var btnConfirmDialogIncorrect: Button
 
     val gameEngine: IGameEngine? by lazy {
         createGameEngine()
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +54,36 @@ class GameActivity : AppCompatActivity() {
             insets
         }
         NavigationSetter.setActivityBackConfirmation(this)
+
+        dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog_answer_correct)
+        dialog.window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.custom_dialog_bg)
+        dialog.window?.setGravity(Gravity.BOTTOM)
+        dialog.setCancelable(false)
+
+        dialogInCorrect = Dialog(this)
+        dialogInCorrect.setContentView(R.layout.custom_dialog_answer_uncorrect)
+        dialogInCorrect.window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialogInCorrect.window?.setBackgroundDrawableResource(R.drawable.custom_dialog_bg)
+        dialogInCorrect.window?.setGravity(Gravity.BOTTOM)
+        dialogInCorrect.setCancelable(false)
+        dialogIncorrectAnswerCorrection = dialogInCorrect.findViewById(R.id.tv_content)
+
+        btnConfirmDialog = dialog.findViewById(R.id.btn_continue)
+        btnConfirmDialogIncorrect = dialogInCorrect.findViewById(R.id.btn_continue)
+
+
+        btnConfirmDialog.setOnClickListener {
+            dialog.dismiss()
+            showNextRound()
+        }
+
+        btnConfirmDialogIncorrect.setOnClickListener {
+            dialogInCorrect.dismiss()
+            showNextRound()
+        }
+
     }
 
     fun showLoading() {
@@ -60,14 +97,42 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun submitAnswer(answer: String) {
-        CoroutineScope(Dispatchers.Main).launch {
-            gameEngine?.submitAnswer(answer) // Ensure this completes first
+        if (gameEngine is LexiconGameEngine) {
+            submitWithoutDialog(answer)
+        } else {
+            submitWithDialog(answer)
+        }
+    }
 
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.gamescreen_fcv)
-            if (currentFragment is GameInterface) {
-                currentFragment.nextRound() // Now, this will only execute after `submitAnswer`
+    fun submitWithDialog(answer: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val correctAnswer = gameEngine?.currentWord?.word ?: ""
+            val result = gameEngine?.submitAnswer(answer) // Ensure this completes first
+            if (result == true) {
+                dialog.show()
+            } else {
+                dialogIncorrectAnswerCorrection.text = correctAnswer
+                dialogInCorrect.show()
             }
         }
+    }
+
+    fun submitWithoutDialog(answer: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            gameEngine?.submitAnswer(answer)
+            showNextRound()
+        }
+    }
+
+    fun showNextRound() {
+        val currentFragment = getCurrentFragment()
+        if (currentFragment is GameInterface) {
+            currentFragment.nextRound()
+        }
+    }
+
+    private fun getCurrentFragment(): Fragment? {
+        return supportFragmentManager.findFragmentById(R.id.gamescreen_fcv)
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
