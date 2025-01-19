@@ -67,7 +67,7 @@ interface IGameEngine : Serializable {
     }
 
     suspend fun fetchWords(count: Int) {
-        val wordList = wordRepository.getRandomWords(count)
+        val wordList = wordRepository.getRandomWords(count, 12)
         words.addAll(wordList)
     }
 
