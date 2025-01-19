@@ -21,6 +21,7 @@ import com.android_ai.csc13009.app.data.remote.repository.FirestoreProgressRepos
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreQuestionRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreStoryRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreTopicRepository
+import com.android_ai.csc13009.app.data.repository.QuestionRepository
 import com.android_ai.csc13009.app.utils.mapper.AnswerMapper
 import com.android_ai.csc13009.app.utils.mapper.LessonMapper
 import com.android_ai.csc13009.app.utils.mapper.QuestionMapper
@@ -35,6 +36,7 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
     private var firestoreLesson : FirestoreLessonRepository = FirestoreLessonRepository(firestore)
     private var firestoreTopic : FirestoreTopicRepository = FirestoreTopicRepository(firestore)
     private var firestoreProgress : FirestoreProgressRepository = FirestoreProgressRepository(firestore)
+    private var questionRepository = QuestionRepository(context)
 
 
 //  listening
@@ -54,13 +56,14 @@ class SyncDataFromFirestore(private val level : String, private val firestore: F
         fetchDataLevel()
         fetchLessonProgress(getUserId())
 
+        val dataa = questionRepository.getQuestion("7PCPTruPmOjOxoWBscDl")
+        Log.d("SyncDataFromFirestore", "Question 123131231")
+        Log.d("SyncDataFromFirestore", "Question 12313123123: ${dataa}")
     }
 
     private suspend fun test() {
         val questions = database.storyDao().getAllStories()
-        questions.forEach { question ->
-            Log.d("SyncDataFromFirestore", "Story: ${question}")
-        }
+
 
         val conversations = database.conversationDao().getAllConversations()
         conversations.forEach { conversation ->
