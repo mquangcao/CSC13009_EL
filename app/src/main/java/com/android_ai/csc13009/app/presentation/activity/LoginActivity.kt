@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.local.AppDatabase
+import com.android_ai.csc13009.app.data.local.entity.UserEntity
 import com.android_ai.csc13009.app.data.remote.model.LoginState
 import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreTopicRepository
@@ -104,7 +106,33 @@ class LoginActivity : AppCompatActivity() {
         // Logic to handle successful login (e.g., navigate to another screen)
         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
         // Optionally, navigate to the login or main screen
-        startActivity(Intent(this, DashboardActivity::class.java))
+        lifecycleScope.launch {
+            val user = UserRepository(FirebaseAuthRepository(FirebaseAuth.getInstance()), FirestoreUserRepository(FirebaseFirestore.getInstance())).getCurrentUser()
+
+            if (user != null) {
+
+                val currentUser = UserEntity(
+                    id = user.id,
+                    firstName = user.fullName,
+                    lastName = user.fullName,
+                    joinDate = user.joinDate,
+                    avatar = user.avatar,
+                    streakCount = user.streakCount,
+                    level = user.level
+                )
+                AppDatabase.getInstance(this@LoginActivity).userDao().insertUser(currentUser)
+                if(user.level.isEmpty()){
+                    val intent = Intent(this@LoginActivity, ChooseLevelActivity::class.java)
+                    intent.putExtra("userId", user.id)
+                    startActivity(intent)
+                    return@launch
+                }
+                val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                startActivity(intent)
+
+            }
+        }
+
     }
 
     private fun onLoginFailure(errorMessage: String) {
