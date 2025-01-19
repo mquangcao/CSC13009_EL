@@ -8,7 +8,7 @@
     <string name="game_result_word_list_title">Words Featured:</string>
     <string name="game_result_exit_game_button">Return to menu</string>
     <string name="app_name">English Learning</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="game_exit_button">Return to menu</string>
     <string name="game_menu_title">Game</string>
     <string name="game_menu_prompt">Choose a Game</string>
@@ -31,4 +31,11 @@
     <string name="translate_the_word">Translate this sentence</string>
     <string name="find_the_different_from_the_other">Which one of these word is different from the others?\n</string>
     <string name="choose_the_correct_information">Choose the correct information from the conversation</string>
+    <string name="th_ng_tin_c_nh_n">Personal information</string>
+    <string name="language">Language</string>
+    <string name="th_ng_tin_ng_d_ng">Application information</string>
+    <string name="th_ng_b_o">Notification</string>
+    <string name="export_l_i_sai">Export error</string>
+    <string name="ng_xu_t">Sign out</string>
+    <string name="t_i_kho_n">Account</string>
 </resources>

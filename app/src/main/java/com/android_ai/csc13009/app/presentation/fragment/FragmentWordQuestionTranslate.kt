@@ -68,6 +68,15 @@ class FragmentWordQuestionTranslate(val questionId : String, val questionTitle :
     }
 
     private fun completeTask(data: List<AnswerWord>) {
+        if(data.isEmpty()) {
+            val result = Bundle()
+            result.apply {
+                putString("result", "in_correct")
+                putString("questionId", questionId)
+            }
+            parentFragmentManager.setFragmentResult("taskCompleted", result)
+            return
+        }
         for (i in data.indices) {
             val result = Bundle()
             if (etAnswerInput.text.toString().toLowerCase() == data[i].text.toLowerCase()) {
@@ -84,7 +93,7 @@ class FragmentWordQuestionTranslate(val questionId : String, val questionTitle :
             result.apply {
                 putString("questionId", questionId)
             }
-
+            Log.d("FragmentWordQuestionTranslataaaa", "completeTask: $result")
             parentFragmentManager.setFragmentResult("taskCompleted", result)
             return
 

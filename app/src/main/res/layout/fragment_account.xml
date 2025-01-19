@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:fontFamily="@font/bungee"
-            android:text="Tài khoản"
+            android:text="@string/t_i_kho_n"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
                             android:layout_marginStart="12dp"
                             android:layout_toRightOf="@+id/imageView5"
                             android:fontFamily="@font/roboto_slab"
-                            android:text="Thông tin cá nhân"
+                            android:text="@string/th_ng_tin_c_nh_n"
                             android:textStyle="bold" />
 
                         <ImageView
@@ -170,7 +170,7 @@
                             android:layout_marginStart="12dp"
                             android:layout_toRightOf="@+id/imageView6"
                             android:fontFamily="@font/roboto_slab"
-                            android:text="Ngôn ngữ"
+                            android:text="@string/language"
                             android:textStyle="bold" />
 
                         <ImageView
@@ -183,48 +183,8 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
 
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="0.5dp"
-                    android:layout_marginEnd="4dp"
 
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="2dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp">
-
-                        <ImageView
-                            android:id="@+id/imageView7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:src="@drawable/contrast_24px" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:layout_toRightOf="@+id/imageView7"
-                            android:fontFamily="@font/roboto_slab"
-                            android:text="Theme"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="12dp"
-                            android:src="@drawable/arrow_forward_ios_24px" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -234,50 +194,7 @@
                     android:layout_marginTop="0.5dp"
                     android:layout_marginEnd="4dp"
 
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="2dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp">
-
-                        <ImageView
-                            android:id="@+id/imageView8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:src="@drawable/star_24px" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:layout_toRightOf="@+id/imageView8"
-                            android:fontFamily="@font/roboto_slab"
-                            android:text="Đánh giá ứng dụng"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="12dp"
-                            android:src="@drawable/arrow_forward_ios_24px" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="0.5dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="12dp"
-
+                    android:visibility="gone"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp">
 
@@ -300,7 +217,7 @@
                             android:layout_marginStart="12dp"
                             android:layout_toRightOf="@+id/imageView9"
                             android:fontFamily="@font/roboto_slab"
-                            android:text="Thông tin ứng dụng"
+                            android:text="@string/th_ng_tin_ng_d_ng"
                             android:textStyle="bold" />
 
                         <ImageView
@@ -322,7 +239,7 @@
                     android:layout_marginTop="0.5dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginBottom="12dp"
-
+                    android:visibility="gone"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp">
 
@@ -366,7 +283,6 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="0.5dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="12dp"
 
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp">
@@ -390,7 +306,7 @@
                             android:layout_marginStart="12dp"
                             android:layout_toRightOf="@+id/imageView12"
                             android:fontFamily="@font/roboto_slab"
-                            android:text="Thông báo"
+                            android:text="@string/th_ng_b_o"
                             android:textStyle="bold" />
 
                         <ImageView
@@ -411,7 +327,6 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="0.5dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="12dp"
 
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp">
@@ -435,7 +350,7 @@
                             android:layout_marginStart="12dp"
                             android:layout_toRightOf="@+id/imageView14"
                             android:fontFamily="@font/roboto_slab"
-                            android:text="Export lỗi sai"
+                            android:text="@string/export_l_i_sai"
                             android:textStyle="bold" />
 
                         <ImageView
@@ -482,7 +397,7 @@
                             android:layout_marginStart="12dp"
                             android:layout_toRightOf="@+id/imageView11"
                             android:fontFamily="@font/roboto_slab"
-                            android:text="Đăng xuất"
+                            android:text="@string/ng_xu_t"
                             android:textStyle="bold" />
 
                         <ImageView
