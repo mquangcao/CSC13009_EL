@@ -75,7 +75,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private suspend fun test() {
         val firestore = FirebaseFirestore.getInstance()
-        val sync = SyncDataFromFirestore("begin", firestore, this)
+        val sync = SyncDataFromFirestore("beginner", firestore, this)
         sync.run()
     }
 

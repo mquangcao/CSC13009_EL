@@ -14,13 +14,20 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.widget.ImageButton
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.android_ai.csc13009.R
+import com.android_ai.csc13009.app.data.remote.model.LoginState
+import com.android_ai.csc13009.app.data.remote.repository.FirebaseAuthRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreGrammarLevelRepository
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreGrammarTopicRepository
+import com.android_ai.csc13009.app.data.remote.repository.FirestoreUserRepository
 import com.android_ai.csc13009.app.data.repository.GrammarLevelRepository
 import com.android_ai.csc13009.app.data.repository.GrammarTopicRepository
+import com.android_ai.csc13009.app.data.repository.UserRepository
 import com.android_ai.csc13009.app.domain.models.GrammarTopic
+import com.android_ai.csc13009.app.presentation.viewmodel.UserViewModel
 import com.android_ai.csc13009.app.utils.adapter.GrammarTopicAdapter
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class GrammarActivity : AppCompatActivity() {
@@ -38,12 +45,19 @@ class GrammarActivity : AppCompatActivity() {
 
         // Initialize Firestore and Repository
         val firestore = FirebaseFirestore.getInstance()
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+
         val firestoreGrammarTopicRepository = FirestoreGrammarTopicRepository(firestore)
         val firestoreGrammarLevelRepository = FirestoreGrammarLevelRepository(firestore)
+
         grammarTopicRepository = GrammarTopicRepository(firestoreGrammarTopicRepository)
         grammarLevelRepository = GrammarLevelRepository(firestoreGrammarLevelRepository)
 
-        val levelName = "Beginner"
+        val userRepository = UserRepository(FirebaseAuthRepository(firebaseAuth), FirestoreUserRepository(firestore))
+        val viewModel = UserViewModel(userRepository)
+
+
         recyclerView = findViewById(R.id.recyclerView)
         progressBar = findViewById(R.id.progressBar)
 
@@ -54,16 +68,40 @@ class GrammarActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
 
-        // Fetch topics asynchronously based on the level name
-        uiScope.launch {
-            val topics = getTopicsForLevel(levelName)
-            Log.d("topics:", topics.toString())
-            setupRecyclerView(topics)
+        // Lắng nghe trạng thái loginState từ ViewModel
+        viewModel.loginState.observe(this) { state ->
+            when (state) {
+                is LoginState.Success -> {
+                    val currentUser = state.user
+                    val levelName = currentUser.level ?: "Beginner"
 
-            // Hide ProgressBar and show RecyclerView when loading is done
-            progressBar.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
+                    Log.d("UserInfo", "User Level: $levelName")
+
+                    // Gọi hàm để tải danh sách topic dựa trên level
+                    uiScope.launch {
+                        val topics = getTopicsForLevel(levelName)
+                        Log.d("topics:", topics.toString())
+                        setupRecyclerView(topics)
+
+                        // Ẩn ProgressBar và hiển thị RecyclerView sau khi tải xong
+                        progressBar.visibility = View.GONE
+                        recyclerView.visibility = View.VISIBLE
+                    }
+                }
+                is LoginState.Error -> {
+                    // Hiển thị lỗi nếu có
+                    Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = View.GONE
+                }
+                is LoginState.Loading -> {
+                    // Xử lý trạng thái đang tải (nếu cần)
+                    progressBar.visibility = View.VISIBLE
+                }
+            }
         }
+
+        // Gọi hàm lấy thông tin người dùng từ ViewModel
+        viewModel.getCurrentUser()
     }
 
     // Function to fetch topics based on the level name

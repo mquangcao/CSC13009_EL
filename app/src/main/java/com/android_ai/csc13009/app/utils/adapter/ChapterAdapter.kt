@@ -1,6 +1,7 @@
 package com.android_ai.csc13009.app.utils.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,12 @@ class ChapterAdapter(
 
     override fun onBindViewHolder(holder: ChapterViewHolder, position: Int) {
         val lesson = chapters[position]
+
+        Log.d("hi tao la quang cao ne", lesson.toString())
+        Log.d("hi tao la quang cao ne", lesson.chapterName)
+        Log.d("hi tao la quang cao ne", lesson.thumbnailUrl)
+        Log.d("hi tao la quang cao ne", lesson.totalLesson.toString())
+
 
         Glide.with(holder.itemView.context)
             .load(lesson.thumbnailUrl)
