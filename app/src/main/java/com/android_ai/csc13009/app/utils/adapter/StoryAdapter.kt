@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android_ai.csc13009.R
 import com.android_ai.csc13009.app.domain.models.StoryItem
 import com.android_ai.csc13009.app.utils.ChatBubbleView
+import de.hdodenhof.circleimageview.CircleImageView
 
 class StoryAdapter(private val items: MutableList<StoryItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -50,6 +51,12 @@ class StoryAdapter(private val items: MutableList<StoryItem>) :
             is MessageViewHolder -> {
                 val item = items[position] as StoryItem.Message
                 holder.textMessage.setText(item.text)
+                if(item.gender == "male") {
+                    holder.imageView.setImageResource(R.drawable.ic_learn_3)
+                }
+                else {
+                    holder.imageView.setImageResource(R.drawable.ic_learn_2)
+                }
             }
         }
     }
@@ -59,9 +66,11 @@ class StoryAdapter(private val items: MutableList<StoryItem>) :
 
     class NarrationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textNarration: TextView = itemView.findViewById(R.id.textNarration)
+
     }
 
     class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textMessage: ChatBubbleView = itemView.findViewById(R.id.textMessage)
+        val imageView : CircleImageView = itemView.findViewById(R.id.imageView)
     }
 }

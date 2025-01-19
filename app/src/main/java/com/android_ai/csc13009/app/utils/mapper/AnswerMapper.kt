@@ -9,7 +9,7 @@ import com.android_ai.csc13009.app.domain.models.WordModel
 
 fun AnswersEntity.toDomain(answerWord: WordModel) : Answer {
     return Answer(
-        id = 1,
+        id = 1.toString(),
         answerWord = TODO(),
         isCorrect = this.isCorrect,
         answer = TODO(),

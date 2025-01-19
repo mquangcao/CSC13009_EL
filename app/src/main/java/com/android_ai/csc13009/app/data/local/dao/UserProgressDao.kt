@@ -29,4 +29,7 @@ interface UserProgressDao {
 
     @Query("DELETE FROM UserLessonLearned WHERE id = :userId")
     suspend fun deleteLessonsLearnedByUser(userId: String)
+
+    @Query("DELETE FROM UserLessonLearned ")
+    suspend fun deleteLessonsLearned()
 }
