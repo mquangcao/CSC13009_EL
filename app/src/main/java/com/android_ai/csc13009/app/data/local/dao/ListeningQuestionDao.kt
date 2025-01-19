@@ -16,7 +16,7 @@ interface ListeningQuestionDao {
     suspend fun insertQuestions(questions: List<ListeningQuestionEntity>)
 
     @Query("SELECT * FROM ListeningQuestionEntity WHERE id = :questionId")
-    suspend fun getQuestionById(questionId: Int): ListeningQuestionEntity?
+    suspend fun getQuestionById(questionId: String): ListeningQuestionEntity?
 
     @Query("SELECT * FROM ListeningQuestionEntity")
     suspend fun getAllQuestions(): List<ListeningQuestionEntity>

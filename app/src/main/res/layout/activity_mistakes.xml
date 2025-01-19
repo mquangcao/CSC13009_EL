@@ -12,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/grayLight"
         >
         <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#CC000000"> <!-- Less dark background -->
+            android:background="@color/grayLight"> <!-- Less dark background -->
 
             <!-- Fullscreen CardView -->
             <androidx.cardview.widget.CardView
@@ -36,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:background="@android:color/black">
+                    android:background="@color/greenSecondary">
 
                     <!-- Left Side: Back Icon and Text -->
                     <ImageView
@@ -62,7 +63,7 @@
                             android:layout_height="wrap_content"
                             android:text="Xem lại các lỗi sai"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
+                            android:textSize="24sp"
                             android:fontFamily="@font/baloo" />
 
                         <TextView
@@ -71,7 +72,7 @@
                             android:layout_height="wrap_content"
                             android:text="gần đây"
                             android:textColor="@android:color/white"
-                            android:textSize="16sp"
+                            android:textSize="20sp"
                             android:fontFamily="@font/baloo" />
                     </LinearLayout>
 
@@ -94,7 +95,7 @@
                             android:paddingEnd="8dp"
                             android:text="SUPER"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp"
+                            android:textSize="15sp"
                             android:fontFamily="@font/baloo" />
 
                         <ImageView
@@ -120,8 +121,8 @@
                 android:layout_marginLeft="10dp"
                 android:text="Số lỗi"
                 android:fontFamily="@font/baloo"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <!-- RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView

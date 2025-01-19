@@ -115,7 +115,7 @@ class ListeningQuestionActivity : AppCompatActivity() {
 
             val userId = getUserId()
             if (repository.isExist(questionId ?: "", userId)) {
-                val learningDetailId = repository.updateLearningDetail(questionId ?: "", isCorrect)
+                val learningDetailId = repository.updateLearningDetail(userId, questionId ?: "", isCorrect)
 
                 val learningDetail = LearningDetailEntity(
                     id = learningDetailId ?: "",
