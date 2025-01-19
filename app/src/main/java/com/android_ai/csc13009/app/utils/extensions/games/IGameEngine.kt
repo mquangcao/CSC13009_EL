@@ -61,6 +61,11 @@ interface IGameEngine : Serializable {
 //        }
     }
 
+    suspend fun fetchWords(count: Int) {
+        val wordList = wordRepository.getRandomWords(count)
+        words.addAll(wordList)
+    }
+
     suspend fun updateHighScore() {
         if (score > highScore) {
             highScore = score

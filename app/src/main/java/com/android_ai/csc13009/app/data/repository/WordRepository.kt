@@ -24,6 +24,16 @@ class WordRepository(private val wordDao: WordDao) : IWordRepository {
         return allWords.randomOrNull()?.toDomain()
     }
 
+    override suspend fun getRandomWords(count: Int): List<WordModel> {
+        val allWords = wordDao.getAllWords()
+        return allWords.shuffled().take(count).map { it.toDomain() }
+    }
+
+    override suspend fun getRandomWords(count: Int, maxLength: Int): List<WordModel> {
+        val allWords = wordDao.getAllWords(maxLength)
+        return allWords.shuffled().take(count).map { it.toDomain() }
+    }
+
     // giong getWordByName nhung lay 1 tu duy nhat
     suspend fun getExactWordByName(query: String): WordModel? {
         return wordDao.getExactWord(query)?.toDomain()

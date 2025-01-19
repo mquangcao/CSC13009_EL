@@ -49,9 +49,10 @@ interface IProgressBasedGameEngine : IGameEngine {
     }
 
     override suspend fun startGame() {
-        for (i in 1..maxRound) {
-            fetchWord()
-        }
+//        for (i in 1..maxRound) {
+//            fetchWord()
+//        }
+        fetchWords(maxRound)
         nextRound()
         super.startGame()
     }
