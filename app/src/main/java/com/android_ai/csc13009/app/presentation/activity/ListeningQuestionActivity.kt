@@ -130,7 +130,7 @@ class ListeningQuestionActivity : AppCompatActivity() {
                 database.insertLearningDetail(learningDetail)
 
             } else {
-                val learningDetailId = repository.createLearningDetail(userId, questionId ?: "", isCorrect, "vocabulary")
+                val learningDetailId = repository.createLearningDetail(userId, questionId ?: "", isCorrect, "listening")
 
 
                 val learningDetail = LearningDetailEntity(
