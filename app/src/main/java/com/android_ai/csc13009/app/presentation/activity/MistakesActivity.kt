@@ -54,7 +54,10 @@ class MistakesActivity : AppCompatActivity() {
         // Initialize result launcher
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                refreshData() // Refresh the data on result OK
+                Log.d("MistakesActivity", "ActivityResult: OK result received.")
+                refreshData() // Refresh the list when RESULT_OK is received.
+            } else {
+                Log.d("MistakesActivity", "ActivityResult: Non-OK result received.")
             }
         }
 

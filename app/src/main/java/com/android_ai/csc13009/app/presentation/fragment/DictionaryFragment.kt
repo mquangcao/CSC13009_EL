@@ -1,13 +1,16 @@
 package com.android_ai.csc13009.app.presentation.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
@@ -27,6 +30,7 @@ import com.android_ai.csc13009.app.presentation.activity.TagActivity
 import com.android_ai.csc13009.app.presentation.activity.WordDetailActivity
 import com.android_ai.csc13009.app.presentation.activity.WordScheduleActivity
 import com.android_ai.csc13009.app.utils.adapter.DictionaryAdapter
+import com.google.common.reflect.TypeToken
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -79,6 +83,7 @@ class DictionaryFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -124,6 +129,20 @@ class DictionaryFragment : Fragment() {
             }
         }
 
+        // Detect touches outside the search bar to unfocus it
+        view.setOnTouchListener { v, event ->
+            if (etSearch.hasFocus() && event.action == MotionEvent.ACTION_DOWN) {
+                // If the search bar is focused and a touch is detected outside it, hide results and unfocus
+                val rect = Rect()
+                etSearch.getGlobalVisibleRect(rect)
+                if (!rect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    etSearch.clearFocus()
+                    rvSearchResults.visibility = View.GONE
+                }
+            }
+            false
+        }
+
         btnTag.setOnClickListener{
             startActivity(Intent(requireContext(), TagActivity::class.java))
         }
@@ -153,7 +172,8 @@ class DictionaryFragment : Fragment() {
         val sharedPreferences = getUserSharedPreferences(userId)
         val wordList = getSearchedWords(userId).toMutableList()
 
-        wordList.remove(wordId)
+        // Remove the wordId if it already exists
+        wordList.removeIf { it == wordId }
         wordList.add(0, wordId)
         if (wordList.size > 20) {
             wordList.removeAt(wordList.size - 1)
@@ -164,15 +184,10 @@ class DictionaryFragment : Fragment() {
 
     fun getSearchedWords(userId: String): List<Int> {
         val sharedPreferences = getUserSharedPreferences(userId)
-        val json = sharedPreferences.getString("words", "[]") ?: "[]"
-
-        // Safe JSON parsing
-        return try {
-            Gson().fromJson(json, List::class.java) as List<Int>
-        } catch (e: JsonSyntaxException) {
-            emptyList()  // Return an empty list if JSON parsing fails
-        }
+        val json = sharedPreferences.getString("words", "[]")
+        return Gson().fromJson(json, object : TypeToken<List<Int>>() {}.type)
     }
+
 
     // Function to update the dictionary with previously searched words
     private fun updateDictionaryWithSearchedWords() {
