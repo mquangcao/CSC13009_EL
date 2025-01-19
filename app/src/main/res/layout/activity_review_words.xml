@@ -1,10 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.presentation.activity.ReviewWordsActivity">
+    android:background="@color/purple_150"
+    android:padding="0dp">
 
+    <!-- Main Content -->
+    <FrameLayout
+        android:id="@+id/progressFrame"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminateOnly="false"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/circular_progress_drawable" />
+
+        <TextView
+            android:id="@+id/progressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/baloo"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Review Words"
+        android:fontFamily="@font/baloo"
+        android:textSize="24sp"
+        android:textColor="@color/grayLight"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/progressFrame" />
+
+    <TextView
+        android:id="@+id/wordTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Word"
+        android:textSize="32sp"
+        android:fontFamily="@font/baloo"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+
+    <!-- Reveal Toggle Button -->
+    <Button
+        android:id="@+id/revealButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reveal"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/baloo"
+        app:cornerRadius="30dp"
+        app:layout_constraintTop_toBottomOf="@id/wordTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Reveal RecyclerView with Buttons Overlay -->
+    <FrameLayout
+        android:id="@+id/revealContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/revealButton"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Reveal RecyclerView with Shadow and Rounded Corners -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/revealCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
+            android:radius="16dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/revealButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:cardBackgroundColor="@android:color/transparent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/definitionRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Buttons Overlaid on RecyclerView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:padding="16dp"
+
+            android:elevation="4dp">
+
+            <!-- REMEMBERED Button -->
+            <Button
+                android:id="@+id/correctButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_correct"
+                android:drawablePadding="8dp"
+                android:backgroundTint="@color/green"
+                android:fontFamily="@font/baloo"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="REMEMBERED"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:elevation="8dp"
+                app:cornerRadius="30dp" />
+
+            <!-- Space between buttons -->
+            <View
+                android:layout_width="16dp"
+                android:layout_height="60dp" />
+
+            <!-- FORGOT Button -->
+            <Button
+                android:id="@+id/incorrectButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_incorrect"
+                android:drawablePadding="8dp"
+                android:backgroundTint="@color/red"
+                android:fontFamily="@font/baloo"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="FORGOT"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:elevation="8dp"
+                app:cornerRadius="30dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <!-- Completion Popup -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/completionPopup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/popupContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/medalIcon"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_medal"
+                android:contentDescription="Medal Icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/popupTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Congratulations!"
+                android:textSize="24sp"
+                android:fontFamily="@font/baloo"
+                android:textColor="@android:color/white"
+                app:layout_constraintTop_toBottomOf="@id/medalIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/popupSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You did an amazing job! Keep it up!"
+                android:textSize="16sp"
+                android:fontFamily="@font/baloo"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/popupTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/returnButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/greenSecondary"
+                android:text="Return"
+                android:fontFamily="@font/baloo"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                app:cornerRadius="30dp"
+                app:layout_constraintTop_toBottomOf="@id/popupSubtitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

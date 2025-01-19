@@ -68,4 +68,36 @@ class FirestoreLearningDetailRepository(private val firestore: FirebaseFirestore
             ""
         }
     }
+
+    suspend fun getLearningDetailByUsers(userId: String): List<FirestoreLearningDetail> {
+        return try {
+            val querySnapshot = firestore.collection("learningDetail")
+                .whereEqualTo("userId", userId)
+                .whereEqualTo("reviewed", false) // Fetch only unreviewed mistakes
+                .get()
+                .await()
+
+            querySnapshot.documents.mapNotNull { document ->
+                // Manually map fields from Firestore document
+                try {
+                    FirestoreLearningDetail(
+                        id = document.getString("id") ?: "",
+                        date = document.getString("date") ?: "",
+                        questionId = document.getString("questionId") ?: "",
+                        correct = document.getBoolean("correct") ?: false,
+                        userId = document.getString("userId") ?: "",
+                        type = document.getString("type") ?: "",
+                        reviewed = document.getBoolean("reviewed") ?: false
+                    )
+                } catch (e: Exception) {
+                    Log.e("FirestoreLearningDetailRepository", "Error parsing document: ${e.message}")
+                    null // Skip invalid documents
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("FirestoreLearningDetailRepository", "Error fetching learning details: ${e.message}")
+            emptyList()
+        }
+    }
+
 }

@@ -25,11 +25,13 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import android.content.Context
+import android.content.Intent
 
 class WordScheduleActivity : AppCompatActivity() {
 
     private lateinit var btnBack: ImageView
     private lateinit var btnAddWord: FloatingActionButton
+    private lateinit var btnReview: ImageView
     private lateinit var wordScheduleAdapter: WordScheduleAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: WordScheduleViewModel
@@ -52,6 +54,8 @@ class WordScheduleActivity : AppCompatActivity() {
         }
         userId = currentUser.uid
 
+        setupViewModel()
+
         btnBack = findViewById(R.id.ivBack)
         btnBack.setOnClickListener {
             onBackPressed()
@@ -62,7 +66,26 @@ class WordScheduleActivity : AppCompatActivity() {
             showAddWordDialog()
         }
 
-        setupViewModel()
+        btnReview = findViewById(R.id.ivReview)
+        btnReview.setOnClickListener {
+            lifecycleScope.launch {
+                try {
+                    val currentTime = System.currentTimeMillis()
+                    Log.d("Review", "Current Time: $currentTime")
+                    val dueWords: List<WordSchedule> = viewModel.getWordsForReview(userId, currentTime)
+                    if (dueWords.isNotEmpty()) {
+                        val intent = Intent(this@WordScheduleActivity, ReviewWordsActivity::class.java)
+                        intent.putParcelableArrayListExtra("dueWords", ArrayList(dueWords))
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this@WordScheduleActivity, "No words to review!", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this@WordScheduleActivity, "Error loading words: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
         setupRecyclerView()
         fetchWordSchedules()
     }
@@ -138,5 +161,11 @@ class WordScheduleActivity : AppCompatActivity() {
                 Toast.makeText(this@WordScheduleActivity, "Failed to remove word: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //Log.d("WordScheduleActivity", "onResume called")
+        fetchWordSchedules() // Refresh the data when returning to this activity
     }
 }

@@ -5,6 +5,136 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.presentation.activity.MistakesActivity">
+    tools:context=".app.presentation.activity.MistakesActivity"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#CC000000"> <!-- Less dark background -->
+
+            <!-- Fullscreen CardView -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/topCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+
+                app:cardElevation="8dp"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_alignParentTop="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:background="@android:color/black">
+
+                    <!-- Left Side: Back Icon and Text -->
+                    <ImageView
+                        android:id="@+id/backIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_back"
+                        app:tint="@android:color/white"
+                        android:contentDescription="Back Icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/backIcon"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/titleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Xem lại các lỗi sai"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/baloo" />
+
+                        <TextView
+                            android:id="@+id/subtitleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="gần đây"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/baloo" />
+                    </LinearLayout>
+
+                    <!-- Right Side: Badge and Icon -->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true">
+
+                        <TextView
+                            android:id="@+id/badgeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/badge_background"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="SUPER"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/baloo" />
+
+                        <ImageView
+                            android:id="@+id/featureIcon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_below="@id/badgeText"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/ic_feature"
+                            android:contentDescription="Feature Icon" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Add Content Below the Card -->
+            <TextView
+                android:id="@+id/placeholderText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/topCardView"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="10dp"
+                android:text="Số lỗi"
+                android:fontFamily="@font/baloo"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <!-- RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMistakes"
+                android:layout_marginBottom="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/placeholderText"
+                android:layout_marginTop="16dp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

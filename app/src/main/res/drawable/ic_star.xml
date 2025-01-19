@@ -1,4 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-</selector>
+<!-- Star Icon (ic_star.xml) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M12,2L14.09,8.26L20,8.27L15,11.97L16.18,18L12,14.77L7.82,18L9,11.97L4,8.27L9.91,8.26L12,2z" />
+</vector>

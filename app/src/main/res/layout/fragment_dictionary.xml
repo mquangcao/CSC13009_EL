@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Search for words..."
+            android:fontFamily="@font/baloo"
             android:background="@null"
             android:paddingHorizontal="8dp"
             android:textColor="@color/black"
@@ -62,25 +63,67 @@
     <RelativeLayout
         android:id="@+id/rlWordSchedule"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="140dp"
         android:layout_below="@id/searchBar"
         android:layout_margin="16dp"
         android:background="@drawable/bg_gradient_button"
         android:padding="16dp"
-        android:elevation="4dp"
+        android:elevation="8dp"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:clipToOutline="true"
+        android:orientation="horizontal">
 
+        <!-- Decorative Icon Badge -->
+        <ImageView
+            android:id="@+id/imgBadge"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/schedule_badge"
+            android:contentDescription="Badge"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Title -->
         <TextView
             android:id="@+id/tvWordSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Customed Word Schedule"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="80dp"
+            android:fontFamily="@font/baloo"
+            android:text="Custom Word Schedule"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/tvWordDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWordSchedule"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="80dp"
+            android:fontFamily="@font/baloo"
+            android:text="Plan your vocabulary learning journey with ease."
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <!-- Decorative Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/white"
+            android:alpha="0.3" />
     </RelativeLayout>
+
 
     <!-- RecyclerView for Search Results -->
     <androidx.recyclerview.widget.RecyclerView
