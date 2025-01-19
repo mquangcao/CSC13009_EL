@@ -104,7 +104,7 @@ class GrammarTopicPracticeActivity : AppCompatActivity() {
                                         userId = userId,
                                         questionId = question.id,
                                         isCorrect = isCorrect,
-                                        type = "Grammar"
+                                        type = "grammar"
                                     )
                                 }
                             } ?: run {
