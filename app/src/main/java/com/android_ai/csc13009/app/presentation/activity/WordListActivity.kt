@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuInflater
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -24,6 +25,7 @@ import com.android_ai.csc13009.app.data.local.AppDatabase
 import com.android_ai.csc13009.app.data.remote.repository.FirestoreTagRepository
 import com.android_ai.csc13009.app.data.repository.TagRepository
 import com.android_ai.csc13009.app.data.repository.WordRepository
+import com.android_ai.csc13009.app.domain.models.Tag
 import com.android_ai.csc13009.app.domain.models.WordModel
 import com.android_ai.csc13009.app.utils.adapter.WordListAdapter
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,6 +44,7 @@ class WordListActivity : AppCompatActivity() {
     private lateinit var btnTagOptions: ImageView
 
     private lateinit var tagId: String
+    private lateinit var tagName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +52,8 @@ class WordListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_word_list)
 
         tvTagHeader = findViewById(R.id.tvTagHeader)
-        tvTagHeader.text = intent.getStringExtra("TAG_NAME") ?: "Tag name"
+        tagName = intent.getStringExtra("TAG_NAME") ?: "Tag name"
+        tvTagHeader.text = tagName
 
         btnBack = findViewById(R.id.ivBack)
         btnBack.setOnClickListener {
@@ -104,23 +108,40 @@ class WordListActivity : AppCompatActivity() {
     }
 
     private fun showChangeNameDialog() {
-        val input = EditText(this)
-        input.hint = "Enter new tag name"
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_change_name, null)
 
-        AlertDialog.Builder(this)
-            .setTitle("Change Tag Name")
-            .setView(input)
-            .setPositiveButton("Save") { _, _ ->
-                val newName = input.text.toString().trim()
-                if (newName.isNotEmpty()) {
-                    changeTagName(newName)
-                } else {
-                    Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
-                }
+        // Access the views in the custom layout
+        val etNewTagName = dialogView.findViewById<EditText>(R.id.etNewTagName)
+        val btnSaveChangeTag = dialogView.findViewById<Button>(R.id.btnSaveChangeTag)
+        val btnCancelChangeTag = dialogView.findViewById<Button>(R.id.btnCancelChangeTag)
+
+        // Create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        // Save button action
+        btnSaveChangeTag.setOnClickListener {
+            val newName = etNewTagName.text.toString().trim()
+            if (newName.isNotEmpty()) {
+                changeTagName(newName)
+                dialog.dismiss()
+            } else {
+                Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Cancel", null)
-            .show()
+        }
+
+        // Cancel button action
+        btnCancelChangeTag.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
     }
+
 
     private fun changeTagName(newName: String) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -131,6 +152,8 @@ class WordListActivity : AppCompatActivity() {
                     //setResult(RESULT_OK)  // Send result to parent activity
                     //finish()  // Close this activity and return to the previous one
                 }
+                tagName = newName
+                tvTagHeader.text = tagName
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@WordListActivity, "Failed to update tag name: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -140,14 +163,36 @@ class WordListActivity : AppCompatActivity() {
     }
 
     private fun showDeleteTagConfirmationDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Delete Tag")
-            .setMessage("Are you sure you want to delete this tag?")
-            .setPositiveButton("Yes") { _, _ ->
-                deleteTag()
-            }
-            .setNegativeButton("No", null)
-            .show()
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_tag, null)
+
+        // Access views in the custom layout
+        val tvTagMessage = dialogView.findViewById<TextView>(R.id.tvTagMessage)
+        val btnConfirmDeleteTag = dialogView.findViewById<Button>(R.id.btnConfirmDeleteTag)
+        val btnCancelDeleteTag = dialogView.findViewById<Button>(R.id.btnCancelDeleteTag)
+
+        // Update the message dynamically with the tag name
+        tvTagMessage.text = "Are you sure you want to delete the tag \"${tagName}\"?"
+
+        // Create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        // Confirm Delete button action
+        btnConfirmDeleteTag.setOnClickListener {
+            deleteTag()
+            dialog.dismiss()
+        }
+
+        // Cancel button action
+        btnCancelDeleteTag.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
     }
 
     private fun deleteTag() {
@@ -204,14 +249,38 @@ class WordListActivity : AppCompatActivity() {
     }
 
     private fun showDeleteConfirmationDialog(wordModel: WordModel) {
-        AlertDialog.Builder(this)
-            .setTitle("Delete Word")
-            .setMessage("Are you sure you want to delete '${wordModel.word}'?")
-            .setPositiveButton("Yes") { _, _ ->
-                deleteWord(wordModel)
-            }
-            .setNegativeButton("No", null)
-            .show()
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_confirmation, null)
+
+        // Access views in the custom layout
+        val ivWarning = dialogView.findViewById<ImageView>(R.id.ivWarning)
+        val tvDeleteTitle = dialogView.findViewById<TextView>(R.id.tvDeleteTitle)
+        val tvDeleteMessage = dialogView.findViewById<TextView>(R.id.tvDeleteMessage)
+        val btnConfirmDelete = dialogView.findViewById<Button>(R.id.btnConfirmDelete)
+        val btnCancelDelete = dialogView.findViewById<Button>(R.id.btnCancelDelete)
+
+        // Update the message dynamically with the word ID
+        tvDeleteMessage.text = "Are you sure you want to delete this word from tag?"
+
+        // Create the dialog
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        // Confirm Delete button action
+        btnConfirmDelete.setOnClickListener {
+            deleteWord(wordModel)
+            dialog.dismiss()
+        }
+
+        // Cancel button action
+        btnCancelDelete.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
     }
 
     private fun deleteWord(wordModel: WordModel) {
