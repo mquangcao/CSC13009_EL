@@ -43,12 +43,18 @@ class GameResultFragment : Fragment() {
         gameEngine = (requireActivity() as GameActivity).gameEngine!!
         val scoreView = view.findViewById<TextView>(R.id.game_result_score_content_tv)
         val score = gameEngine.score
-        var extraText = ""
+
+        val stringBuilder = StringBuilder()
+        stringBuilder.appendLine(score)
+
+        val min = (gameEngine.elapsedTime / 1000) / 60
+        val sec = (gameEngine.elapsedTime / 1000) % 60
+        val exceedSymbol = if (min > 99) "+" else ""
+        stringBuilder.appendLine("+${gameEngine.bonusScore} (${min}:${sec}${exceedSymbol})")
         if (score > gameEngine.highScore) {
-            extraText = "\nNew Record!"
+            stringBuilder.appendLine("New Record!")
         }
-        val text = "${score}$extraText"
-        scoreView.text = text
+        scoreView.text = stringBuilder.toString()
 
         CoroutineScope(Dispatchers.IO).launch {
             gameEngine.updateHighScore()

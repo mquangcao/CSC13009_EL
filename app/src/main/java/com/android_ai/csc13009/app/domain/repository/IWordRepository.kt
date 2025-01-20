@@ -7,4 +7,6 @@ interface IWordRepository {
     suspend fun getWordById(id: Int): WordModel?
     suspend fun getSuggestions(prefix: String): List<WordModel>
     suspend fun getRandomWord(): WordModel?
+    suspend fun getRandomWords(count: Int): List<WordModel>
+    suspend fun getRandomWords(count: Int, maxLength: Int): List<WordModel>
 }

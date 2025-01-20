@@ -11,7 +11,8 @@ import com.android_ai.csc13009.R
 
 class GameAnswerBlocksAdapter(
     private val context: Activity,
-    public var charaterList: ArrayList<Char>
+    public var charaterList: ArrayList<Char>,
+    var onItemClicked: (char: Char ,position: Int) -> Unit
 ) : RecyclerView.Adapter<GameAnswerBlocksAdapter.GameAnswerBlocksViewHolder>() {
     inner class GameAnswerBlocksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val answerBlockTextView: TextView = itemView.findViewById(R.id.item_letter_box_tv)
@@ -31,22 +32,36 @@ class GameAnswerBlocksAdapter(
         val char = charaterList[position]
         holder.answerBlockTextView.text = char.toString().uppercase()
 
-        // implement dragable
+        // implement draggable
         val view = holder.itemView
+        view.setOnLongClickListener {
+            val clipData = ClipData.newPlainText("letter", char.toString())
+            val shadowBuilder = View.DragShadowBuilder(it)
+            it.startDragAndDrop(clipData, shadowBuilder, it, 0)
+            it.tag = holder.adapterPosition
 
-        view.setOnTouchListener(fun(v: View, event: MotionEvent): Boolean {
-            return if (event.action == MotionEvent.ACTION_DOWN) {
-                val clipData = ClipData.newPlainText("letter", char.toString())
-                val shadowBuilder = View.DragShadowBuilder(v)
-                v.startDragAndDrop(clipData, shadowBuilder, v, 0)
-                val currentPosition = holder.adapterPosition
-                v.tag = currentPosition
+            true
+        }
 
-                true
-            } else {
-                false
-            }
-        })
+
+        view.setOnClickListener {
+            onItemClicked(char, holder.adapterPosition)
+        }
+
+//
+//        view.setOnTouchListener(fun(v: View, event: MotionEvent): Boolean {
+//            return if (event.action == MotionEvent.ACTION_DOWN) {
+//                val clipData = ClipData.newPlainText("letter", char.toString())
+//                val shadowBuilder = View.DragShadowBuilder(v)
+//                v.startDragAndDrop(clipData, shadowBuilder, v, 0)
+//                val currentPosition = holder.adapterPosition
+//                v.tag = currentPosition
+//
+//                true
+//            } else {
+//                false
+//            }
+//        })
 
     }
 

@@ -4,17 +4,20 @@ interface IProgressBasedGameEngine : IGameEngine {
     val maxRound: Int
     var currentRound: Int
 
-    override suspend fun submitAnswer(answer: String) {
-        if (answer.uppercase() == currentWord?.word!!.uppercase()) {
+    override suspend fun submitAnswer(answer: String): Boolean {
+        return if (answer.uppercase() == currentWord?.word!!.uppercase()) {
             score += 1000
             score += streak * 100
             streak++
+            correctAnswerCount++
             nextRound()
+            true
         } else {
             // neu dung 80% van tinh diem
             score += (1000 * gaugeCorrectness(answer)).toInt()
             streak = 0
             nextRound()
+            false
         }
     }
 
@@ -49,9 +52,10 @@ interface IProgressBasedGameEngine : IGameEngine {
     }
 
     override suspend fun startGame() {
-        for (i in 1..maxRound) {
-            fetchWord()
-        }
+//        for (i in 1..maxRound) {
+//            fetchWord()
+//        }
+        fetchWords(maxRound)
         nextRound()
         super.startGame()
     }

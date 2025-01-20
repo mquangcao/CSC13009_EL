@@ -23,6 +23,11 @@ interface IGameEngine : Serializable {
     var streak: Int
     val context: Context
 
+    var startTime: Long
+    var elapsedTime: Long
+    var bonusScore: Int
+    var correctAnswerCount: Int
+
     enum class GameState {
         WAITING,
         PLAYING,
@@ -43,19 +48,36 @@ interface IGameEngine : Serializable {
 
     suspend fun fetchWord() {
         val word = wordRepository.getRandomWord()
-        if (word != null) {
-            words.add(word)
-        } else {
-            val defaultWord = WordModel(
-                -1,
-                "default word",
-                "",
-                "")
-            words.add(defaultWord)
+        while (word == null || words.contains(word) || word.word.length > 12) {
+            wordRepository.getRandomWord()
         }
+
+        words.add(word)
+
+//        if (word != null) {
+//            words.add(word)
+//        } else {
+//            val defaultWord = WordModel(
+//                -1,
+//                "default word",
+//                "",
+//                "")
+//            words.add(defaultWord)
+//        }
+    }
+
+    suspend fun fetchWords(count: Int) {
+        val wordList = wordRepository.getRandomWords(count)
+        words.addAll(wordList)
     }
 
     suspend fun updateHighScore() {
+        bonusScore = correctAnswerCount * 500
+        bonusScore -= (elapsedTime / 100).toInt()
+        if (bonusScore < 0) {
+            bonusScore = 0
+        }
+        score += bonusScore
         if (score > highScore) {
             highScore = score
             gameDataDao.updateHighScore(getGameName(), highScore)
@@ -64,6 +86,7 @@ interface IGameEngine : Serializable {
 
     fun endGame() {
         gameState = GameState.FINISHED
+        elapsedTime = System.currentTimeMillis() - startTime
         CoroutineScope(Dispatchers.IO).launch {
             updateHighScore()
         }
@@ -71,9 +94,10 @@ interface IGameEngine : Serializable {
 
     suspend fun startGame() {
         gameState = GameState.PLAYING
+        startTime = System.currentTimeMillis()
     }
 
-    suspend fun submitAnswer   (answer: String)
+    suspend fun submitAnswer(answer: String) : Boolean
 
     fun nextRound()
     fun getRule(): String

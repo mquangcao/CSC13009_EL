@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.android_ai.csc13009.app.data.local.entity.WordEntity
+import org.checkerframework.checker.units.qual.Length
 import java.io.Serializable
 
 @Dao
@@ -29,6 +30,9 @@ interface WordDao : Serializable {
 
     @Query("SELECT * FROM Word")
     suspend fun getAllWords(): List<WordEntity>
+
+    @Query("SELECT * FROM Word WHERE LENGTH(word) <= :maxLength")
+    suspend fun getAllWords(maxLength: Int): List<WordEntity>
 
     // get the count of all words
     @Query("SELECT COUNT(*) FROM Word")

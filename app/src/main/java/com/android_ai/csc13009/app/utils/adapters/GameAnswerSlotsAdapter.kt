@@ -121,4 +121,20 @@ class GameAnswerSlotsAdapter (
         }
 
     }
+
+    fun addItem(char: Char, position: Int) {
+        val index = inputArray.indexOf(null)
+        if (index != -1) {
+            inputArray[index] = char
+            notifyItemChanged(index)
+            sourceAdapter.deleteItem(position)
+
+            val activityContext = context as GameActivity
+            if (checkAnswer()) {
+                activityContext.runOnUiThread {
+                    activityContext.submitAnswer(inputArray.joinToString(""))
+                }
+            }
+        }
+    }
 }
