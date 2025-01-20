@@ -27,7 +27,7 @@ class GameSelectorAdapter (
 
     inner class GameSelectorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.game_item_title_tv)
-        val scoreTextView: TextView = itemView.findViewById(R.id.game_item_score_tv)
+//        val scoreTextView: TextView = itemView.findViewById(R.id.game_item_score_tv)
         val background: ImageView = itemView.findViewById(R.id.item_game_selection_bg)
     }
 
@@ -61,9 +61,9 @@ class GameSelectorAdapter (
 
         holder.titleTextView.text = gameEngine.getGameName()
 
-        val highScoreString = StringBuilder(context.getString(R.string.game_high_score))
-        highScoreString.append(" ${gameEngine.highScore}")
-        holder.scoreTextView.text = highScoreString.toString()
+//        val highScoreString = StringBuilder(context.getString(R.string.game_high_score))
+//        highScoreString.append(" ${gameEngine.highScore}")
+//        holder.scoreTextView.text = highScoreString.toString()
 
         holder.itemView.setOnClickListener {
             val activityContext = context as DashboardActivity
